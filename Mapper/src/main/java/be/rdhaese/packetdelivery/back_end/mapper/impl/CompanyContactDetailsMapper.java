@@ -1,12 +1,13 @@
 package be.rdhaese.packetdelivery.back_end.mapper.impl;
 
+
 import be.rdhaese.packetdelivery.back_end.mapper.AbstractMapper;
-import be.rdhaese.project.dto.ContactDetailsDTO;
-import be.rdhaese.project.model.Address;
-import be.rdhaese.project.model.company_details.CompanyContactDetails;
-import be.rdhaese.project.model.company_details.EmailEntry;
-import be.rdhaese.project.model.company_details.FaxEntry;
-import be.rdhaese.project.model.company_details.PhoneEntry;
+import be.rdhaese.packetdelivery.back_end.model.Address;
+import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDetails;
+import be.rdhaese.packetdelivery.back_end.model.company_details.EmailEntry;
+import be.rdhaese.packetdelivery.back_end.model.company_details.FaxEntry;
+import be.rdhaese.packetdelivery.back_end.model.company_details.PhoneEntry;
+import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

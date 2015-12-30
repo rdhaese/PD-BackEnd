@@ -1,9 +1,10 @@
 package be.rdhaese.packetdelivery.back_end.mapper.impl;
 
+
 import be.rdhaese.packetdelivery.back_end.mapper.AbstractMapper;
-import be.rdhaese.project.dto.PacketDTO;
-import be.rdhaese.project.model.*;
-import be.rdhaese.project.service.RegionsService;
+import be.rdhaese.packetdelivery.back_end.model.*;
+import be.rdhaese.packetdelivery.back_end.service.RegionsService;
+import be.rdhaese.packetdelivery.dto.PacketDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

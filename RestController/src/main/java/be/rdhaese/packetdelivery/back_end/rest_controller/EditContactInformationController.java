@@ -1,8 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.rest_controller;
 
-import be.rdhaese.project.dto.ContactDetailsDTO;
-import be.rdhaese.project.mapper.CompanyContactDetailsMapper;
-import be.rdhaese.project.service.EditCompanyContactDetailsService;
+import be.rdhaese.packetdelivery.back_end.mapper.impl.CompanyContactDetailsMapper;
+import be.rdhaese.packetdelivery.back_end.service.EditCompanyContactDetailsService;
+import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -3,7 +3,7 @@ package be.rdhaese.packetdelivery.back_end.mapper.impl;
 
 import be.rdhaese.packetdelivery.back_end.mapper.AbstractMapper;
 import be.rdhaese.packetdelivery.back_end.model.Region;
-import be.rdhaese.packetdelivery.back_end.service.RegionsService;
+import be.rdhaese.packetdelivery.back_end.service.impl.RegionsServiceImpl;
 import be.rdhaese.packetdelivery.dto.RegionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegionMapper extends AbstractMapper<Region, RegionDTO> {
     @Autowired
-    private RegionsService regionsService;
+    private RegionsServiceImpl regionsService;
 
     @Override
     public Region mapToBus(RegionDTO dto) {

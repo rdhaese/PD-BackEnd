@@ -1,8 +1,9 @@
 package be.rdhaese.packetdelivery.back_end.rest_controller;
 
-import be.rdhaese.project.dto.PacketDTO;
-import be.rdhaese.project.mapper.PacketMapper;
-import be.rdhaese.project.service.AddPacketService;
+
+import be.rdhaese.packetdelivery.back_end.mapper.impl.PacketMapper;
+import be.rdhaese.packetdelivery.back_end.service.AddPacketService;
+import be.rdhaese.packetdelivery.dto.PacketDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

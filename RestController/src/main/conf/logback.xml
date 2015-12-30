@@ -50,7 +50,7 @@
         <appender-ref ref="HIBERNATE_FILE" />
     </logger>
 
-    <logger name="be.rdhaese.packetdelivery.back_end">
+    <logger name="be.rdhaese.packetdelivery.back_end" level="INFO">
         <appender-ref ref="PACKET_DELIVERY_FILE" />
     </logger>
 </configuration>
