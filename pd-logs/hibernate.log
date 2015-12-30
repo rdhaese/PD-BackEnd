@@ -12,3 +12,45 @@
 11:53:11.702 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - HHH000388: Unsuccessful: insert into packet_delivery.region_adjacent_regioans(region_id, adjacent_regions_id) values (3,7); /*LI1*/
 11:53:11.702 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - Table 'packet_delivery.region_adjacent_regioans' doesn't exist
 11:53:11.743 [main] INFO  o.h.tool.hbm2ddl.SchemaExport - HHH000230: Schema export complete
+13:35:57.979 [pool-1-thread-1] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.2.2.Final
+13:36:03.148 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+13:36:03.382 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.3.11.Final}
+13:36:03.385 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+13:36:03.388 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+13:36:03.687 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+13:36:04.126 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+13:36:04.497 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+13:46:17.136 [pool-1-thread-1] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.2.2.Final
+13:46:22.355 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+13:46:22.447 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.3.11.Final}
+13:46:22.449 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+13:46:22.451 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+13:46:22.726 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+13:46:23.082 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+13:46:23.401 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+13:46:23.785 [main] INFO  o.h.tool.hbm2ddl.SchemaExport - HHH000227: Running hbm2ddl schema export
+13:46:23.864 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - HHH000389: Unsuccessful: alter table delivery_round_location_updates drop foreign key FK_mgh3lhxt9mc4o7xfqois4uync
+13:46:23.864 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - Can't DROP 'FK_mgh3lhxt9mc4o7xfqois4uync'; check that column/key exists
+13:46:23.867 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - HHH000389: Unsuccessful: alter table delivery_round_packets drop foreign key FK_8gcw91uv6mh1hu6rrdofjgvuw
+13:46:23.868 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - Can't DROP 'FK_8gcw91uv6mh1hu6rrdofjgvuw'; check that column/key exists
+13:46:23.871 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - HHH000389: Unsuccessful: alter table delivery_round_packets drop foreign key FK_qjfy0pke8kxv8534idvouaobe
+13:46:23.871 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - Can't DROP 'FK_qjfy0pke8kxv8534idvouaobe'; check that column/key exists
+13:46:23.875 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - HHH000389: Unsuccessful: alter table delivery_round_remarks drop foreign key FK_hk9u946jr3yp7uvabg0i48g0t
+13:46:23.875 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - Can't DROP 'FK_hk9u946jr3yp7uvabg0i48g0t'; check that column/key exists
+13:46:23.879 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - HHH000389: Unsuccessful: alter table delivery_round_remarks drop foreign key FK_dc39vvrv6n83ua683lrwqpbpa
+13:46:23.879 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - Can't DROP 'FK_dc39vvrv6n83ua683lrwqpbpa'; check that column/key exists
+13:46:23.883 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - HHH000389: Unsuccessful: alter table packet drop foreign key FK_mfr5gqcl4ja7xng7ggsyjgtln
+13:46:23.883 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - Can't DROP 'FK_mfr5gqcl4ja7xng7ggsyjgtln'; check that column/key exists
+13:46:23.885 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - HHH000389: Unsuccessful: alter table packet drop foreign key FK_qcsgi8fmoj90e1w03yjcwu874
+13:46:23.886 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - Can't DROP 'FK_qcsgi8fmoj90e1w03yjcwu874'; check that column/key exists
+13:46:23.890 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - HHH000389: Unsuccessful: alter table region_adjacent_regions drop foreign key FK_gt12ov78j6lysxnmx2cybf2qf
+13:46:23.891 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - Can't DROP 'FK_gt12ov78j6lysxnmx2cybf2qf'; check that column/key exists
+13:46:23.895 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - HHH000389: Unsuccessful: alter table region_adjacent_regions drop foreign key FK_phx8fw9rpty6apyfdq971j5ap
+13:46:23.895 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - Can't DROP 'FK_phx8fw9rpty6apyfdq971j5ap'; check that column/key exists
+13:46:24.861 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - HHH000388: Unsuccessful: insert into packet_delivery.region_adjacent_regioans(region_id, adjacent_regions_id) values (3,7); /*LI1*/
+13:46:24.862 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - Table 'packet_delivery.region_adjacent_regioans' doesn't exist
+13:46:24.900 [main] INFO  o.h.tool.hbm2ddl.SchemaExport - HHH000230: Schema export complete

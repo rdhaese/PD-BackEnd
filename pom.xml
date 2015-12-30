@@ -2,9 +2,16 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.3.0.RELEASE</version>
+  </parent>
+
   <groupId>be.rdhaese.packetdelivery.back_end</groupId>
   <artifactId>backend</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>${pd.version}</version>
+
   <modules>
     <module>Model</module>
     <module>Persistence</module>
@@ -12,6 +19,7 @@
     <module>Mapper</module>
     <module>RestController</module>
   </modules>
+
   <packaging>pom</packaging>
 
   <name>BackEnd</name>
@@ -19,6 +27,10 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
+    <junit.version>3.8.1</junit.version>
+    <pd.version>1.0-SNAPSHOT</pd.version>
+    <pd.dto.version>${pd.version}</pd.dto.version>
+    <mysql-connector.version>5.1.35</mysql-connector.version>
   </properties>
 
   <!--Don't forget to add server in settings.xml used by maven-->
@@ -31,19 +43,12 @@
 
   <repositories>
     <repository>
-      <id>PacketDelivery</id>
+      <id>packet_delivery</id>
       <url>http://localhost:8081/nexus/content/repositories/packet_delivery</url>
     </repository>
   </repositories>
 
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.3.0.RELEASE</version>
-  </parent>
-
   <dependencies>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
@@ -61,12 +66,16 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>
