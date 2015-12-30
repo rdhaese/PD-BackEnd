@@ -31,20 +31,22 @@
     <pd.version>1.0-SNAPSHOT</pd.version>
     <pd.dto.version>${pd.version}</pd.dto.version>
     <mysql-connector.version>5.1.35</mysql-connector.version>
+    <nexus-repo.id>packet_delivery</nexus-repo.id>
+    <nexus-repo.url>http://localhost:8081/nexus/content/repositories/packet_delivery</nexus-repo.url>
   </properties>
 
   <!--Don't forget to add server in settings.xml used by maven-->
   <distributionManagement>
     <snapshotRepository>
-      <id>packet_delivery</id>
-      <url>http://localhost:8081/nexus/content/repositories/packet_delivery</url>
+      <id>${nexus-repo.id}</id>
+      <url>${nexus-repo.url}</url>
     </snapshotRepository>
   </distributionManagement>
 
   <repositories>
     <repository>
-      <id>packet_delivery</id>
-      <url>http://localhost:8081/nexus/content/repositories/packet_delivery</url>
+      <id>${nexus-repo.id}</id>
+      <url>${nexus-repo.url}</url>
     </repository>
   </repositories>
 
