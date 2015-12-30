@@ -1,7 +1,7 @@
 package be.rdhaese.packetdelivery.back_end.service;
 
-import be.rdhaese.project.model.Region;
-import be.rdhaese.project.persist.RegionJpaRepository;
+import be.rdhaese.packetdelivery.back_end.model.Region;
+import be.rdhaese.packetdelivery.back_end.persistence.RegionJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

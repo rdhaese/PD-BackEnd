@@ -1,6 +1,7 @@
 package be.rdhaese.packetdelivery.back_end.persistence;
 
-import be.rdhaese.project.model.company_details.CompanyContactDetails;
+
+import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDetails;
 import org.springframework.stereotype.Repository;
 
 import javax.xml.bind.JAXBException;

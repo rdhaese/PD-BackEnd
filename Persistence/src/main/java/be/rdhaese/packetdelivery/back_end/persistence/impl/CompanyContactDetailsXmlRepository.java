@@ -1,10 +1,10 @@
 package be.rdhaese.packetdelivery.back_end.persistence.impl;
 
+import be.rdhaese.packetdelivery.back_end.model.Address;
+import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDetails;
+import be.rdhaese.packetdelivery.back_end.model.company_details.FaxEntry;
+import be.rdhaese.packetdelivery.back_end.model.company_details.PhoneEntry;
 import be.rdhaese.packetdelivery.back_end.persistence.CompanyContactDetailsRepository;
-import be.rdhaese.project.model.Address;
-import be.rdhaese.project.model.company_details.CompanyContactDetails;
-import be.rdhaese.project.model.company_details.FaxEntry;
-import be.rdhaese.project.model.company_details.PhoneEntry;
 import org.springframework.stereotype.Repository;
 
 import javax.xml.bind.*;

@@ -1,6 +1,7 @@
 package be.rdhaese.packetdelivery.back_end.persistence;
 
-import be.rdhaese.project.model.Packet;
+
+import be.rdhaese.packetdelivery.back_end.model.Packet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
