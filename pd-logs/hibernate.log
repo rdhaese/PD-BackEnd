@@ -1,0 +1,14 @@
+11:53:02.633 [pool-1-thread-1] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 5.2.2.Final
+11:53:08.464 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+11:53:08.714 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.3.11.Final}
+11:53:08.717 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+11:53:08.721 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+11:53:09.229 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+11:53:09.646 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+11:53:10.027 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory
+11:53:10.466 [main] INFO  o.h.tool.hbm2ddl.SchemaExport - HHH000227: Running hbm2ddl schema export
+11:53:11.702 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - HHH000388: Unsuccessful: insert into packet_delivery.region_adjacent_regioans(region_id, adjacent_regions_id) values (3,7); /*LI1*/
+11:53:11.702 [main] ERROR o.h.tool.hbm2ddl.SchemaExport - Table 'packet_delivery.region_adjacent_regioans' doesn't exist
+11:53:11.743 [main] INFO  o.h.tool.hbm2ddl.SchemaExport - HHH000230: Schema export complete
