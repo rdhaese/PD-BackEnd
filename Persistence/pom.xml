@@ -18,6 +18,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>be.rdhaese.packetdelivery.back_end</groupId>
+            <artifactId>model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!--Connector to be used by JPA-->
         <dependency>
             <groupId>mysql</groupId>
