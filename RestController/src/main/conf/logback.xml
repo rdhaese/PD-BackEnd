@@ -1,0 +1,56 @@
+<!--Logback configuration, loaded by Spring-->
+<configuration>
+    <!--Defining appenders-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="HIBERNATE_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>./pd-logs/hibernate.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="SPRING_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>./pd-logs/spring.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="PACKET_DELIVERY_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>./pd-logs/packet-delivery.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ALL_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>./pd-logs/all.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--Log everything in the file all.log and to the console-->
+    <root level="INFO">
+        <appender-ref ref="ALL_FILE" />
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <!--Defining loggers with corresponding appender-->
+    <logger name="org.springframework.web" level="INFO">
+        <appender-ref ref="SPRING_FILE" />
+    </logger>
+
+    <logger name="org.hibernate" level="INFO" >
+        <appender-ref ref="HIBERNATE_FILE" />
+    </logger>
+
+    <logger name="be.rdhaese.packetdelivery.back_end">
+        <appender-ref ref="PACKET_DELIVERY_FILE" />
+    </logger>
+</configuration>
