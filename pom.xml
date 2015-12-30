@@ -10,6 +10,7 @@
     <module>Persistence</module>
     <module>Service</module>
     <module>Mapper</module>
+    <module>RestController</module>
   </modules>
   <packaging>pom</packaging>
 
