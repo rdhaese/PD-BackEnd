@@ -8,6 +8,7 @@
   <modules>
     <module>Model</module>
     <module>Persistence</module>
+    <module>Service</module>
   </modules>
   <packaging>pom</packaging>
 
