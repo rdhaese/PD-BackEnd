@@ -8,28 +8,28 @@
     </appender>
 
     <appender name="HIBERNATE_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>./pd-logs/hibernate.log</file>
+        <file>./pd-logs/back-end/hibernate.log</file>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
     <appender name="SPRING_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>./pd-logs/spring.log</file>
+        <file>./pd-logs/back-end/spring.log</file>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
     <appender name="PACKET_DELIVERY_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>./pd-logs/packet-delivery.log</file>
+        <file>./pd-logs/back-end/packet-delivery.log</file>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
     <appender name="ALL_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>./pd-logs/all.log</file>
+        <file>./pd-logs/back-end/all.log</file>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
