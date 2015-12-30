@@ -9,6 +9,7 @@
     <module>Model</module>
     <module>Persistence</module>
     <module>Service</module>
+    <module>Mapper</module>
   </modules>
   <packaging>pom</packaging>
 
