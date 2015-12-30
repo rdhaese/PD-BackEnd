@@ -21,6 +21,20 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <distributionManagement>
+    <snapshotRepository>
+      <id>packet_delivery</id>
+      <url>http://localhost:8081/nexus/content/repositories/packet_delivery</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>PacketDelivery</id>
+      <url>http://localhost:8081/nexus/content/repositories/packet_delivery</url>
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
