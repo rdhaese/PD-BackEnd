@@ -7,6 +7,10 @@
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>Model</module>
+    <module>Persistence</module>
+    <module>Service</module>
+    <module>Mapper</module>
+    <module>RestController</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -15,9 +19,49 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.8</java.version>
   </properties>
 
+  <distributionManagement>
+    <snapshotRepository>
+      <id>packet_delivery</id>
+      <url>http://localhost:8081/nexus/content/repositories/packet_delivery</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>PacketDelivery</id>
+      <url>http://localhost:8081/nexus/content/repositories/packet_delivery</url>
+    </repository>
+  </repositories>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.3.0.RELEASE</version>
+  </parent>
+
   <dependencies>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
