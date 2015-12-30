@@ -21,6 +21,7 @@
     <java.version>1.8</java.version>
   </properties>
 
+  <!--Don't forget to add server in settings.xml used by maven-->
   <distributionManagement>
     <snapshotRepository>
       <id>packet_delivery</id>
