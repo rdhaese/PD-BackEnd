@@ -1,5 +1,6 @@
-package be.rdhaese.packetdelivery.back_end.rest_controller;
+package be.rdhaese.packetdelivery.back_end.rest_controller.impl;
 
+import be.rdhaese.packetdelivery.back_end.rest_controller.CreateNewRoundController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping ("/round")
-public class CreateNewRoundService {
+public class CreateNewRoundControllerImpl implements CreateNewRoundController {
 
     @RequestMapping (value = "/new", method = RequestMethod.GET)
     public String newRound(@RequestParam int amountOfPackets){

@@ -5,6 +5,6 @@ package be.rdhaese.packetdelivery.back_end.rest_controller;
  *
  * @author Robin D'Haese
  */
-public interface AuthenticateController {
-    boolean authenticate(String username, String password);
+public interface CreateNewRoundController {
+    String newRound(int amountOfPackets);
 }

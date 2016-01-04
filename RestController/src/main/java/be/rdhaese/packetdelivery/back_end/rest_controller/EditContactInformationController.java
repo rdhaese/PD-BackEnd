@@ -1,35 +1,14 @@
 package be.rdhaese.packetdelivery.back_end.rest_controller;
 
-import be.rdhaese.packetdelivery.back_end.mapper.impl.CompanyContactDetailsMapper;
-import be.rdhaese.packetdelivery.back_end.service.EditCompanyContactDetailsService;
 import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created on 27/12/2015.
+ * Created on 4/01/2016.
  *
  * @author Robin D'Haese
  */
-@RestController
-@RequestMapping("/contact-information")
-public class EditContactInformationController {
+public interface EditContactInformationController {
 
-    @Autowired
-    private EditCompanyContactDetailsService editCompanyContactDetailsService;
-    @Autowired
-    private CompanyContactDetailsMapper companyContactDetailsMapper;
-
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public ContactDetailsDTO get(){
-        return companyContactDetailsMapper.mapToDto(editCompanyContactDetailsService.get());
-    }
-
-    @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public boolean post(@RequestBody ContactDetailsDTO contactDetailsDTO){
-        return editCompanyContactDetailsService.save(companyContactDetailsMapper.mapToBus(contactDetailsDTO));
-    }
+    ContactDetailsDTO get();
+    boolean post(ContactDetailsDTO contactDetailsDTO);
 }
