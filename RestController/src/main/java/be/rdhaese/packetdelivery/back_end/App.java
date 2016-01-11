@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  *
  * @author Robin D'Haese
  */
+@Configuration
 @SpringBootApplication
 public class App {
     public static void main(String[] args) {
