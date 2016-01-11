@@ -7,7 +7,9 @@ import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDe
  *
  * @author Robin D'Haese
  */
-public interface EditCompanyContactDetailsService {
+public interface CompanyContactDetailsService {
     CompanyContactDetails get();
     boolean save(CompanyContactDetails companyContactDetails);
+
+    String getCompanyName();
 }

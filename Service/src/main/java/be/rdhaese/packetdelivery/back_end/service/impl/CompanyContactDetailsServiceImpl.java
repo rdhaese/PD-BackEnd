@@ -3,7 +3,7 @@ package be.rdhaese.packetdelivery.back_end.service.impl;
 
 import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDetails;
 import be.rdhaese.packetdelivery.back_end.persistence.CompanyContactDetailsRepository;
-import be.rdhaese.packetdelivery.back_end.service.EditCompanyContactDetailsService;
+import be.rdhaese.packetdelivery.back_end.service.CompanyContactDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,12 @@ import java.io.IOException;
  * @author Robin D'Haese
  */
 @Service
-public class EditCompanyContactDetailsServiceImpl implements EditCompanyContactDetailsService {
+public class CompanyContactDetailsServiceImpl implements CompanyContactDetailsService {
 
     @Autowired
     private CompanyContactDetailsRepository companyContactDetailsRepository;
 
+    @Override
     public CompanyContactDetails get() {
         try {
             return companyContactDetailsRepository.get();
@@ -32,7 +33,7 @@ public class EditCompanyContactDetailsServiceImpl implements EditCompanyContactD
         return null;
     }
 
-
+    @Override
     public boolean save(CompanyContactDetails companyContactDetails) {
         try {
             companyContactDetailsRepository.save(companyContactDetails);
@@ -41,5 +42,14 @@ public class EditCompanyContactDetailsServiceImpl implements EditCompanyContactD
             jaxbe.printStackTrace(); //TODO REMOVE
             return false;
         }
+    }
+
+    @Override
+    public String getCompanyName() {
+        CompanyContactDetails companyContactDetails = get();
+        if (companyContactDetails == null){
+            return null;
+        }
+        return companyContactDetails.getCompanyName();
     }
 }

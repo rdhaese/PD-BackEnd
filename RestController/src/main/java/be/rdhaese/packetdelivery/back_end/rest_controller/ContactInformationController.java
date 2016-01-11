@@ -7,8 +7,9 @@ import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
  *
  * @author Robin D'Haese
  */
-public interface EditContactInformationController {
+public interface ContactInformationController {
 
     ContactDetailsDTO get();
     boolean post(ContactDetailsDTO contactDetailsDTO);
+    String getCompanyName();
 }

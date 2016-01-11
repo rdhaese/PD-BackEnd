@@ -1,8 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.rest_controller.impl;
 
 import be.rdhaese.packetdelivery.back_end.mapper.impl.CompanyContactDetailsMapper;
-import be.rdhaese.packetdelivery.back_end.rest_controller.EditContactInformationController;
-import be.rdhaese.packetdelivery.back_end.service.EditCompanyContactDetailsService;
+import be.rdhaese.packetdelivery.back_end.rest_controller.ContactInformationController;
+import be.rdhaese.packetdelivery.back_end.service.CompanyContactDetailsService;
 import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/contact-information")
-public class EditContactInformationControllerImpl implements EditContactInformationController {
+public class ContactInformationControllerImpl implements ContactInformationController {
 
     @Autowired
-    private EditCompanyContactDetailsService editCompanyContactDetailsService;
+    private CompanyContactDetailsService editCompanyContactDetailsService;
     @Autowired
     private CompanyContactDetailsMapper companyContactDetailsMapper;
 
@@ -32,5 +32,11 @@ public class EditContactInformationControllerImpl implements EditContactInformat
     @RequestMapping(value = "/post", method = RequestMethod.POST)
     public boolean post(@RequestBody ContactDetailsDTO contactDetailsDTO){
         return editCompanyContactDetailsService.save(companyContactDetailsMapper.mapToBus(contactDetailsDTO));
+    }
+
+    @Override
+    @RequestMapping(value = "/company-name", method = RequestMethod.GET)
+    public String getCompanyName() {
+        return editCompanyContactDetailsService.getCompanyName();
     }
 }
