@@ -10,12 +10,11 @@ import static org.junit.Assert.assertTrue;
  *
  * @author Robin D'Haese
  */
-public class FailingTest {
+public class SucceedingTest {
 
     @Test
-    public void failingTest(){
-        assertTrue(false);
-        //Small change to test jenkins polling
+    public void succeedingTest(){
+        assertTrue(true);
     }
 
 }
