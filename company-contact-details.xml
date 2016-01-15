@@ -3,7 +3,7 @@
     <about-text>a	a	a	a
 
 
-
+{♀♥♥♥A5♦♣f
 
 aaa	aaa		aaaa
 
@@ -16,22 +16,14 @@ b</about-text>
         <postal-code>a</postal-code>
         <street>a</street>
     </address>
-    <company-name>Robin's Compan</company-name>
+    <company-name>Robin's Company</company-name>
     <email-addresses>
         <email>
             <email-address>a</email-address>
             <email-title>aa</email-title>
         </email>
-        <email>
-            <email-address>a</email-address>
-            <email-title>aaa</email-title>
-        </email>
     </email-addresses>
     <fax-numbers>
-        <fax>
-            <fax-title>aa</fax-title>
-            <fax-number>aa</fax-number>
-        </fax>
         <fax>
             <fax-title>a</fax-title>
             <fax-number>a</fax-number>
@@ -40,15 +32,7 @@ b</about-text>
     <phone-numbers>
         <phone>
             <phone-number>aa</phone-number>
-            <phone-title>aaa</phone-title>
-        </phone>
-        <phone>
-            <phone-number>aa</phone-number>
             <phone-title>a</phone-title>
-        </phone>
-        <phone>
-            <phone-number>a</phone-number>
-            <phone-title>aaaaaa</phone-title>
         </phone>
     </phone-numbers>
 </contact-details>
