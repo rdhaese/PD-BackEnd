@@ -12,7 +12,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  *
  * @author Robin D'Haese
  */
-@Configuration
 @SpringBootApplication
 public class App {
     public static void main(String[] args) {

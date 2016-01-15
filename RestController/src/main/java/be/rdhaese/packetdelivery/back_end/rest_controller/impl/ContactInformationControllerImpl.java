@@ -1,6 +1,9 @@
 package be.rdhaese.packetdelivery.back_end.rest_controller.impl;
 
+import be.rdhaese.packetdelivery.back_end.mapper.Mapper;
 import be.rdhaese.packetdelivery.back_end.mapper.impl.CompanyContactDetailsMapper;
+import be.rdhaese.packetdelivery.back_end.model.ContactDetails;
+import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDetails;
 import be.rdhaese.packetdelivery.back_end.rest_controller.ContactInformationController;
 import be.rdhaese.packetdelivery.back_end.service.CompanyContactDetailsService;
 import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
@@ -22,7 +25,7 @@ public class ContactInformationControllerImpl implements ContactInformationContr
     @Autowired
     private CompanyContactDetailsService editCompanyContactDetailsService;
     @Autowired
-    private CompanyContactDetailsMapper companyContactDetailsMapper;
+    private Mapper<CompanyContactDetails, ContactDetailsDTO> companyContactDetailsMapper;
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ContactDetailsDTO get(){

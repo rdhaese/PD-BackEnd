@@ -1,7 +1,9 @@
 package be.rdhaese.packetdelivery.back_end.rest_controller.impl;
 
 
+import be.rdhaese.packetdelivery.back_end.mapper.Mapper;
 import be.rdhaese.packetdelivery.back_end.mapper.impl.PacketMapper;
+import be.rdhaese.packetdelivery.back_end.model.Packet;
 import be.rdhaese.packetdelivery.back_end.rest_controller.AddPacketController;
 import be.rdhaese.packetdelivery.back_end.service.AddPacketService;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
@@ -23,7 +25,7 @@ public class AddPacketControllerImpl implements AddPacketController {
     @Autowired
     private AddPacketService addPacketService;
     @Autowired
-    private PacketMapper packetMapper;
+    private Mapper<Packet, PacketDTO> packetMapper;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addPacket(@RequestBody PacketDTO packetDTO){
