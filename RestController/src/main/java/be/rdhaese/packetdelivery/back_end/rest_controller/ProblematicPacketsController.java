@@ -11,4 +11,7 @@ import java.util.Collection;
  */
 public interface ProblematicPacketsController {
     Collection<PacketDTO> getProblematicPackets();
+    PacketDTO getProblematicPacket(String packetId);
+    Boolean reSend(String packetId);
+    Boolean returnToSend(String packetId);
 }

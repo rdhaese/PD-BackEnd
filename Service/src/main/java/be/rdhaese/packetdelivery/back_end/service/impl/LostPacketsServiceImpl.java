@@ -7,6 +7,7 @@ import be.rdhaese.packetdelivery.back_end.service.LostPacketsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class LostPacketsServiceImpl implements LostPacketsService{
     private PacketJpaRepository packetJpaRepository;
 
     @Override
-    public List<Packet> getLostPackets() {
+    public Collection<Packet> getLostPackets() {
        return packetJpaRepository.getLostPackets();
     }
 

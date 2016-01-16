@@ -24,4 +24,7 @@ public interface PacketJpaRepository extends JpaRepository<Packet, Long> {
 
     @Query("SELECT p FROM Packet p WHERE p.packetStatus = 'PROBLEMATIC'")
     Collection<Packet> getProblematicPackets();
+
+    @Query("SELECT p FROM Packet p WHERE p.packetStatus = 'PROBLEMATIC' AND p.packetId =?1")
+    Packet getProblematicPacket(String packetId);
 }

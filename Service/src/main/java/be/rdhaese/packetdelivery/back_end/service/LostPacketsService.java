@@ -2,6 +2,7 @@ package be.rdhaese.packetdelivery.back_end.service;
 
 import be.rdhaese.packetdelivery.back_end.model.Packet;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @author Robin D'Haese
  */
 public interface LostPacketsService {
-    List<Packet> getLostPackets();
+    Collection<Packet> getLostPackets();
 
     void markAsFound(String packetId);
 

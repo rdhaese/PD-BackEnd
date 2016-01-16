@@ -11,4 +11,10 @@ import java.util.Collection;
  */
 public interface ProblematicPacketsService {
      Collection<Packet> getProblematicPackets();
+
+     Packet getProblematicPacket(String packetId);
+
+     void reSend(String packetId);
+
+     void returnToSender(String packetId);
 }
