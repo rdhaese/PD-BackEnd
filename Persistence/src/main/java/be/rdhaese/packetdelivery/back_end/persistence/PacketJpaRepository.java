@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,9 +16,12 @@ import java.util.List;
  */
 @Repository
 public interface PacketJpaRepository extends JpaRepository<Packet, Long> {
-    @Query("SELECT p FROM Packet p WHERE p.packetStatus = 'NOT_FOUND'") //TODO NOT_FOUND is probable not correct!
-    List<Packet> getLostPackets();
-
     @Query("SELECT p FROM Packet p WHERE p.packetId =?1")
     Packet getPacket(String packetId);
+
+    @Query("SELECT p FROM Packet p WHERE p.packetStatus = 'NOT_FOUND'")
+    Collection<Packet> getLostPackets();
+
+    @Query("SELECT p FROM Packet p WHERE p.packetStatus = 'PROBLEMATIC'")
+    Collection<Packet> getProblematicPackets();
 }
