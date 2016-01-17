@@ -1,6 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.service;
 
+import be.rdhaese.packetdelivery.back_end.model.Address;
 import be.rdhaese.packetdelivery.back_end.model.Packet;
+import be.rdhaese.packetdelivery.back_end.model.Region;
 
 import java.util.Collection;
 
@@ -17,4 +19,10 @@ public interface ProblematicPacketsService {
      void reSend(String packetId);
 
      void returnToSender(String packetId);
+
+     Address getProblematicPacketAddress(String packetId);
+
+     Region getProblematicPacketRegion(String packetId);
+
+     void saveDeliveryAddress(String packetId, Address address, Region region);
 }

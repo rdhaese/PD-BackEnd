@@ -2,6 +2,7 @@ package be.rdhaese.packetdelivery.back_end.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
 /**
@@ -12,9 +13,9 @@ import javax.persistence.OneToOne;
 @Entity
 public class ClientInfo extends AbstractEntity {
 
-    @OneToOne (cascade = CascadeType.ALL)
+    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ContactDetails contactDetails;
-    @OneToOne (cascade = CascadeType.ALL)
+    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Address address;
 
     public ContactDetails getContactDetails() {

@@ -1,7 +1,6 @@
 package be.rdhaese.packetdelivery.back_end.service.impl;
 
-import be.rdhaese.packetdelivery.back_end.model.Packet;
-import be.rdhaese.packetdelivery.back_end.model.PacketStatus;
+import be.rdhaese.packetdelivery.back_end.model.*;
 import be.rdhaese.packetdelivery.back_end.persistence.PacketJpaRepository;
 import be.rdhaese.packetdelivery.back_end.service.ProblematicPacketsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +41,44 @@ public class ProblematicPacketsServiceImpl implements ProblematicPacketsService{
     @Override
     public void returnToSender(String packetId) {
         Packet packet = packetJpaRepository.getPacket(packetId);
-        packet.getDeliveryInfo().setClientInfo(packet.getClientInfo());
+        ClientInfo newDeliveryInfo = packet.getClientInfo();
+        ClientInfo oldDeliveryInfo = packet.getDeliveryInfo().getClientInfo();
+        oldDeliveryInfo.getContactDetails().setName(newDeliveryInfo.getContactDetails().getName());
+        oldDeliveryInfo.getContactDetails().getPhoneNumbers().clear();
+        oldDeliveryInfo.getContactDetails().getPhoneNumbers().addAll(newDeliveryInfo.getContactDetails().getPhoneNumbers());
+        oldDeliveryInfo.getContactDetails().getEmails().clear();
+        oldDeliveryInfo.getContactDetails().getEmails().addAll(newDeliveryInfo.getContactDetails().getEmails());
+        oldDeliveryInfo.getAddress().setStreet(newDeliveryInfo.getAddress().getStreet());
+        oldDeliveryInfo.getAddress().setNumber(newDeliveryInfo.getAddress().getNumber());
+        oldDeliveryInfo.getAddress().setMailbox(newDeliveryInfo.getAddress().getMailbox());
+        oldDeliveryInfo.getAddress().setCity(newDeliveryInfo.getAddress().getCity());
+        oldDeliveryInfo.getAddress().setPostalCode(newDeliveryInfo.getAddress().getPostalCode());
         packet.setPacketStatus(PacketStatus.NORMAL);
         packet.setStatusChangedOn(new Date());
+        packetJpaRepository.save(packet);
+    }
+
+
+
+    @Override
+    public Address getProblematicPacketAddress(String packetId) {
+        return packetJpaRepository.getPacket(packetId).getDeliveryInfo().getClientInfo().getAddress();
+    }
+
+    @Override
+    public Region getProblematicPacketRegion(String packetId) {
+        return packetJpaRepository.getPacket(packetId).getDeliveryInfo().getRegion();
+    }
+
+    @Override
+    public void saveDeliveryAddress(String packetId, Address address, Region region) {
+        Packet packet = packetJpaRepository.getPacket(packetId);
+        packet.getDeliveryInfo().getClientInfo().getAddress().setStreet(address.getStreet());
+        packet.getDeliveryInfo().getClientInfo().getAddress().setNumber(address.getNumber());
+        packet.getDeliveryInfo().getClientInfo().getAddress().setMailbox(address.getMailbox());
+        packet.getDeliveryInfo().getClientInfo().getAddress().setCity(address.getCity());
+        packet.getDeliveryInfo().getClientInfo().getAddress().setPostalCode(address.getPostalCode());
+        packet.getDeliveryInfo().setRegion(region);
         packetJpaRepository.save(packet);
     }
 }
