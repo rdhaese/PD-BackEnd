@@ -2,6 +2,7 @@ package be.rdhaese.packetdelivery.back_end.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
 /**
@@ -12,10 +13,10 @@ import javax.persistence.OneToOne;
 @Entity
 public class DeliveryInfo extends AbstractEntity {
 
-    @OneToOne (cascade = CascadeType.ALL)
+    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ClientInfo clientInfo;
 
-    @OneToOne (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToOne (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private Region region;
 
     public ClientInfo getClientInfo() {
