@@ -46,7 +46,7 @@ public class AddPacketServiceImpl implements AddPacketService {
         packetId.append(ID_SEPARATOR);
         if (packet.getDeliveryInfo().getClientInfo().getContactDetails().getName().length() <= 1) {
             packetId.append(packet.getDeliveryInfo().getClientInfo().getContactDetails().getName());
-            while (packetId.length() < 2) {
+            while (packetId.length() < 4) {
                 packetId.append("_");
             }
         } else {

@@ -30,7 +30,7 @@ public class GetRegionsControllerImpl implements GetRegionsController {
     private Mapper<Region,RegionDTO> regionMapper;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public Collection<RegionDTO> regions(){
+    public Collection<RegionDTO> regions() {
         return regionMapper.mapToDto(regionsService.getRegions());
     }
 }
