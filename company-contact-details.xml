@@ -10,29 +10,45 @@ aaa	aaa		aaaa
 
 b</about-text>
     <address>
-        <city>a</city>
-        <mailbox>a</mailbox>
-        <number>a</number>
-        <postal-code>a</postal-code>
-        <street>a</street>
+        <city>Schendelbeke</city>
+        <mailbox></mailbox>
+        <number>77</number>
+        <postal-code>9506</postal-code>
+        <street>Dagmoedstraat</street>
     </address>
     <company-name>PacketDelivery</company-name>
     <email-addresses>
         <email>
-            <email-address>a</email-address>
-            <email-title>aa</email-title>
+            <email-address>info@pd.com</email-address>
+            <email-title>Info</email-title>
+        </email>
+        <email>
+            <email-address>contact@pd.com</email-address>
+            <email-title>Contact</email-title>
         </email>
     </email-addresses>
     <fax-numbers>
         <fax>
-            <fax-title>a</fax-title>
-            <fax-number>a</fax-number>
+            <fax-title>222/222222</fax-title>
+            <fax-number>secondary</fax-number>
+        </fax>
+        <fax>
+            <fax-title>111/111112</fax-title>
+            <fax-number>Primary</fax-number>
+        </fax>
+        <fax>
+            <fax-title>333/333333</fax-title>
+            <fax-number>Backup</fax-number>
         </fax>
     </fax-numbers>
     <phone-numbers>
         <phone>
-            <phone-number>aa</phone-number>
-            <phone-title>a</phone-title>
+            <phone-number>9876/543210</phone-number>
+            <phone-title>Work</phone-title>
+        </phone>
+        <phone>
+            <phone-number>0123/456789</phone-number>
+            <phone-title>Prive</phone-title>
         </phone>
     </phone-numbers>
 </contact-details>

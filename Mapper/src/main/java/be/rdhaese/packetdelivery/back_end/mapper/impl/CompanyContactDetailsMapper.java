@@ -100,7 +100,7 @@ public class CompanyContactDetailsMapper extends AbstractMapper<CompanyContactDe
         contactDetailsDTO.setStreet(busObj.getAddress().getStreet());
         contactDetailsDTO.setNumber(busObj.getAddress().getNumber());
         contactDetailsDTO.setMailbox(busObj.getAddress().getMailbox());
-        contactDetailsDTO.setCity(busObj.getAddress().getStreet());
+        contactDetailsDTO.setCity(busObj.getAddress().getCity());
         contactDetailsDTO.setPostalCode(busObj.getAddress().getPostalCode());
     }
 
