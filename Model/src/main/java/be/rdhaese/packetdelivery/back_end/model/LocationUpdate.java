@@ -1,6 +1,7 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,10 +19,9 @@ public class LocationUpdate extends AbstractEntity {
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeCreated;
-    @NotNull
-    private Float longitude;
-    @NotNull
-    private Float latitude;
+
+    @Embedded
+    private LongLat longLat;
 
     public Date getTimeCreated() {
         return timeCreated;
@@ -31,20 +31,12 @@ public class LocationUpdate extends AbstractEntity {
         this.timeCreated = timeCreated;
     }
 
-    public Float getLongitude() {
-        return longitude;
+    public LongLat getLongLat() {
+        return longLat;
     }
 
-    public void setLongitude(Float longitude) {
-        this.longitude = longitude;
-    }
-
-    public Float getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
+    public void setLongLat(LongLat longLat) {
+        this.longLat = longLat;
     }
 
     @Override

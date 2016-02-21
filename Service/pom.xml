@@ -14,6 +14,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.google.maps</groupId>
+            <artifactId>google-maps-services</artifactId>
+            <version>0.1.11</version>
+        </dependency>
+
+        <dependency>
             <groupId>be.rdhaese.packetdelivery.back_end</groupId>
             <artifactId>persistence</artifactId>
             <version>${pd.version}</version>
