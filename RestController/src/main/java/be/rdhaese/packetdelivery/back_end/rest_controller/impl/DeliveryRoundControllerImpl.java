@@ -19,23 +19,23 @@ import java.util.List;
  * @author Robin D'Haese
  */
 @RestController
-@RequestMapping ("/round")
+@RequestMapping("/round")
 public class DeliveryRoundControllerImpl implements DeliveryRoundController {
 
     @Autowired
     private DeliveryRoundService roundService;
 
     @Autowired
-    private Mapper<Packet,PacketDTO> packetMapper;
+    private Mapper<Packet, PacketDTO> packetMapper;
 
     @Override
-    @RequestMapping (value = "/new", method = RequestMethod.GET)
-    public Long newRound(@RequestParam int amountOfPackets){
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    public Long newRound(@RequestParam int amountOfPackets) {
         return roundService.createNewRound(amountOfPackets);
     }
 
     @Override
-    @RequestMapping (value = "/packets", method = RequestMethod.GET)
+    @RequestMapping(value = "/packets", method = RequestMethod.GET)
     public List<PacketDTO> getPackets(@RequestParam Long roundId) {
         return (List<PacketDTO>) packetMapper.mapToDto(roundService.getPackets(roundId));
     }

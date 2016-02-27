@@ -6,6 +6,7 @@ import be.rdhaese.packetdelivery.back_end.persistence.PacketJpaRepository;
 import be.rdhaese.packetdelivery.back_end.persistence.DeliveryRoundJpaRepository;
 import be.rdhaese.packetdelivery.back_end.service.DeliveryRoundService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  *
  * @author Robin D'Haese
  */
+@Service
 public class DeliveryRoundServiceImpl implements DeliveryRoundService {
 
     @Autowired
