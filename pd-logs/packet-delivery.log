@@ -1,8 +1,0 @@
-11:53:01.926 [main] INFO  b.r.packetdelivery.back_end.App - Starting App on WP2039 with PID 3384 (C:\Users\rdeax37\Documents\School\Project\Implementatie\BackEnd\RestController\target\classes started by RDEAX37 in C:\Users\rdeax37\Documents\School\Project\Implementatie\BackEnd)
-11:53:01.934 [main] INFO  b.r.packetdelivery.back_end.App - The following profiles are active: production
-11:53:13.911 [main] INFO  b.r.packetdelivery.back_end.App - Started App in 12.654 seconds (JVM running for 13.778)
-13:35:57.285 [main] INFO  b.r.packetdelivery.back_end.App - Starting App on WP2039 with PID 1736 (C:\Users\rdeax37\Documents\School\Project\Implementatie\BackEnd\RestController\target\classes started by RDEAX37 in C:\Users\rdeax37\Documents\School\Project\Implementatie\BackEnd)
-13:35:57.361 [main] INFO  b.r.packetdelivery.back_end.App - The following profiles are active: production
-13:46:16.591 [main] INFO  b.r.packetdelivery.back_end.App - Starting App on WP2039 with PID 4944 (C:\Users\rdeax37\Documents\School\Project\Implementatie\BackEnd\RestController\target\classes started by RDEAX37 in C:\Users\rdeax37\Documents\School\Project\Implementatie\BackEnd)
-13:46:16.599 [main] INFO  b.r.packetdelivery.back_end.App - The following profiles are active: production
-13:46:27.000 [main] INFO  b.r.packetdelivery.back_end.App - Started App in 11.252 seconds (JVM running for 12.174)

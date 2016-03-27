@@ -9,11 +9,16 @@
   </parent>
 
   <groupId>be.rdhaese.packetdelivery.back-end</groupId>
-  <artifactId>model</artifactId>
+  <artifactId>internal-service</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <packaging>jar</packaging>
+  <modules>
+    <module>interfaces</module>
+    <module>default-implementation</module>
+  </modules>
 
-  <name>model</name>
+  <packaging>pom</packaging>
+
+  <name>internal-service</name>
 
 </project>

@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>be.rdhaese.packetdelivery.back-end</groupId>
+        <artifactId>internal-service</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>be.rdhaese.packetdelivery.back-end.internal-service</groupId>
+    <artifactId>default-implementation</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>jar</packaging>
+
+    <name>default-implementation</name>
+
+    <properties>
+        <google.maps.version>0.1.11</google.maps.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>be.rdhaese.packetdelivery.back-end.internal-service</groupId>
+            <artifactId>interfaces</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>be.rdhaese.packetdelivery.back-end.persistence</groupId>
+            <artifactId>jpa-repositories</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>be.rdhaese.packetdelivery.back-end.persistence.xml-repositories</groupId>
+            <artifactId>default-implementation</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.maps</groupId>
+            <artifactId>google-maps-services</artifactId>
+            <version>${google.maps.version}</version>
+        </dependency>
+    </dependencies>
+</project>

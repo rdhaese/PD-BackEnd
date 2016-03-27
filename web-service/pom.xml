@@ -9,16 +9,16 @@
     </parent>
 
     <groupId>be.rdhaese.packetdelivery.back-end</groupId>
-    <artifactId>mapper</artifactId>
+    <artifactId>web-service</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
         <module>interfaces</module>
-        <module>default-implementation</module>
+        <module>rest-implementation</module>
     </modules>
 
     <packaging>pom</packaging>
 
-    <name>mapper</name>
+    <name>web-service</name>
 
 </project>
