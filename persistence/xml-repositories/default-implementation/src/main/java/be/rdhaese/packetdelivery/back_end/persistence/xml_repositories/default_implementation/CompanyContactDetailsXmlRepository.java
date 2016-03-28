@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.xml.bind.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,9 @@ public class CompanyContactDetailsXmlRepository implements CompanyContactDetails
     @Override
     public CompanyContactDetails get() throws JAXBException, IOException {
         File file = new File(FILE_NAME);
-        file.createNewFile();
+        if (!file.exists()){
+            throw new FileNotFoundException("Contact details don't exist");
+        }
         JAXBContext jaxbContext = JAXBContext.newInstance(CompanyContactDetails.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         try {

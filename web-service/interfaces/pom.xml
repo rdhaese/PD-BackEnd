@@ -20,7 +20,6 @@
         <dependency>
             <groupId>be.rdhaese.packetdelivery</groupId>
             <artifactId>dto</artifactId>
-            <version>${pd.dto.version}</version>
         </dependency>
     </dependencies>
 </project>

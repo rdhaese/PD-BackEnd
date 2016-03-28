@@ -21,13 +21,7 @@ public class AuthenticateRestWebService implements AuthenticateWebService {
     private AuthenticateInternalService authenticateInternalService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public boolean authenticate(String username, String password){
-        if (authenticateInternalService.authenticate(username, password)) {
-            return true;
-        }
-        else {
-            //TODO is HTTPStatus correct?
-           return false;
-        }
+    public String authenticate(String username, String password){
+       return authenticateInternalService.authenticate(username,password).toString();
     }
 }
