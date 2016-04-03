@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contact-details>
+    <about-text>aaaa
+a
+a
+a
+a
+aa</about-text>
+    <address>
+        <city>a</city>
+        <mailbox>a</mailbox>
+        <number>a</number>
+        <postal-code>a</postal-code>
+        <street>a</street>
+    </address>
+    <company-name>a</company-name>
+    <email-addresses>
+        <email>
+            <email-address>aa</email-address>
+            <email-title>aaaa</email-title>
+        </email>
+    </email-addresses>
+    <fax-numbers>
+        <fax>
+            <fax-title>aaa</fax-title>
+            <fax-number>aaa</fax-number>
+        </fax>
+    </fax-numbers>
+    <phone-numbers>
+        <phone>
+            <phone-number>aaa</phone-number>
+            <phone-title>aaa</phone-title>
+        </phone>
+    </phone-numbers>
+</contact-details>
