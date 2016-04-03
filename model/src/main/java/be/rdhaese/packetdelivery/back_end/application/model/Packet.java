@@ -23,6 +23,8 @@ public class Packet extends AbstractEntity {
     private PacketStatus packetStatus;
     @Temporal(TemporalType.TIMESTAMP)
     private Date statusChangedOn;
+    @NotNull
+    private Integer priority = 1;
 
     public String getPacketId() {
         return packetId;
@@ -54,6 +56,7 @@ public class Packet extends AbstractEntity {
 
     public void setPacketStatus(PacketStatus packetStatus) {
         this.packetStatus = packetStatus;
+        setStatusChangedOn(new Date());
     }
 
     public Date getStatusChangedOn() {
@@ -64,8 +67,49 @@ public class Packet extends AbstractEntity {
         this.statusChangedOn = statusChangedOn;
     }
 
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Packet packet = (Packet) o;
+
+        if (getPacketId() != null ? !getPacketId().equals(packet.getPacketId()) : packet.getPacketId() != null)
+            return false;
+        if (getClientInfo() != null ? !getClientInfo().equals(packet.getClientInfo()) : packet.getClientInfo() != null)
+            return false;
+        if (getDeliveryInfo() != null ? !getDeliveryInfo().equals(packet.getDeliveryInfo()) : packet.getDeliveryInfo() != null)
+            return false;
+        if (getPacketStatus() != packet.getPacketStatus()) return false;
+        if (getStatusChangedOn() != null ? !getStatusChangedOn().equals(packet.getStatusChangedOn()) : packet.getStatusChangedOn() != null)
+            return false;
+        return !(getPriority() != null ? !getPriority().equals(packet.getPriority()) : packet.getPriority() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getPacketId() != null ? getPacketId().hashCode() : 0);
+        result = 31 * result + (getClientInfo() != null ? getClientInfo().hashCode() : 0);
+        result = 31 * result + (getDeliveryInfo() != null ? getDeliveryInfo().hashCode() : 0);
+        result = 31 * result + (getPacketStatus() != null ? getPacketStatus().hashCode() : 0);
+        result = 31 * result + (getStatusChangedOn() != null ? getStatusChangedOn().hashCode() : 0);
+        result = 31 * result + (getPriority() != null ? getPriority().hashCode() : 0);
+        return result;
+    }
+
     @Override
     public String toString() {
-        return null;
+        return String.format("Packet [ID: %s]", packetId);
     }
 }

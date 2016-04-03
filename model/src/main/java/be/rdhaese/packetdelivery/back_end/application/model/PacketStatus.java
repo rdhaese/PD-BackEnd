@@ -8,5 +8,6 @@ package be.rdhaese.packetdelivery.back_end.application.model;
 public enum PacketStatus {
     NORMAL,
     NOT_FOUND,
-    PROBLEMATIC
+    PROBLEMATIC,
+    ON_DELIVERY
 }

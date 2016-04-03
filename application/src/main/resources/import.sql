@@ -67,7 +67,7 @@ INSERT INTO packet_delivery.contact_details_phone_numbers (contact_details_id,ph
 INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_id) VALUES (2,0,2,2);
 
 /*creating packet */
-INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_changed_on,client_info_id,delivery_info_id) VALUES (1,0,'BO-RO-27022016-00001','NORMAL','2016-02-27 13:38:30',2,1);
+INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_changed_on,client_info_id,delivery_info_id,priority) VALUES (1,0,'BO-RO-27022016-00001','NORMAL','2016-02-27 13:38:30',2,1,1);
 
 
 /* Client to deliver to */
@@ -86,7 +86,7 @@ INSERT INTO packet_delivery.contact_details_phone_numbers (contact_details_id,ph
 INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_id) VALUES (4,0,4,4);
 
 /*creating packet */
-INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_changed_on,client_info_id,delivery_info_id) VALUES (2,0,'B_-A_-27022016-00002','NORMAL','2016-02-24 13:38:30',4,3);
+INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_changed_on,client_info_id,delivery_info_id,priority) VALUES (2,0,'B_-A_-27022016-00002','NORMAL','2016-02-24 13:38:30',4,3, 1);
 
 
 /* Client to deliver to */
@@ -105,7 +105,7 @@ INSERT INTO packet_delivery.contact_details_phone_numbers (contact_details_id,ph
 INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_id) VALUES (6,0,6,6);
 
 /*creating packet */
-INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_changed_on,client_info_id,delivery_info_id) VALUES (3,0,'D_-C_-27022016-00003','NORMAL','2016-02-25 13:38:30',6,5);
+INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_changed_on,client_info_id,delivery_info_id,priority) VALUES (3,0,'D_-C_-27022016-00003','NORMAL','2016-02-25 13:38:30',6,5, 2);
 
 
 /* Client to deliver to */
@@ -124,4 +124,4 @@ INSERT INTO packet_delivery.contact_details_phone_numbers (contact_details_id,ph
 INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_id) VALUES (8,0,8,8);
 
 /*creating packet */
-INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_changed_on,client_info_id,delivery_info_id) VALUES (4,0,'E_-F_-27022016-00004','NORMAL','2016-02-26 13:38:30',8,7);
+INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_changed_on,client_info_id,delivery_info_id,priority) VALUES (4,0,'E_-F_-27022016-00004','NORMAL','2016-02-26 13:38:30',8,7, 3);

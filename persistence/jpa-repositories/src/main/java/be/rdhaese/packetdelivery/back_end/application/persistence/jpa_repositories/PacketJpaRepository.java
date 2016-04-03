@@ -2,6 +2,7 @@ package be.rdhaese.packetdelivery.back_end.application.persistence.jpa_repositor
 
 
 import be.rdhaese.packetdelivery.back_end.application.model.Packet;
+import be.rdhaese.packetdelivery.back_end.application.model.Region;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -26,4 +27,7 @@ public interface PacketJpaRepository extends JpaRepository<Packet, Long> {
 
     @Query("SELECT p FROM Packet p WHERE p.packetStatus = 'PROBLEMATIC' AND p.packetId =?1")
     Packet getProblematicPacket(String packetId);
+
+    @Query("SELECT p FROM Packet p WHERE p.packetStatus = 'NORMAL' AND p.deliveryInfo.region.id =?1")
+    Collection<Packet> getForRegion(Long regionId);
 }

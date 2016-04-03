@@ -30,4 +30,5 @@ public class RegionsInternalServiceImpl implements RegionsInternalService {
     public List<Region> getRegions() {
         return regionRepository.findAll();
     }
+
 }
