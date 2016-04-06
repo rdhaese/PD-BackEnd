@@ -18,6 +18,9 @@
 
     <properties>
         <google.maps.version>0.1.11</google.maps.version>
+        <java.version>1.8</java.version>
+        <!--JAVA_1_8_HOME specified in maven settings.xml-->
+        <jdk>${JAVA_1_8_HOME}</jdk>
     </properties>
 
     <dependencies>

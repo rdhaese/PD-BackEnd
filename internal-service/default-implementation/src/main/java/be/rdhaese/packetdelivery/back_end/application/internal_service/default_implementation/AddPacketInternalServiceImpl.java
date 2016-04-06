@@ -25,6 +25,7 @@ public class AddPacketInternalServiceImpl implements AddPacketInternalService {
 
     private static LocalDate lastDateChecked = LocalDate.now();
     private static int previousNumber = 0;
+
     @Autowired
     private PacketJpaRepository packetRepository;
 
