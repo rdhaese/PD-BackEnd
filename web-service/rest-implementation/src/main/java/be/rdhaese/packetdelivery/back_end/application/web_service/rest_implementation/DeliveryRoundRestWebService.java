@@ -8,10 +8,7 @@ import be.rdhaese.packetdelivery.back_end.application.web_service.interfaces.Del
 import be.rdhaese.packetdelivery.dto.LongLatDTO;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,27 +40,32 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
     }
 
     @Override
-    public void markAsLost(Long roundId, PacketDTO packet) {
-        //TODO
+    @RequestMapping(value = "/mark-as-lost/{roundId}", method = RequestMethod.POST)
+    public Boolean markAsLost(@PathVariable("roundId") Long roundId, @RequestBody PacketDTO packet) {
+        return roundService.markAsLost(roundId, packetMapper.mapToBus(packet));
     }
 
     @Override
-    public void deliver(Long roundId, PacketDTO packetDTO) {
+    public Boolean deliver(Long roundId, PacketDTO packetDTO) {
 //TODO
+        return null;
     }
 
     @Override
-    public void cannotDeliver(Long roundId, PacketDTO packetDTO, String reason) {
+    public Boolean cannotDeliver(Long roundId, PacketDTO packetDTO, String reason) {
 //TODO
+        return null;
     }
 
     @Override
-    public void addRemark(Long roundId, String remark) {
+    public Boolean addRemark(Long roundId, String remark) {
 //TODO
+        return null;
     }
 
     @Override
-    public void addLocationUpdate(Long roundId, LongLatDTO longLatDTO) {
+    public Boolean addLocationUpdate(Long roundId, LongLatDTO longLatDTO) {
 //TODO
+        return null;
     }
 }

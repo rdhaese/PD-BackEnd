@@ -23,6 +23,26 @@ public class LocationUpdate extends AbstractEntity {
     @Embedded
     private LongLat longLat;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LocationUpdate that = (LocationUpdate) o;
+
+        if (getTimeCreated() != null ? !getTimeCreated().equals(that.getTimeCreated()) : that.getTimeCreated() != null)
+            return false;
+        return !(getLongLat() != null ? !getLongLat().equals(that.getLongLat()) : that.getLongLat() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getTimeCreated() != null ? getTimeCreated().hashCode() : 0;
+        result = 31 * result + (getLongLat() != null ? getLongLat().hashCode() : 0);
+        return result;
+    }
+
     public Date getTimeCreated() {
         return timeCreated;
     }

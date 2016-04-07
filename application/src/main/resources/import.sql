@@ -125,3 +125,21 @@ INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_i
 
 /*creating packet */
 INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_changed_on,client_info_id,delivery_info_id,priority) VALUES (4,0,'E_-F_-27022016-00004','NORMAL','2016-02-26 13:38:30',8,7, 3);
+
+/* Client to deliver to */
+INSERT INTO packet_delivery.contact_details(id,version,name) VALUES (9,0,'g');
+INSERT INTO packet_delivery.address(id,version,city,mailbox,number,postal_code,street) VALUES (9,0,'g','g','g','g','g');
+INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (9,'g');
+INSERT INTO packet_delivery.contact_details_phone_numbers(contact_details_id,phone_numbers) VALUES (9,'g');
+INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_id) VALUES (9,0,9,9);
+INSERT INTO packet_delivery.delivery_info (id,version,client_info_id,region_id) VALUES(9,0,9,2);
+
+/*Client that is sending */
+INSERT INTO packet_delivery.contact_details (id,version,name) VALUES (10,0,'h');
+INSERT INTO packet_delivery.address (id,version,city,mailbox,number,postal_code,street) VALUES (10,0,'h','h','h','h','h');
+INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (10,'h');
+INSERT INTO packet_delivery.contact_details_phone_numbers (contact_details_id,phone_numbers) VALUES (10,'h');
+INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_id) VALUES (10,0,10,10);
+
+/*creating packet */
+INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_changed_on,client_info_id,delivery_info_id,priority) VALUES (5,0,'G_-H_-27022016-00005','NORMAL','2016-02-25 13:38:31',10,9, 2);

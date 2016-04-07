@@ -19,23 +19,9 @@ public abstract class AbstractEntity implements Serializable {
     private Long version;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AbstractEntity that = (AbstractEntity) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        return !(version != null ? !version.equals(that.version) : that.version != null);
-
-    }
-
+    public abstract boolean equals(Object o);
     @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (version != null ? version.hashCode() : 0);
-        return result;
-    }
+    public abstract int hashCode();
 
     @Override
     public abstract String toString();

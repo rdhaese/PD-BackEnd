@@ -2,16 +2,15 @@ package be.rdhaese.packetdelivery.back_end.application.internal_service.default_
 
 import be.rdhaese.packetdelivery.back_end.application.internal_service.interfaces.DeliveryRoundInternalService;
 import be.rdhaese.packetdelivery.back_end.application.internal_service.util.RegionWithPriority;
-import be.rdhaese.packetdelivery.back_end.application.model.DeliveryRound;
-import be.rdhaese.packetdelivery.back_end.application.model.Packet;
-import be.rdhaese.packetdelivery.back_end.application.model.PacketStatus;
-import be.rdhaese.packetdelivery.back_end.application.model.Region;
+import be.rdhaese.packetdelivery.back_end.application.model.*;
 import be.rdhaese.packetdelivery.back_end.application.persistence.jpa_repositories.DeliveryRoundJpaRepository;
 import be.rdhaese.packetdelivery.back_end.application.persistence.jpa_repositories.PacketJpaRepository;
 import be.rdhaese.packetdelivery.back_end.application.persistence.jpa_repositories.RegionJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import sun.reflect.Reflection;
 
 import java.util.*;
 
@@ -80,9 +79,9 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         Region adjacentRegionWithHighestPriority = getRegionWithHighestTotalPriority(regionWithHighestPriority.getAdjacentRegions());
 
         //If adjacentRegionWithHighestPriority is null, then there are no extra packets to add
-        if (adjacentRegionWithHighestPriority == null){
+        if (adjacentRegionWithHighestPriority == null) {
             //We can create the round with the packets we have and fulfill the request partially
-           return createRound(amountOfPackets, packetsForRegionWithHighestPriority);
+            return createRound(amountOfPackets, packetsForRegionWithHighestPriority);
         }
 
         //Get packets that need to be delivered in that region
@@ -133,10 +132,11 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
         //Create the DeliveryRound with the packets
         DeliveryRound deliveryRound = new DeliveryRound();
+        deliveryRound.setRoundStatus(RoundStatus.NOT_STARTED);
         deliveryRound.setPackets(packetsForRegionWithHighestPriority);
 
         //Change status of packets to
-        for (Packet packet : deliveryRound.getPackets()){
+        for (Packet packet : deliveryRound.getPackets()) {
             packet.setPacketStatus(PacketStatus.ON_DELIVERY);
         }
 
@@ -204,6 +204,19 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
     @Override
     public List<Packet> getPackets(Long roundId) {
-        return roundRepository.getOne(roundId).getPackets();
+        List<Packet> packets = roundRepository.getOne(roundId).getPackets();
+        //TODO let google sort determine best order to deliver
+        return packets;
+    }
+
+    @Override
+    public Boolean markAsLost(Long roundId, Packet packet) {
+        DeliveryRound round = roundRepository.getOne(roundId);
+        round.getPackets().remove(packet);
+        packet = packetRepository.getPacket(packet.getPacketId());
+        packet.setPacketStatus(PacketStatus.NOT_FOUND);
+        roundRepository.flush();
+        packetRepository.flush();
+        return true;
     }
 }

@@ -24,6 +24,32 @@ public class Address extends AbstractEntity {
     @NotNull
     private String postalCode;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Address address = (Address) o;
+
+        if (getStreet() != null ? !getStreet().equals(address.getStreet()) : address.getStreet() != null) return false;
+        if (getNumber() != null ? !getNumber().equals(address.getNumber()) : address.getNumber() != null) return false;
+        if (getMailbox() != null ? !getMailbox().equals(address.getMailbox()) : address.getMailbox() != null)
+            return false;
+        if (getCity() != null ? !getCity().equals(address.getCity()) : address.getCity() != null) return false;
+        return !(getPostalCode() != null ? !getPostalCode().equals(address.getPostalCode()) : address.getPostalCode() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getStreet() != null ? getStreet().hashCode() : 0;
+        result = 31 * result + (getNumber() != null ? getNumber().hashCode() : 0);
+        result = 31 * result + (getMailbox() != null ? getMailbox().hashCode() : 0);
+        result = 31 * result + (getCity() != null ? getCity().hashCode() : 0);
+        result = 31 * result + (getPostalCode() != null ? getPostalCode().hashCode() : 0);
+        return result;
+    }
+
     @XmlElement (name = "street")
     public String getStreet() {
         return street;

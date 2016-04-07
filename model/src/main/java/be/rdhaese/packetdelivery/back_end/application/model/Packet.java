@@ -79,33 +79,16 @@ public class Packet extends AbstractEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
 
         Packet packet = (Packet) o;
 
-        if (getPacketId() != null ? !getPacketId().equals(packet.getPacketId()) : packet.getPacketId() != null)
-            return false;
-        if (getClientInfo() != null ? !getClientInfo().equals(packet.getClientInfo()) : packet.getClientInfo() != null)
-            return false;
-        if (getDeliveryInfo() != null ? !getDeliveryInfo().equals(packet.getDeliveryInfo()) : packet.getDeliveryInfo() != null)
-            return false;
-        if (getPacketStatus() != packet.getPacketStatus()) return false;
-        if (getStatusChangedOn() != null ? !getStatusChangedOn().equals(packet.getStatusChangedOn()) : packet.getStatusChangedOn() != null)
-            return false;
-        return !(getPriority() != null ? !getPriority().equals(packet.getPriority()) : packet.getPriority() != null);
+        return !(getPacketId() != null ? !getPacketId().equals(packet.getPacketId()) : packet.getPacketId() != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (getPacketId() != null ? getPacketId().hashCode() : 0);
-        result = 31 * result + (getClientInfo() != null ? getClientInfo().hashCode() : 0);
-        result = 31 * result + (getDeliveryInfo() != null ? getDeliveryInfo().hashCode() : 0);
-        result = 31 * result + (getPacketStatus() != null ? getPacketStatus().hashCode() : 0);
-        result = 31 * result + (getStatusChangedOn() != null ? getStatusChangedOn().hashCode() : 0);
-        result = 31 * result + (getPriority() != null ? getPriority().hashCode() : 0);
-        return result;
+        return getPacketId() != null ? getPacketId().hashCode() : 0;
     }
 
     @Override

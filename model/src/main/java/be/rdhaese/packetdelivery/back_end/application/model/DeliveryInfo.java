@@ -19,6 +19,26 @@ public class DeliveryInfo extends AbstractEntity {
     @OneToOne (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private Region region;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DeliveryInfo that = (DeliveryInfo) o;
+
+        if (getClientInfo() != null ? !getClientInfo().equals(that.getClientInfo()) : that.getClientInfo() != null)
+            return false;
+        return !(getRegion() != null ? !getRegion().equals(that.getRegion()) : that.getRegion() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getClientInfo() != null ? getClientInfo().hashCode() : 0;
+        result = 31 * result + (getRegion() != null ? getRegion().hashCode() : 0);
+        return result;
+    }
+
     public ClientInfo getClientInfo() {
         return clientInfo;
     }

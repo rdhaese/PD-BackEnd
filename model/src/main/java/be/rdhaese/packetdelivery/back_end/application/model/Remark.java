@@ -20,6 +20,26 @@ public class Remark extends AbstractEntity {
     @NotNull
     private String remark;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Remark remark1 = (Remark) o;
+
+        if (getTimeAdded() != null ? !getTimeAdded().equals(remark1.getTimeAdded()) : remark1.getTimeAdded() != null)
+            return false;
+        return !(getRemark() != null ? !getRemark().equals(remark1.getRemark()) : remark1.getRemark() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getTimeAdded() != null ? getTimeAdded().hashCode() : 0;
+        result = 31 * result + (getRemark() != null ? getRemark().hashCode() : 0);
+        return result;
+    }
+
     public Date getTimeAdded() {
         return timeAdded;
     }
