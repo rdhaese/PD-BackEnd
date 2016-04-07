@@ -219,4 +219,10 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         packetRepository.flush();
         return true;
     }
+
+    @Override
+    public Boolean endRound(Long roundId) {
+        roundRepository.delete(roundId);
+        return true;
+    }
 }
