@@ -13,9 +13,9 @@ import java.util.List;
 public interface DeliveryRoundWebService {
     Long newRound(int amountOfPackets);
     List<PacketDTO> getPackets(Long roundId);
-    void markAsLost(Long roundId, PacketDTO packet);
-    void deliver(Long roundId, PacketDTO packetDTO);
-    void cannotDeliver(Long roundId, PacketDTO packetDTO, String reason);
-    void addRemark(Long roundId, String remark);
-    void addLocationUpdate(Long roundId, LongLatDTO longLatDTO);
+    Boolean markAsLost(Long roundId, PacketDTO packet);
+    Boolean deliver(Long roundId, PacketDTO packetDTO);
+    Boolean cannotDeliver(Long roundId, PacketDTO packetDTO, String reason);
+    Boolean addRemark(Long roundId, String remark);
+    Boolean addLocationUpdate(Long roundId, LongLatDTO longLatDTO);
 }

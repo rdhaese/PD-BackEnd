@@ -18,6 +18,26 @@ public class ClientInfo extends AbstractEntity {
     @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Address address;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ClientInfo that = (ClientInfo) o;
+
+        if (getContactDetails() != null ? !getContactDetails().equals(that.getContactDetails()) : that.getContactDetails() != null)
+            return false;
+        return !(getAddress() != null ? !getAddress().equals(that.getAddress()) : that.getAddress() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getContactDetails() != null ? getContactDetails().hashCode() : 0;
+        result = 31 * result + (getAddress() != null ? getAddress().hashCode() : 0);
+        return result;
+    }
+
     public ContactDetails getContactDetails() {
         return contactDetails;
     }
