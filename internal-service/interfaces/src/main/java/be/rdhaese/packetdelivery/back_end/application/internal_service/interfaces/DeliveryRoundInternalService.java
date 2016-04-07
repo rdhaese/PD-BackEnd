@@ -15,4 +15,6 @@ public interface DeliveryRoundInternalService {
     List<Packet> getPackets(Long roundId);
 
     Boolean markAsLost(Long roundId, Packet packet);
+
+    Boolean endRound(Long roundId);
 }

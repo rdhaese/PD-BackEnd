@@ -68,4 +68,10 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
 //TODO
         return null;
     }
+
+    @Override
+    @RequestMapping(value = "/end", method = RequestMethod.GET)
+    public Boolean endRound(@RequestParam Long roundId) {
+        return roundService.endRound(roundId);
+    }
 }
