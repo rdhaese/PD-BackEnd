@@ -217,12 +217,26 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         packet.setPacketStatus(PacketStatus.NOT_FOUND);
         roundRepository.flush();
         packetRepository.flush();
+
+        //Return true if application makes it to here
         return true;
     }
 
     @Override
     public Boolean endRound(Long roundId) {
         roundRepository.delete(roundId);
+
+        //Return true if application makes it to here
+        return true;
+    }
+
+    @Override
+    public Boolean startRound(Long roundId) {
+        DeliveryRound deliveryRound = roundRepository.findOne(roundId);
+        deliveryRound.setRoundStatus(RoundStatus.STARTED);
+        roundRepository.flush();
+
+        //Return true if application makes it to here
         return true;
     }
 }
