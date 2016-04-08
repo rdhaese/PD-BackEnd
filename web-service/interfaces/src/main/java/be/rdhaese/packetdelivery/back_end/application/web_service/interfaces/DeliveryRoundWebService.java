@@ -19,4 +19,5 @@ public interface DeliveryRoundWebService {
     Boolean addRemark(Long roundId, String remark);
     Boolean addLocationUpdate(Long roundId, LongLatDTO longLatDTO);
     Boolean endRound(Long roundId);
+    Boolean startRound(Long roundId);
 }
