@@ -127,7 +127,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         //Truncate the list to the requested amount if needed
         if (packetsForRegionWithHighestPriority.size() > amountOfPackets) {
             packetsForRegionWithHighestPriority =
-                    packetsForRegionWithHighestPriority.subList(0, amountOfPackets - 1);
+                    packetsForRegionWithHighestPriority.subList(0, amountOfPackets);
         }
 
         //Create the DeliveryRound with the packets
