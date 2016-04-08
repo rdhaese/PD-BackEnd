@@ -232,7 +232,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
     @Override
     public Boolean startRound(Long roundId) {
-        DeliveryRound deliveryRound = roundRepository.findOne(roundId);
+        DeliveryRound deliveryRound = roundRepository.getOne(roundId);
         deliveryRound.setRoundStatus(RoundStatus.STARTED);
         roundRepository.flush();
 
