@@ -52,9 +52,10 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
     }
 
     @Override
-    public Boolean cannotDeliver(Long roundId, PacketDTO packetDTO, String reason) {
-//TODO
-        return null;
+    @RequestMapping(value = "/cannot-deliver/{roundId}", method = RequestMethod.POST)
+    public Boolean cannotDeliver(@PathVariable Long roundId, @RequestBody PacketDTO packetDTO, @RequestParam String reason) {
+        Packet packet = packetMapper.mapToBus(packetDTO);
+        return roundService.cannotDeliver(roundId, packet, reason);
     }
 
     @Override

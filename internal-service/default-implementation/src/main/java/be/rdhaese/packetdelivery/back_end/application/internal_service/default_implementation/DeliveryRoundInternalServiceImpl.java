@@ -22,6 +22,8 @@ import java.util.*;
 @Service
 public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalService {
 
+    public static final Integer MAX_PRIORITY = 3;
+
     @Autowired
     private DeliveryRoundJpaRepository roundRepository;
 
@@ -249,6 +251,29 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         round.getRemarks().add(newRemark);
         roundRepository.flush();
 
+        //Return true if application makes it to here
+        return true;
+    }
+
+    @Override
+    public Boolean cannotDeliver(Long roundId, Packet packet, String reason) {
+        //Remove packet from round
+        DeliveryRound deliveryRound = roundRepository.getOne(roundId);
+        deliveryRound.getPackets().remove(packet);
+        roundRepository.flush();
+        //Increase priority of packet
+        //If priority > MAX_PRIORITY -> set status to PROBLEMATIC
+        packet = packetRepository.getPacket(packet.getPacketId());
+        if (packet.getPriority() >= MAX_PRIORITY){
+            packet.setPacketStatus(PacketStatus.PROBLEMATIC);
+        } else {
+            packet.setPriority(packet.getPriority() + 1);
+        }
+        packetRepository.flush();
+
+        //TODO mail reason to stakeholders
+        System.out.println(reason);
+        
         //Return true if application makes it to here
         return true;
     }
