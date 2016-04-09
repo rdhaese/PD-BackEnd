@@ -46,9 +46,9 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
     }
 
     @Override
-    public Boolean deliver(Long roundId, PacketDTO packetDTO) {
-//TODO
-        return null;
+    @RequestMapping(value = "deliver/{roundId}", method = RequestMethod.POST)
+    public Boolean deliver(@PathVariable Long roundId, @RequestBody PacketDTO packetDTO) {
+        return roundService.deliver(roundId, packetMapper.mapToBus(packetDTO));
     }
 
     @Override
