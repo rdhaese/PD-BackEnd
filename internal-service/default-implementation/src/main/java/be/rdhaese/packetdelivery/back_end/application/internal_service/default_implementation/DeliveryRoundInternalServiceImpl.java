@@ -108,7 +108,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
             packetsForRegionWithHighestPriority.addAll(
                     packetsForAdjacentRegionWithHighestPriority
                             .subList(0,
-                                    amountOfPackets - packetsForRegionWithHighestPriority.size() - 1));
+                                    amountOfPackets - packetsForRegionWithHighestPriority.size()));
 
         } else {
             //If there are not too much packets, both collections can just be added together
@@ -234,6 +234,19 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
     public Boolean startRound(Long roundId) {
         DeliveryRound deliveryRound = roundRepository.getOne(roundId);
         deliveryRound.setRoundStatus(RoundStatus.STARTED);
+        roundRepository.flush();
+
+        //Return true if application makes it to here
+        return true;
+    }
+
+    @Override
+    public Boolean addRemark(Long roundId, String remark) {
+        DeliveryRound round = roundRepository.getOne(roundId);
+        Remark newRemark = new Remark();
+        newRemark.setRemark(remark);
+        newRemark.setTimeAdded(new Date());
+        round.getRemarks().add(newRemark);
         roundRepository.flush();
 
         //Return true if application makes it to here
