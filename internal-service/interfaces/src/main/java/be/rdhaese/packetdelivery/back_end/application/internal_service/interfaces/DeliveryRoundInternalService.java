@@ -19,4 +19,6 @@ public interface DeliveryRoundInternalService {
     Boolean endRound(Long roundId);
 
     Boolean startRound(Long roundId);
+
+    Boolean addRemark(Long roundId, String remark);
 }

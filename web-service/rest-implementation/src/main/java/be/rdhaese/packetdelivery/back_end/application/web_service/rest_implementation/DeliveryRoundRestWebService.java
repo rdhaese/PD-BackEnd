@@ -58,9 +58,9 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
     }
 
     @Override
-    public Boolean addRemark(Long roundId, String remark) {
-//TODO
-        return null;
+    @RequestMapping(value = "/add-remark/{roundId}", method = RequestMethod.GET)
+    public Boolean addRemark(@PathVariable("roundId") Long roundId, @RequestParam String remark) {
+       return roundService.addRemark(roundId, remark);
     }
 
     @Override
