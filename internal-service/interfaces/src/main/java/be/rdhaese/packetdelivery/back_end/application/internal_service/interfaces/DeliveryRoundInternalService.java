@@ -21,4 +21,6 @@ public interface DeliveryRoundInternalService {
     Boolean startRound(Long roundId);
 
     Boolean addRemark(Long roundId, String remark);
+
+    Boolean cannotDeliver(Long roundId, Packet packet, String reason);
 }
