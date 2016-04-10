@@ -18,7 +18,7 @@ public class LocationUpdate extends AbstractEntity {
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    private Date timeCreated;
+    private Date timeCreated = new Date();
 
     @Embedded
     private LongLat longLat;
