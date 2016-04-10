@@ -285,10 +285,31 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         deliveryRound.getPackets().remove(packet);
         roundRepository.flush();
 
+        //Remove packet from system
         packet = packetRepository.getPacket(packet.getPacketId());
         packetRepository.delete(packet);
 
         //Todo send mails to stakeholders
         System.out.println(packet.getPacketId());
+
+        //Return true if application makes it to here
+        return true;
+    }
+
+    @Override
+    public Boolean addLocationUpdate(Long roundId, LongLat longLat) {
+        //Create LocationUpdate for LongLat
+        LocationUpdate locationUpdate = new LocationUpdate();
+        locationUpdate.setLongLat(longLat);
+
+        //Get round
+        DeliveryRound round = roundRepository.getOne(roundId);
+
+        //Add LocationUpdate to it
+        round.getLocationUpdates().add(locationUpdate);
+        roundRepository.flush();
+
+        //Return true if application makes it to here
+        return true;
     }
 }

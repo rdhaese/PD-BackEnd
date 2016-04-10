@@ -1,5 +1,6 @@
 package be.rdhaese.packetdelivery.back_end.application.internal_service.interfaces;
 
+import be.rdhaese.packetdelivery.back_end.application.model.LongLat;
 import be.rdhaese.packetdelivery.back_end.application.model.Packet;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface DeliveryRoundInternalService {
     Boolean cannotDeliver(Long roundId, Packet packet, String reason);
 
     Boolean deliver(Long roundId, Packet packet);
+
+    Boolean addLocationUpdate(Long roundId, LongLat longLat);
 }

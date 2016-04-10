@@ -3,6 +3,7 @@ package be.rdhaese.packetdelivery.back_end.application.web_service.rest_implemen
 
 import be.rdhaese.packetdelivery.back_end.application.internal_service.interfaces.DeliveryRoundInternalService;
 import be.rdhaese.packetdelivery.back_end.application.mapper.interfaces.Mapper;
+import be.rdhaese.packetdelivery.back_end.application.model.LongLat;
 import be.rdhaese.packetdelivery.back_end.application.model.Packet;
 import be.rdhaese.packetdelivery.back_end.application.web_service.interfaces.DeliveryRoundWebService;
 import be.rdhaese.packetdelivery.dto.LongLatDTO;
@@ -27,6 +28,9 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
     @Autowired
     private Mapper<Packet, PacketDTO> packetMapper;
 
+    @Autowired
+    private Mapper<LongLat, LongLatDTO> longLatMapper;
+
     @Override
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public Long newRound(@RequestParam int amountOfPackets) {
@@ -41,7 +45,7 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
 
     @Override
     @RequestMapping(value = "/mark-as-lost/{roundId}", method = RequestMethod.POST)
-    public Boolean markAsLost(@PathVariable("roundId") Long roundId, @RequestBody PacketDTO packet) {
+    public Boolean markAsLost(@PathVariable Long roundId, @RequestBody PacketDTO packet) {
         return roundService.markAsLost(roundId, packetMapper.mapToBus(packet));
     }
 
@@ -60,14 +64,14 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
 
     @Override
     @RequestMapping(value = "/add-remark/{roundId}", method = RequestMethod.GET)
-    public Boolean addRemark(@PathVariable("roundId") Long roundId, @RequestParam String remark) {
+    public Boolean addRemark(@PathVariable Long roundId, @RequestParam String remark) {
        return roundService.addRemark(roundId, remark);
     }
 
     @Override
-    public Boolean addLocationUpdate(Long roundId, LongLatDTO longLatDTO) {
-//TODO
-        return null;
+    @RequestMapping(value = "/add-location-update/{roundId}", method = RequestMethod.POST)
+    public Boolean addLocationUpdate(@PathVariable Long roundId, @RequestBody LongLatDTO longLatDTO) {
+        return roundService.addLocationUpdate(roundId, longLatMapper.mapToBus(longLatDTO));
     }
 
     @Override
