@@ -1,16 +1,20 @@
 package be.rdhaese.packetdelivery.back_end.application.internal_service.default_implementation;
 
+import be.rdhaese.packetdelivery.back_end.application.internal_service.interfaces.CompanyContactDetailsInternalService;
 import be.rdhaese.packetdelivery.back_end.application.internal_service.interfaces.DeliveryRoundInternalService;
+import be.rdhaese.packetdelivery.back_end.application.internal_service.util.AddressToGoogleApiStringConverter;
 import be.rdhaese.packetdelivery.back_end.application.internal_service.util.RegionWithPriority;
 import be.rdhaese.packetdelivery.back_end.application.model.*;
 import be.rdhaese.packetdelivery.back_end.application.persistence.jpa_repositories.DeliveryRoundJpaRepository;
 import be.rdhaese.packetdelivery.back_end.application.persistence.jpa_repositories.PacketJpaRepository;
 import be.rdhaese.packetdelivery.back_end.application.persistence.jpa_repositories.RegionJpaRepository;
+import com.google.maps.DirectionsApi;
+import com.google.maps.DirectionsApiRequest;
+import com.google.maps.GeoApiContext;
+import com.google.maps.model.DirectionsRoute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import sun.reflect.Reflection;
 
 import java.util.*;
 
@@ -52,6 +56,15 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
     @Autowired
     @Qualifier("regionWithPriorityOnRegionNameComparator")
     private Comparator<RegionWithPriority> regionWithPriorityOnRegionNameComparator;
+
+    @Autowired
+    private CompanyContactDetailsInternalService companyContactDetailsInternalService;
+
+    @Autowired
+    private AddressToGoogleApiStringConverter addressConverter;
+
+    @Autowired
+    private GeoApiContext geoApiContext;
 
     @Override
     public Long createNewRound(int amountOfPackets) {
@@ -205,10 +218,43 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
     }
 
     @Override
-    public List<Packet> getPackets(Long roundId) {
+    public List<Packet> getPackets(Long roundId) throws Exception {
+        //Get packets for roundId
         List<Packet> packets = roundRepository.getOne(roundId).getPackets();
-        //TODO let google sort determine best order to deliver
-        return packets;
+
+        //let google determine the best order to deliver
+        //Convert company address to string that google API can handle
+        String companyAddress = addressConverter.convert(companyContactDetailsInternalService.get().getAddress());
+        //Create the DirectionsApiRequest
+        //This will give us directions, thanks to optimizeWaypoints(true) the addresses in the directions will be sorted to
+        //a route Google thinks is good. We can use that order to sort our packets in the order they should be delivered
+        DirectionsApiRequest directionsApiRequest =
+                //companyAddress is the place to start and return to
+                DirectionsApi.getDirections(geoApiContext, companyAddress, companyAddress)
+                        //Alternative routes are not necessary
+                        .alternatives(false)
+                        //Makes google sort the addresses
+                        .optimizeWaypoints(true);
+
+        //Create waypoints array (packet addresses in string format)
+        String[] waypoints = new String[packets.size()];
+        for (int index = 0; index < packets.size(); index++) {
+            waypoints[index] = addressConverter.convert(packets.get(index).getDeliveryInfo().getClientInfo().getAddress());
+        }
+
+        //Set the waypoints to the request
+        directionsApiRequest.waypoints(waypoints);
+
+        //Make the request and get the routes
+        DirectionsRoute[] directionsRoutes = directionsApiRequest.await().routes;
+
+        //Use the waypoint order to sort the packets
+        List<Packet> packetsSortedOnOrderToDeliver = new ArrayList<>();
+        for (Integer waypoint : directionsRoutes[0].waypointOrder) {
+            packetsSortedOnOrderToDeliver.add(packets.get(waypoint));
+        }
+
+        return packetsSortedOnOrderToDeliver;
     }
 
     @Override
@@ -264,7 +310,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         //Increase priority of packet
         //If priority > MAX_PRIORITY -> set status to PROBLEMATIC
         packet = packetRepository.getPacket(packet.getPacketId());
-        if (packet.getPriority() >= MAX_PRIORITY){
+        if (packet.getPriority() >= MAX_PRIORITY) {
             packet.setPacketStatus(PacketStatus.PROBLEMATIC);
         } else {
             packet.setPriority(packet.getPriority() + 1);
@@ -273,7 +319,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
         //TODO mail reason to stakeholders
         System.out.println(reason);
-        
+
         //Return true if application makes it to here
         return true;
     }

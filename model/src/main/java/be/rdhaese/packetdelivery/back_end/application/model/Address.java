@@ -109,6 +109,7 @@ public class Address extends AbstractEntity {
 
     @Override
     public String toString() {
-        return null;
+
+        return String.format("Address [%s %s %s, %s %s]", street, number, mailbox, postalCode, city);
     }
 }

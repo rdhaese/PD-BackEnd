@@ -13,7 +13,7 @@ import java.util.List;
 public interface DeliveryRoundInternalService {
     Long createNewRound(int amountOfPackets);
 
-    List<Packet> getPackets(Long roundId);
+    List<Packet> getPackets(Long roundId) throws Exception;
 
     Boolean markAsLost(Long roundId, Packet packet);
 

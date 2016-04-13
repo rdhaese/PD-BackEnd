@@ -39,7 +39,7 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
 
     @Override
     @RequestMapping(value = "/packets", method = RequestMethod.GET)
-    public List<PacketDTO> getPackets(@RequestParam Long roundId) {
+    public List<PacketDTO> getPackets(@RequestParam Long roundId) throws Exception{
         return (List<PacketDTO>) packetMapper.mapToDto(roundService.getPackets(roundId));
     }
 

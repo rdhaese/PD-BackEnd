@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface DeliveryRoundWebService {
     Long newRound(int amountOfPackets);
-    List<PacketDTO> getPackets(Long roundId);
+    List<PacketDTO> getPackets(Long roundId) throws Exception;
     Boolean markAsLost(Long roundId, PacketDTO packet);
     Boolean deliver(Long roundId, PacketDTO packetDTO);
     Boolean cannotDeliver(Long roundId, PacketDTO packetDTO, String reason);

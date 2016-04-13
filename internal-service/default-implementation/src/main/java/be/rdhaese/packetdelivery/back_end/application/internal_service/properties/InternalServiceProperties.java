@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
  * @author Robin D'Haese
  */
 @Component
-@ConfigurationProperties(locations = "classpath:long-lat-service.properties")
-public class LongLatServiceProperties {
+@ConfigurationProperties(locations = "classpath:internal-service.properties")
+public class InternalServiceProperties {
     private String apiKey;
     private Double defaultLongitude;
     private Double defaultLatitude;
