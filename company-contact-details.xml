@@ -12,7 +12,7 @@ aa</about-text>
         <postal-code>9160</postal-code>
         <street>Brouwerijstraat</street>
     </address>
-    <company-name>a</company-name>
+    <company-name>PacketDelivery</company-name>
     <email-addresses>
         <email>
             <email-address>aa</email-address>
@@ -29,6 +29,10 @@ aa</about-text>
         <phone>
             <phone-number>aaa</phone-number>
             <phone-title>aaa</phone-title>
+        </phone>
+        <phone>
+            <phone-number>aaa</phone-number>
+            <phone-title>aaaaaa</phone-title>
         </phone>
     </phone-numbers>
 </contact-details>
