@@ -2,7 +2,9 @@ package be.rdhaese.packetdelivery.back_end.application.internal_service.default_
 
 import be.rdhaese.packetdelivery.back_end.application.internal_service.interfaces.CompanyContactDetailsInternalService;
 import be.rdhaese.packetdelivery.back_end.application.internal_service.interfaces.DeliveryRoundInternalService;
+import be.rdhaese.packetdelivery.back_end.application.internal_service.properties.InternalServiceProperties;
 import be.rdhaese.packetdelivery.back_end.application.internal_service.util.AddressToGoogleApiStringConverter;
+import be.rdhaese.packetdelivery.back_end.application.internal_service.util.Mailer;
 import be.rdhaese.packetdelivery.back_end.application.internal_service.util.RegionWithPriority;
 import be.rdhaese.packetdelivery.back_end.application.model.*;
 import be.rdhaese.packetdelivery.back_end.application.persistence.jpa_repositories.DeliveryRoundJpaRepository;
@@ -65,6 +67,12 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
     @Autowired
     private GeoApiContext geoApiContext;
+
+    @Autowired
+    private Mailer mailer;
+
+    @Autowired
+    private InternalServiceProperties properties;
 
     @Override
     public Long createNewRound(int amountOfPackets) {
@@ -266,6 +274,13 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         roundRepository.flush();
         packetRepository.flush();
 
+        //mail to stakeholders
+        String subject = properties.getPacketLostSubject();
+        String message = properties.getPacketLostText()
+                .replaceAll("[packetId]", packet.getPacketId());
+        mailer.send(packet.getClientInfo().getContactDetails().getEmails().get(0), subject, message);
+        mailer.send(packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0), subject, message);
+
         //Return true if application makes it to here
         return true;
     }
@@ -283,6 +298,15 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         DeliveryRound deliveryRound = roundRepository.getOne(roundId);
         deliveryRound.setRoundStatus(RoundStatus.STARTED);
         roundRepository.flush();
+
+        //Send mail to stakeholders of packets
+        String subject = properties.getPacketDepartedText();
+        for (Packet packet : deliveryRound.getPackets()){
+            String message = properties.getPacketDepartedText().replaceAll("[packetId]", packet.getPacketId());
+            mailer.send(packet.getClientInfo().getContactDetails().getEmails().get(0), subject, message);
+            mailer.send(packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0), subject, message);
+        }
+
 
         //Return true if application makes it to here
         return true;
@@ -317,8 +341,14 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         }
         packetRepository.flush();
 
-        //TODO mail reason to stakeholders
-        System.out.println(reason);
+        //mail reason to stakeholders
+        String subject = properties.getPacketNotDeliveredSubject();
+        String message = properties.getPacketNotDeliveredText()
+                .replaceAll("[packetId]", packet.getPacketId())
+                .replaceAll("[reason]", reason);
+        mailer.send(packet.getClientInfo().getContactDetails().getEmails().get(0), subject, message);
+        mailer.send(packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0), subject, message);
+
 
         //Return true if application makes it to here
         return true;
@@ -335,8 +365,14 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         packet = packetRepository.getPacket(packet.getPacketId());
         packetRepository.delete(packet);
 
-        //Todo send mails to stakeholders
-        System.out.println(packet.getPacketId());
+
+        //mail to stakeholders
+        String subject = properties.getPacketDeliveredSubject();
+        String message = properties.getPacketDeliveredText()
+                .replaceAll("[packetId]", packet.getPacketId());
+        mailer.send(packet.getClientInfo().getContactDetails().getEmails().get(0), subject, message);
+        mailer.send(packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0), subject, message);
+
 
         //Return true if application makes it to here
         return true;
