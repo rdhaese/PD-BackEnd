@@ -2,7 +2,17 @@ package be.rdhaese.packetdelivery.back_end.application.internal_service.default_
 
 import be.rdhaese.packetdelivery.back_end.application.internal_service.interfaces.AuthenticationInternalService;
 import be.rdhaese.packetdelivery.back_end.application.internal_service.interfaces.enums.AuthenticationResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ldap.core.AttributesMapper;
+import org.springframework.ldap.core.ContextMapper;
+import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.ldap.filter.AndFilter;
+import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.stereotype.Service;
+
+import javax.naming.NamingException;
+import javax.naming.directory.Attributes;
+import java.util.List;
 
 /**
  * Created on 22/12/2015.
@@ -12,12 +22,33 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationInternalServiceImpl implements AuthenticationInternalService {
 
+    @Autowired
+    private LdapTemplate ldapTemplate;
+
     public AuthenticationResult authenticate(String username, String password) {
-        //TODO connect with Active Directory
-        System.out.println("Mocked connecting to Active Directory");
-        if ("noob".equals(username.trim().toLowerCase())){
+        //First check if the given username exists
+        List<String> users =ldapTemplate.search("", String.format("(sAMAccountName=%s)", username), new AttributesMapper<String>() {
+            @Override
+            public String mapFromAttributes(Attributes attributes) throws NamingException {
+                System.out.println(attributes.toString());
+                return (String) attributes.get("sAMAccountName").get();
+            }
+        });
+
+        //If none returned
+        if (users.size() == 0){
+            //--> User not known to system
             return AuthenticationResult.NOT_KNOWN;
         }
+
+        //Authenticate and return AuthenticationResult according to result
+        if (!ldapTemplate.authenticate("", String.format("(sAMAccountName=%s)", username), password)){
+            //-->wrong password was entered
+            return AuthenticationResult.WRONG_PASSWORD;
+        }
+
+        //All tests passed --> permission is granted
         return AuthenticationResult.GRANTED;
     }
+
 }
