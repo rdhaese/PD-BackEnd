@@ -125,7 +125,10 @@ public class PacketMapper extends AbstractMapper<Packet, PacketDTO> {
     }
 
     private void mapDeliverRegionToDto(Region region, PacketDTO packetDTO) {
-        packetDTO.setDeliveryRegionName(region.getName());
+        packetDTO.setDeliveryRegionNameNl(region.getName().getNl());
+        packetDTO.setDeliveryRegionNameFr(region.getName().getFr());
+        packetDTO.setDeliveryRegionNameDe(region.getName().getDe());
+        packetDTO.setDeliveryRegionNameEn(region.getName().getEn());
         packetDTO.setDeliveryRegionCode(region.getRegionCode());
     }
 

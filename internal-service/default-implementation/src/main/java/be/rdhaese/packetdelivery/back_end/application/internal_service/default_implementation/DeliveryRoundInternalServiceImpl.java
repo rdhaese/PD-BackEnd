@@ -56,8 +56,8 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
     private Comparator<RegionWithPriority> regionWithPriorityOnPacketCountComparator;
 
     @Autowired
-    @Qualifier("regionWithPriorityOnRegionNameComparator")
-    private Comparator<RegionWithPriority> regionWithPriorityOnRegionNameComparator;
+    @Qualifier("regionWithPriorityOnRegionCodeComparator")
+    private Comparator<RegionWithPriority> regionWithPriorityOnRegionCodeComparator;
 
     @Autowired
     private CompanyContactDetailsInternalService companyContactDetailsInternalService;
@@ -207,7 +207,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
                         .thenComparing(
                                 regionWithPriorityOnPacketCountComparator
                                         .thenComparing(
-                                                regionWithPriorityOnRegionNameComparator)));
+                                                regionWithPriorityOnRegionCodeComparator)));
 
         //Return the first element in the list = region with highest priority thanks to sort
         return regionsWithPriority.get(0).getRegion();

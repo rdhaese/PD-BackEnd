@@ -8,6 +8,9 @@ import be.rdhaese.packetdelivery.dto.RegionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+import java.util.Map;
+
 /**
  * Created on 25/12/2015.
  *
@@ -26,13 +29,17 @@ public class RegionMapper extends AbstractMapper<Region, RegionDTO> {
         return regionsInternalService.getRegionFor(dto.getCode());
     }
 
+
     @Override
     public RegionDTO mapToDto(Region busObj) {
         if (busObj == null){
             return null;
         }
         RegionDTO regionDTO = new RegionDTO();
-        regionDTO.setName(busObj.getName());
+        regionDTO.setNameNl(busObj.getName().getNl());
+        regionDTO.setNameFr(busObj.getName().getFr());
+        regionDTO.setNameDe(busObj.getName().getDe());
+        regionDTO.setNameEn(busObj.getName().getEn());
         regionDTO.setCode(busObj.getRegionCode());
         return regionDTO;
     }

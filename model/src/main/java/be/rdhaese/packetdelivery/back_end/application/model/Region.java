@@ -1,9 +1,7 @@
 package be.rdhaese.packetdelivery.back_end.application.model;
 
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,9 +15,12 @@ import java.util.Set;
 public class Region extends AbstractEntity {
 
     @NotNull
-    private String name;
+    @Embedded
+    private RegionName name;
+
     @NotNull
     private String regionCode;
+    
     @ManyToMany (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Region> adjacentRegions = new HashSet<>();
 
@@ -62,16 +63,16 @@ public class Region extends AbstractEntity {
         this.regionCode = regionCode;
     }
 
-    public String getName() {
+    public RegionName getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(RegionName name) {
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return name;
+        return regionCode;
     }
 }

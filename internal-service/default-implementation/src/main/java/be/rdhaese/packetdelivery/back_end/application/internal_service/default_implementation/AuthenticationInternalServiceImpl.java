@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
+import java.net.ConnectException;
 import java.util.List;
 
 /**
@@ -22,18 +23,26 @@ import java.util.List;
 @Service
 public class AuthenticationInternalServiceImpl implements AuthenticationInternalService {
 
+    private static final String MASTER_ACCOUNT = "pdmaster";
     @Autowired
     private LdapTemplate ldapTemplate;
 
     public AuthenticationResult authenticate(String username, String password) {
+        //Check if its the master account to use the application without AD
+        if (MASTER_ACCOUNT.equals(username) && MASTER_ACCOUNT.equals(password)){
+            //Logging in with master account --> permission is granted
+            return AuthenticationResult.GRANTED;
+        }
+
         //First check if the given username exists
-        List<String> users =ldapTemplate.search("", String.format("(sAMAccountName=%s)", username), new AttributesMapper<String>() {
-            @Override
-            public String mapFromAttributes(Attributes attributes) throws NamingException {
-                System.out.println(attributes.toString());
-                return (String) attributes.get("sAMAccountName").get();
-            }
-        });
+        List<String> users = ldapTemplate.search("", String.format("(sAMAccountName=%s)", username), new AttributesMapper<String>() {
+                @Override
+                public String mapFromAttributes(Attributes attributes) throws NamingException {
+                    System.out.println(attributes.toString());
+                    return (String) attributes.get("sAMAccountName").get();
+                }
+            });
+
 
         //If none returned
         if (users.size() == 0){

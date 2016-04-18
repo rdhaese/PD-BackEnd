@@ -12,9 +12,9 @@ import static junit.framework.Assert.assertTrue;
  *
  * @author Robin D'Haese
  */
-public class RegionWithPriorityOnRegionNameComparatorTest {
+public class RegionWithPriorityOnRegionCodeComparatorTest {
 
-    private RegionWithPriorityOnRegionNameComparator comparator = new RegionWithPriorityOnRegionNameComparator();
+    private RegionWithPriorityOnRegionCodeComparator comparator = new RegionWithPriorityOnRegionCodeComparator();
     private RegionWithPriority regionWithPriority1;
     private RegionWithPriority regionWithPriority2;
     private RegionWithPriority regionWithPriority3;
@@ -22,15 +22,15 @@ public class RegionWithPriorityOnRegionNameComparatorTest {
     @Before
     public void setUp(){
         Region testRegion1 = new Region();
-        testRegion1.setName("b");
+        testRegion1.setRegionCode("b");
         regionWithPriority1 = new RegionWithPriority(testRegion1);
 
         Region testRegion2 = new Region();
-        testRegion2.setName("a");
+        testRegion2.setRegionCode("a");
         regionWithPriority2 = new RegionWithPriority(testRegion2);
 
         Region testRegion3 = new Region();
-        testRegion3.setName("b");
+        testRegion3.setRegionCode("b");
         regionWithPriority3 = new RegionWithPriority(testRegion3);
     }
 

@@ -32,7 +32,7 @@ public class DeliveryAddressMapperImpl implements DeliveryAddressMapper {
         address.setCity(dto.getCity());
         address.setPostalCode(dto.getPostalCode());
 
-        RegionDTO regionDTO = new RegionDTO(dto.getRegionName(), dto.getRegionCode());
+        RegionDTO regionDTO = new RegionDTO(dto.getRegionNameNl(), dto.getRegionNameFr(), dto.getRegionNameDe(), dto.getRegionNameEn(), dto.getRegionCode());
         Region region = regionMapper.mapToBus(regionDTO);
 
         objects[0] = dto.getPacketId();
@@ -50,7 +50,10 @@ public class DeliveryAddressMapperImpl implements DeliveryAddressMapper {
         dto.setMailbox(busObj.getMailbox());
         dto.setCity(busObj.getCity());
         dto.setPostalCode(busObj.getPostalCode());
-        dto.setRegionName(region.getName());
+        dto.setRegionNameNl(region.getName().getNl());
+        dto.setRegionNameFr(region.getName().getFr());
+        dto.setRegionNameDe(region.getName().getDe());
+        dto.setRegionNameEn(region.getName().getEn());
         dto.setRegionCode(region.getRegionCode());
         return dto;
     }

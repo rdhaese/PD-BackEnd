@@ -10,10 +10,10 @@ import java.util.Comparator;
  *
  * @author Robin D'Haese
  */
-@Component("regionWithPriorityOnRegionNameComparator")
-public class RegionWithPriorityOnRegionNameComparator implements Comparator<RegionWithPriority> {
+@Component("regionWithPriorityOnRegionCodeComparator")
+public class RegionWithPriorityOnRegionCodeComparator implements Comparator<RegionWithPriority> {
     @Override
     public int compare(RegionWithPriority o1, RegionWithPriority o2) {
-        return o1.getRegion().getName().compareTo(o2.getRegion().getName());
+        return o1.getRegion().getRegionCode().compareTo(o2.getRegion().getRegionCode());
     }
 }
