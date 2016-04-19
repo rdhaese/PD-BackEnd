@@ -18,7 +18,7 @@ public interface ProblematicPacketsInternalService {
 
      void reSend(String packetId);
 
-     void returnToSender(String packetId);
+     void returnToSender(String packetId, Region region);
 
      Address getProblematicPacketAddress(String packetId);
 

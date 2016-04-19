@@ -16,7 +16,7 @@ import java.util.Date;
  * @author Robin D'Haese
  */
 @Service
-public class ProblematicPacketsServiceImpl implements ProblematicPacketsInternalService {
+public class ProblematicPacketsInternalServiceImpl implements ProblematicPacketsInternalService {
 
     @Autowired
     private PacketJpaRepository packetJpaRepository;
@@ -40,8 +40,9 @@ public class ProblematicPacketsServiceImpl implements ProblematicPacketsInternal
     }
 
     @Override
-    public void returnToSender(String packetId) {
+    public void returnToSender(String packetId, Region region) {
         Packet packet = packetJpaRepository.getPacket(packetId);
+        packet.getDeliveryInfo().setRegion(region); //TODO maybe this must come from persistence context...
         ClientInfo newDeliveryInfo = packet.getClientInfo();
         ClientInfo oldDeliveryInfo = packet.getDeliveryInfo().getClientInfo();
         oldDeliveryInfo.getContactDetails().setName(newDeliveryInfo.getContactDetails().getName());

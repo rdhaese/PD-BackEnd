@@ -11,10 +11,7 @@ import be.rdhaese.packetdelivery.dto.DeliveryAddressDTO;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
 import be.rdhaese.packetdelivery.dto.RegionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -96,9 +93,9 @@ public class ProblematicPacketsRestWebService implements ProblematicPacketsWebSe
     }
 
     @Override
-    @RequestMapping(value = "/return-to-sender", method = RequestMethod.POST)
-    public Boolean returnToSender(@RequestBody String packetId) {
-        problematicPacketsInternalService.returnToSender(packetId);
+    @RequestMapping(value = "/return-to-sender/{packetId}", method = RequestMethod.POST)
+    public Boolean returnToSender(@PathVariable String packetId, @RequestBody RegionDTO regionDTO) {
+        problematicPacketsInternalService.returnToSender(packetId, regionMapper.mapToBus(regionDTO));
         return true;
     }
 
