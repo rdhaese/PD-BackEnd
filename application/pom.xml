@@ -15,13 +15,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>be.rdhaese.packetdelivery.back-end.web-service</groupId>
-            <artifactId>rest-implementation</artifactId>
+            <groupId>be.rdhaese.packetdelivery.back-end.persistence</groupId>
+            <artifactId>jpa-repositories</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>be.rdhaese.packetdelivery.back-end.persistence</groupId>
-            <artifactId>jpa-repositories</artifactId>
+            <groupId>be.rdhaese.packetdelivery.back-end.web-service</groupId>
+            <artifactId>rest-implementation</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
