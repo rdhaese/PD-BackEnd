@@ -8,6 +8,7 @@ import org.springframework.ldap.core.ContextMapper;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.EqualsFilter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.NamingException;
@@ -26,10 +27,12 @@ public class AuthenticationInternalServiceImpl implements AuthenticationInternal
     private static final String MASTER_ACCOUNT = "pdmaster";
     @Autowired
     private LdapTemplate ldapTemplate;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public AuthenticationResult authenticate(String username, String password) {
         //Check if its the master account to use the application without AD
-        if (MASTER_ACCOUNT.equals(username) && MASTER_ACCOUNT.equals(password)){
+        if (MASTER_ACCOUNT.equals(username) && passwordEncoder.matches(MASTER_ACCOUNT, password)){
             //Logging in with master account --> permission is granted
             return AuthenticationResult.GRANTED;
         }

@@ -11,6 +11,8 @@ import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.naming.ldap.LdapContext;
 
@@ -42,5 +44,10 @@ public GeoApiContext geoApiContext(){
             System.out.println(s);
         }
         return new LdapTemplate(contextSource);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder(11);
     }
 }

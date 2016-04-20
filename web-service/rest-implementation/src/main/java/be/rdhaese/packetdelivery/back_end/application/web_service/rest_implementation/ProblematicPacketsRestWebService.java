@@ -67,8 +67,8 @@ public class ProblematicPacketsRestWebService implements ProblematicPacketsWebSe
     }
 
     @Override
-    @RequestMapping(value = "/for-id", method = RequestMethod.GET)
-    public PacketDTO getProblematicPacket(String packetId) {
+    @RequestMapping(value = "/for-id/{packetId}", method = RequestMethod.GET)
+    public PacketDTO getProblematicPacket(@PathVariable String packetId) {
 
         return packetMapper.mapToDto(problematicPacketsInternalService.getProblematicPacket(packetId));
 
@@ -100,8 +100,8 @@ public class ProblematicPacketsRestWebService implements ProblematicPacketsWebSe
     }
 
     @Override
-    @RequestMapping(value = "/delivery-address", method = RequestMethod.GET)
-    public DeliveryAddressDTO getDeliveryAddress(String packetId){
+    @RequestMapping(value = "/delivery-address/{packetId}", method = RequestMethod.GET)
+    public DeliveryAddressDTO getDeliveryAddress(@PathVariable String packetId){
         return deliveryAddressMapper.mapToDto(
                 problematicPacketsInternalService.getProblematicPacketAddress(packetId),
                 problematicPacketsInternalService.getProblematicPacketRegion(packetId),

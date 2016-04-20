@@ -32,14 +32,14 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
     private Mapper<LongLat, LongLatDTO> longLatMapper;
 
     @Override
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public Long newRound(@RequestParam int amountOfPackets) {
+    @RequestMapping(value = "/new/{amountOfPackets}", method = RequestMethod.GET)
+    public Long newRound(@PathVariable int amountOfPackets) {
         return roundService.createNewRound(amountOfPackets);
     }
 
     @Override
-    @RequestMapping(value = "/packets", method = RequestMethod.GET)
-    public List<PacketDTO> getPackets(@RequestParam Long roundId) throws Exception{
+    @RequestMapping(value = "/packets/{roundId}", method = RequestMethod.GET)
+    public List<PacketDTO> getPackets(@PathVariable Long roundId) throws Exception{
         return (List<PacketDTO>) packetMapper.mapToDto(roundService.getPackets(roundId));
     }
 
@@ -56,15 +56,15 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
     }
 
     @Override
-    @RequestMapping(value = "/cannot-deliver/{roundId}", method = RequestMethod.POST)
-    public Boolean cannotDeliver(@PathVariable Long roundId, @RequestBody PacketDTO packetDTO, @RequestParam String reason) {
+    @RequestMapping(value = "/cannot-deliver/{roundId}/{reason}", method = RequestMethod.POST)
+    public Boolean cannotDeliver(@PathVariable Long roundId, @RequestBody PacketDTO packetDTO, @PathVariable String reason) {
         Packet packet = packetMapper.mapToBus(packetDTO);
         return roundService.cannotDeliver(roundId, packet, reason);
     }
 
     @Override
-    @RequestMapping(value = "/add-remark/{roundId}", method = RequestMethod.GET)
-    public Boolean addRemark(@PathVariable Long roundId, @RequestParam String remark) {
+    @RequestMapping(value = "/add-remark/{roundId}/{remark}", method = RequestMethod.GET)
+    public Boolean addRemark(@PathVariable Long roundId, @PathVariable String remark) {
        return roundService.addRemark(roundId, remark);
     }
 
@@ -75,14 +75,14 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
     }
 
     @Override
-    @RequestMapping(value = "/end", method = RequestMethod.GET)
-    public Boolean endRound(@RequestParam Long roundId) {
+    @RequestMapping(value = "/end/{roundId}", method = RequestMethod.GET)
+    public Boolean endRound(@PathVariable Long roundId) {
         return roundService.endRound(roundId);
     }
 
     @Override
-    @RequestMapping(value = "/start", method = RequestMethod.GET)
-    public Boolean startRound(@RequestParam Long roundId) {
+    @RequestMapping(value = "/start/{roundId}", method = RequestMethod.GET)
+    public Boolean startRound(@PathVariable Long roundId) {
         return roundService.startRound(roundId);
     }
 }
