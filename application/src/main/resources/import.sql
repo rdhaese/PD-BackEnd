@@ -98,7 +98,7 @@ INSERT INTO packet_delivery.delivery_info (id,version,client_info_id,region_id) 
 /*Client is sending */
 INSERT INTO packet_delivery.contact_details (id,version,name) VALUES (2,0,'Bol.com');
 INSERT INTO packet_delivery.address (id,version,city,mailbox,number,postal_code,street) VALUES (2,0,'Gent','12','3','9000','Markt');
-INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (2,'info@bol.com');
+INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (2,'info-1@bol.com');
 INSERT INTO packet_delivery.contact_details_phone_numbers (contact_details_id,phone_numbers) VALUES (2,'0900000000');
 INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_id) VALUES (2,0,2,2);
 
@@ -108,8 +108,8 @@ INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_ch
 
 /* Client to deliver to */
 INSERT INTO packet_delivery.contact_details(id,version,name) VALUES (3,0,'a');
-INSERT INTO packet_delivery.address(id,version,city,mailbox,number,postal_code,street) VALUES (3,0,'Schendelbeke','A','77','9506','Dagmoedstraat');
-INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (3,'a');
+INSERT INTO packet_delivery.address(id,version,city,number,postal_code,street) VALUES (3,0,'Aalst','7','9300','Aalst');
+INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (3,'r.dhaese92@gmail.com');
 INSERT INTO packet_delivery.contact_details_phone_numbers(contact_details_id,phone_numbers) VALUES (3,'a');
 INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_id) VALUES (3,0,3,3);
 INSERT INTO packet_delivery.delivery_info (id,version,client_info_id,region_id) VALUES(3,0,3,2);
@@ -127,8 +127,8 @@ INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_ch
 
 /* Client to deliver to */
 INSERT INTO packet_delivery.contact_details(id,version,name) VALUES (5,0,'c');
-INSERT INTO packet_delivery.address(id,version,city,number,postal_code,street) VALUES (5,0,'Aalst','4','9300','Graanmarkt');
-INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (5,'c');
+INSERT INTO packet_delivery.address(id,version,city,number,postal_code,street) VALUES (5,0,'Brakel','7','9660','Parkweg');
+INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (5,'r.dhaese92@gmail.com');
 INSERT INTO packet_delivery.contact_details_phone_numbers(contact_details_id,phone_numbers) VALUES (5,'c');
 INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_id) VALUES (5,0,5,5);
 INSERT INTO packet_delivery.delivery_info (id,version,client_info_id,region_id) VALUES(5,0,5,3);
@@ -136,7 +136,7 @@ INSERT INTO packet_delivery.delivery_info (id,version,client_info_id,region_id) 
 /*Client that is sending */
 INSERT INTO packet_delivery.contact_details (id,version,name) VALUES (6,0,'d');
 INSERT INTO packet_delivery.address (id,version,city,mailbox,number,postal_code,street) VALUES (6,0,'d','d','d','d','d');
-INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (6,'d');
+INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (6,'r.dhaese92@gmail.com');
 INSERT INTO packet_delivery.contact_details_phone_numbers (contact_details_id,phone_numbers) VALUES (6,'d');
 INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_id) VALUES (6,0,6,6);
 
@@ -147,7 +147,7 @@ INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_ch
 /* Client to deliver to */
 INSERT INTO packet_delivery.contact_details(id,version,name) VALUES (7,0,'e');
 INSERT INTO packet_delivery.address(id,version,city,number,postal_code,street) VALUES (7,0,'Stationsplein','4','9500','Geraardsbergen');
-INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (7,'e');
+INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (7,'r.dhaese92@gmail.com');
 INSERT INTO packet_delivery.contact_details_phone_numbers(contact_details_id,phone_numbers) VALUES (7,'e');
 INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_id) VALUES (7,0,7,7);
 INSERT INTO packet_delivery.delivery_info (id,version,client_info_id,region_id) VALUES(7,0,7,3);
@@ -164,8 +164,8 @@ INSERT INTO packet_delivery.packet (id,version,packet_id,packet_status,status_ch
 
 /* Client to deliver to */
 INSERT INTO packet_delivery.contact_details(id,version,name) VALUES (9,0,'g');
-INSERT INTO packet_delivery.address(id,version,city,mailbox,number,postal_code,street) VALUES (9,0,'Geraardsbergen','5','15','Markt');
-INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (9,'g');
+INSERT INTO packet_delivery.address(id,version,city,number,postal_code,street) VALUES (9,0,'Dendermonde','98','9200','Oude Vest');
+INSERT INTO packet_delivery.contact_details_emails (contact_details_id,emails) VALUES (9,'r.dhaese92@gmail.com');
 INSERT INTO packet_delivery.contact_details_phone_numbers(contact_details_id,phone_numbers) VALUES (9,'g');
 INSERT INTO packet_delivery.client_info (id,version,address_id,contact_details_id) VALUES (9,0,9,9);
 INSERT INTO packet_delivery.delivery_info (id,version,client_info_id,region_id) VALUES(9,0,9,2);

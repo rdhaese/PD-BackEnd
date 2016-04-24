@@ -14,7 +14,7 @@
 
   <packaging>jar</packaging>
 
-  <name>interfaces</name>
+  <name>back-end-mapper-interfaces</name>
 
   <dependencies>
     <dependency>

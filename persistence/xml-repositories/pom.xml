@@ -19,6 +19,6 @@
 
   <packaging>pom</packaging>
 
-  <name>xml-repositories</name>
+  <name>back-end-persistence-xml-repositories</name>
 
 </project>

@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>default-implementation</name>
+    <name>back-end-persistence-xml-repositories-default-implementation</name>
 
     <dependencies>
         <dependency>

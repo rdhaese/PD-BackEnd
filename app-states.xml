@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<appStates>
+    <appStates-entries>
+        <appState>
+            <activity>ongoing</activity>
+            <appId>1</appId>
+            <currentPacketIndex>0</currentPacketIndex>
+            <roundId>2</roundId>
+        </appState>
+    </appStates-entries>
+</appStates>

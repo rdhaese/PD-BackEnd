@@ -19,6 +19,6 @@
 
   <packaging>pom</packaging>
 
-  <name>persistence</name>
+  <name>back-end-persistence</name>
 
 </project>

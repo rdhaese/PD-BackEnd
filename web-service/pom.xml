@@ -15,10 +15,11 @@
     <modules>
         <module>interfaces</module>
         <module>rest-implementation</module>
+		<module>logging</module>
     </modules>
 
     <packaging>pom</packaging>
 
-    <name>web-service</name>
+    <name>back-end-web-service</name>
 
 </project>

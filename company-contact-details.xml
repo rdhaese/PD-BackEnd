@@ -15,24 +15,20 @@ aa</about-text>
     <company-name>PacketDelivery</company-name>
     <email-addresses>
         <email>
-            <email-address>aa</email-address>
+            <email-address>r.dhaese92@gmail.com</email-address>
             <email-title>aaaa</email-title>
         </email>
     </email-addresses>
     <fax-numbers>
         <fax>
-            <fax-title>aaa</fax-title>
+            <fax-title>0497/143999</fax-title>
             <fax-number>aaa</fax-number>
         </fax>
     </fax-numbers>
     <phone-numbers>
         <phone>
-            <phone-number>aaa</phone-number>
-            <phone-title>aaa</phone-title>
-        </phone>
-        <phone>
-            <phone-number>aaa</phone-number>
-            <phone-title>aaaaaa</phone-title>
+            <phone-number>0497/143999</phone-number>
+            <phone-title>Robin</phone-title>
         </phone>
     </phone-numbers>
 </contact-details>
