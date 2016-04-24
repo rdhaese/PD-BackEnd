@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @author Robin D'Haese
  */
 @Component
-@ConfigurationProperties(locations = "classpath:internal-service.properties")
+@ConfigurationProperties(prefix = "internal_service")
 public class InternalServiceProperties {
     private String apiKey;
     private Double defaultLongitude;

@@ -24,9 +24,6 @@ public class CompanyContactDetailsMapper extends AbstractMapper<CompanyContactDe
 
     @Override
     public CompanyContactDetails mapToBus(ContactDetailsDTO dto) {
-        if (dto == null){
-            return null;
-        }
         CompanyContactDetails companyContactDetails = new CompanyContactDetails();
         companyContactDetails.setCompanyName(dto.getCompanyName());
         companyContactDetails.setAboutText(dto.getAboutText());
@@ -82,9 +79,6 @@ public class CompanyContactDetailsMapper extends AbstractMapper<CompanyContactDe
 
     @Override
     public ContactDetailsDTO mapToDto(CompanyContactDetails busObj) {
-        if (busObj == null){
-            return null;
-        }
         ContactDetailsDTO contactDetailsDTO = new ContactDetailsDTO();
         contactDetailsDTO.setCompanyName(busObj.getCompanyName());
         contactDetailsDTO.setAboutText(busObj.getAboutText());

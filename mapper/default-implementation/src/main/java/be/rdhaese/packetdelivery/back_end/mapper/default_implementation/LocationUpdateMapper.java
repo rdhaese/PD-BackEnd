@@ -15,9 +15,6 @@ import org.springframework.stereotype.Component;
 public class LocationUpdateMapper extends AbstractMapper<LocationUpdate, LocationUpdateDTO> {
     @Override
     public LocationUpdate mapToBus(LocationUpdateDTO dto) {
-        if (dto == null){
-            return null;
-        }
         LongLat longLat= new LongLat();
         longLat.setLatitude(dto.getLatitude());
         longLat.setLongitude(dto.getLongitude());
@@ -29,9 +26,6 @@ public class LocationUpdateMapper extends AbstractMapper<LocationUpdate, Locatio
 
     @Override
     public LocationUpdateDTO mapToDto(LocationUpdate busObj) {
-       if (busObj == null){
-           return null;
-       }
         LocationUpdateDTO dto = new LocationUpdateDTO();
         dto.setLatitude(busObj.getLongLat().getLatitude());
         dto.setLongitude(busObj.getLongLat().getLongitude());

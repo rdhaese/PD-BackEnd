@@ -14,7 +14,7 @@
 
     <packaging>jar</packaging>
 
-    <name>rest-implementation</name>
+    <name>back-end-web-service-rest-implementation</name>
 
     <dependencies>
         <dependency>

@@ -8,7 +8,6 @@ a
 aa</about-text>
     <address>
         <city>Lokeren</city>
-        <mailbox>A</mailbox>
         <number>6</number>
         <postal-code>9160</postal-code>
         <street>Brouwerijstraat</street>
@@ -29,7 +28,7 @@ aa</about-text>
     <phone-numbers>
         <phone>
             <phone-number>0497/143999</phone-number>
-            <phone-title>aaa</phone-title>
+            <phone-title>Robin</phone-title>
         </phone>
     </phone-numbers>
 </contact-details>

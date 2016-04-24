@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.NamingException;
+import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import java.util.List;
 
@@ -37,7 +38,6 @@ public class AuthenticationInternalServiceImpl implements AuthenticationInternal
         List<String> users = ldapTemplate.search("", String.format("(sAMAccountName=%s)", username), new AttributesMapper<String>() {
                 @Override
                 public String mapFromAttributes(Attributes attributes) throws NamingException {
-                    System.out.println(attributes.toString());
                     return (String) attributes.get("sAMAccountName").get();
                 }
             });
@@ -49,14 +49,27 @@ public class AuthenticationInternalServiceImpl implements AuthenticationInternal
             return AuthenticationResult.NOT_KNOWN;
         }
 
-        //Authenticate and return AuthenticationResult according to result
-        if (!ldapTemplate.authenticate("", String.format("(sAMAccountName=%s)", username), password)){
-            //-->wrong password was entered
-            return AuthenticationResult.WRONG_PASSWORD;
+        //Get password from ldap TODO test this flow
+        List<String> passwords = ldapTemplate.search("", String.format("(sAMAccountName=%s)", username), new AttributesMapper<String>() {
+            @Override
+            public String mapFromAttributes(Attributes attributes) throws NamingException {
+                Attribute userPassword = attributes.get("userPassword");
+               return new String((byte[]) userPassword.get());
+            }
+        });
+
+       if (passwords.isEmpty()){
+           //No password in ldap -> grant permission
+           return AuthenticationResult.GRANTED;
+       }
+
+        if (passwordEncoder.matches(passwords.get(0), password)){
+            //Passwords match
+            return AuthenticationResult.GRANTED;
         }
 
-        //All tests passed --> permission is granted
-        return AuthenticationResult.GRANTED;
+        //No permission was granted -> wrong password
+        return AuthenticationResult.WRONG_PASSWORD;
     }
 
 }

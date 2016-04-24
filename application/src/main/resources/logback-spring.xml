@@ -1,0 +1,107 @@
+<!--Logback configuration, loaded by Spring-->
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="PACKET_DELIVERY_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${HOME:-${USERPROFILE}}/packet-delivery-system/logs/back-end/packet-delivery.log</file>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ALL_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${HOME:-${USERPROFILE}}/packet-delivery-system/logs/back-end/all.log</file>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DEV_PACKET_DELIVERY_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${HOME:-${USERPROFILE}}/packet-delivery-system/logs/back-end/dev-packet-delivery.log</file>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DEV_ALL_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${HOME:-${USERPROFILE}}/packet-delivery-system/logs/back-end/dev-all.log</file>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DEBUG_PACKET_DELIVERY_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${HOME:-${USERPROFILE}}/packet-delivery-system/logs/back-end/debug-packet-delivery.log</file>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DEBUG_ALL_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${HOME:-${USERPROFILE}}/packet-delivery-system/logs/back-end/debug-all.log</file>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <springProfile name="production">
+        <root level="WARN">
+            <appender-ref ref="ALL_FILE"/>
+            <appender-ref ref="STDOUT"/>
+        </root>
+
+        <logger name="be.rdhaese.packetdelivery.back_end.web_service.logging" level="INFO">
+            <appender-ref ref="PACKET_DELIVERY_FILE"/>
+        </logger>
+
+        <logger name="be.rdhaese.packetdelivery.back_end.internal_service_service.logging" level="INFO">
+            <appender-ref ref="PACKET_DELIVERY_FILE"/>
+        </logger>
+
+        <logger name="org.springframework.web" level="WARN"/>
+
+        <logger name="org.hibernate" level="WARN"/>
+    </springProfile>
+
+    <springProfile name="dev">
+        <root level="INFO">
+            <appender-ref ref="DEV_ALL_FILE"/>
+            <appender-ref ref="STDOUT"/>
+        </root>
+
+        <logger name="be.rdhaese.packetdelivery.back_end.web_service.logging" level="INFO">
+            <appender-ref ref="DEV_PACKET_DELIVERY_FILE"/>
+        </logger>
+
+        <logger name="be.rdhaese.packetdelivery.back_end.internal_service_service.logging" level="INFO">
+            <appender-ref ref="DEV_PACKET_DELIVERY_FILE"/>
+        </logger>
+
+        <logger name="org.springframework.web" level="INFO"/>
+
+        <logger name="org.hibernate" level="INFO"/>
+    </springProfile>
+
+    <springProfile name="debug">
+        <root level="DEBUG">
+            <appender-ref ref="DEBUG_ALL_FILE"/>
+            <appender-ref ref="STDOUT"/>
+        </root>
+
+        <logger name="be.rdhaese.packetdelivery.back_end.web_service.logging" level="DEBUG">
+            <appender-ref ref="DEBUG_PACKET_DELIVERY_FILE"/>
+        </logger>
+
+        <logger name="be.rdhaese.packetdelivery.back_end.internal_service_service.logging" level="DEBUG">
+            <appender-ref ref="DEBUG_PACKET_DELIVERY_FILE"/>
+        </logger>
+
+        <logger name="org.springframework.web" level="DEBUG"/>
+
+        <logger name="org.hibernate" level="DEBUG"/>
+    </springProfile>
+</configuration>

@@ -15,10 +15,11 @@
   <modules>
     <module>interfaces</module>
     <module>default-implementation</module>
+	<module>logging</module>
   </modules>
 
   <packaging>pom</packaging>
 
-  <name>internal-service</name>
+  <name>back-end-internal-service</name>
 
 </project>

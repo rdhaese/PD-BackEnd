@@ -1,8 +1,13 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
 
+import be.rdhaese.packetdelivery.back_end.model.comparator.LocationUpdateOnTimeCreatedComparator;
+import be.rdhaese.packetdelivery.back_end.model.comparator.RemarksOnTimeAddedComparator;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created on 24/11/2015.
@@ -15,9 +20,9 @@ public class DeliveryRound extends AbstractEntity {
     @OneToMany (cascade = {CascadeType.DETACH, CascadeType.REFRESH} )//{CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
     private List<Packet> packets;
     @OneToMany (cascade = CascadeType.ALL)
-    private List<LocationUpdate> locationUpdates;
+    private Set<LocationUpdate> locationUpdates = new TreeSet<>(new LocationUpdateOnTimeCreatedComparator());
     @OneToMany (cascade = CascadeType.ALL)
-    private List<Remark> remarks;
+        private Set<Remark> remarks = new TreeSet<>(new RemarksOnTimeAddedComparator());
     @Enumerated(EnumType.STRING)
     private RoundStatus roundStatus;
 
@@ -53,19 +58,19 @@ public class DeliveryRound extends AbstractEntity {
         this.packets = packets;
     }
 
-    public List<LocationUpdate> getLocationUpdates() {
+    public Set<LocationUpdate> getLocationUpdates() {
         return locationUpdates;
     }
 
-    public void setLocationUpdates(List<LocationUpdate> locationUpdates) {
+    public void setLocationUpdates(Set<LocationUpdate> locationUpdates) {
         this.locationUpdates = locationUpdates;
     }
 
-    public List<Remark> getRemarks() {
+    public Set<Remark> getRemarks() {
         return remarks;
     }
 
-    public void setRemarks(List<Remark> remarks) {
+    public void setRemarks(Set<Remark> remarks) {
         this.remarks = remarks;
     }
 

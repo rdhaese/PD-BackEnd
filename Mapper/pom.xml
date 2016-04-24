@@ -19,6 +19,6 @@
 
     <packaging>pom</packaging>
 
-    <name>mapper</name>
+    <name>back-end-mapper</name>
 
 </project>

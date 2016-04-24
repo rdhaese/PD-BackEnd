@@ -14,9 +14,6 @@ import org.springframework.stereotype.Component;
 public class OptionsMapper extends AbstractMapper<Options, OptionsDTO> {
     @Override
     public Options mapToBus(OptionsDTO dto) {
-        if (dto == null){
-            return null;
-        }
         Options options = new Options();
         options.setUser(dto.getUser());
         options.setLanguage(dto.getLanguage());
@@ -27,9 +24,6 @@ public class OptionsMapper extends AbstractMapper<Options, OptionsDTO> {
 
     @Override
     public OptionsDTO mapToDto(Options busObj) {
-        if (busObj == null){
-            return null;
-        }
         OptionsDTO dto = new OptionsDTO();
         dto.setUser(busObj.getUser());
         dto.setLanguage(busObj.getLanguage());

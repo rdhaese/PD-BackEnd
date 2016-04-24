@@ -15,7 +15,6 @@ public class App {
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(App.class)
-                .profiles("production")
                 .build()
                 .run(args);
     }

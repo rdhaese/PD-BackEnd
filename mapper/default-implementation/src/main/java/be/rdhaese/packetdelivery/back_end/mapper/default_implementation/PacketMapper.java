@@ -21,9 +21,6 @@ public class PacketMapper extends AbstractMapper<Packet, PacketDTO> {
 
     @Override
     public Packet mapToBus(PacketDTO dto) {
-        if (dto == null) {
-            return null;
-        }
         Packet packet = new Packet();
         packet.setPacketId(dto.getPacketId());
         packet.setClientInfo(mapClientInfo(dto));
@@ -98,9 +95,6 @@ public class PacketMapper extends AbstractMapper<Packet, PacketDTO> {
 
     @Override
     public PacketDTO mapToDto(Packet busObj) {
-        if (busObj == null){
-            return null;
-        }
         PacketDTO packetDTO = new PacketDTO();
         mapPacketSpecificPropertiesToDto(busObj, packetDTO);
         mapClientInfoToDto(busObj.getClientInfo(), packetDTO);

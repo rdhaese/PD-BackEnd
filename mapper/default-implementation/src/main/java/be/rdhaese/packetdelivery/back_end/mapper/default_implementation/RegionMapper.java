@@ -20,18 +20,12 @@ public class RegionMapper extends AbstractMapper<Region, RegionDTO> {
 
     @Override
     public Region mapToBus(RegionDTO dto) {
-        if (dto == null){
-            return null;
-        }
         return regionsInternalService.getRegionFor(dto.getCode());
     }
 
 
     @Override
     public RegionDTO mapToDto(Region busObj) {
-        if (busObj == null){
-            return null;
-        }
         RegionDTO regionDTO = new RegionDTO();
         regionDTO.setNameNl(busObj.getName().getNl());
         regionDTO.setNameFr(busObj.getName().getFr());

@@ -1,14 +1,12 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation;
 
-import be.rdhaese.packetdelivery.back_end.internal_service.properties.InternalServiceProperties;
-import be.rdhaese.packetdelivery.back_end.internal_service.util.AddressToGoogleApiStringConverter;
-import be.rdhaese.packetdelivery.back_end.model.*;
-import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.PacketJpaRepository;
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.CompanyContactDetailsInternalService;
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.DeliveryRoundInternalService;
-import be.rdhaese.packetdelivery.back_end.internal_service.util.Mailer;
-import be.rdhaese.packetdelivery.back_end.internal_service.util.RegionWithPriority;
+import be.rdhaese.packetdelivery.back_end.internal_service.properties.InternalServiceProperties;
+import be.rdhaese.packetdelivery.back_end.internal_service.util.*;
+import be.rdhaese.packetdelivery.back_end.model.*;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.DeliveryRoundJpaRepository;
+import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.PacketJpaRepository;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.RegionJpaRepository;
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
@@ -18,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -70,6 +69,12 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
     @Autowired
     private Mailer mailer;
+
+    @Autowired
+    private MailContentLoader mailContentLoader;
+
+    @Autowired
+    private TagReplacer tagReplacer;
 
     @Autowired
     private InternalServiceProperties properties;
@@ -241,7 +246,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
                 DirectionsApi.getDirections(geoApiContext, companyAddress, companyAddress)
                         //Alternative routes are not necessary
                         .alternatives(false)
-                        //Makes google sort the addresses
+                                //Makes google sort the addresses
                         .optimizeWaypoints(true);
 
         //Create waypoints array (packet addresses in string format)
@@ -276,8 +281,12 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
         //mail to stakeholders
         String subject = properties.getPacketLostSubject();
-        String message = properties.getPacketLostText()
-                .replaceAll("[packetId]", packet.getPacketId());
+        String message = null;
+        try {
+            message = tagReplacer.replaceTags(mailContentLoader.getLostMail(), getDefaultTagReplacementMap(packet.getPacketId()));
+        } catch (IOException e) {
+            e.printStackTrace();//TODO handle this
+        }
         mailer.send(packet.getClientInfo().getContactDetails().getEmails().get(0), subject, message);
         mailer.send(packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0), subject, message);
 
@@ -300,13 +309,17 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         roundRepository.flush();
 
         //Send mail to stakeholders of packets
-        String subject = properties.getPacketDepartedText();
-        for (Packet packet : deliveryRound.getPackets()){
-            String message = properties.getPacketDepartedText().replaceAll("[packetId]", packet.getPacketId());
+        String subject = properties.getPacketDepartedSubject();
+        for (Packet packet : deliveryRound.getPackets()) {
+            String message = null;
+            try {
+                message = tagReplacer.replaceTags(mailContentLoader.getDepartedMail(), getDefaultTagReplacementMap(packet.getPacketId()));
+            } catch (IOException e) {
+                e.printStackTrace();//TODO handle this
+            }
             mailer.send(packet.getClientInfo().getContactDetails().getEmails().get(0), subject, message);
             mailer.send(packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0), subject, message);
         }
-
 
         //Return true if application makes it to here
         return true;
@@ -327,6 +340,12 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
     @Override
     public Boolean cannotDeliver(Long roundId, Packet packet, String reason) {
+        //First get email addresses from packet to use after they are deleted
+        String emailClient = packet.getClientInfo().getContactDetails().getEmails().get(0);
+        String emailDelivery = packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0);
+        //Same for packetId
+        String packetId = packet.getPacketId();
+
         //Remove packet from round
         DeliveryRound deliveryRound = roundRepository.getOne(roundId);
         deliveryRound.getPackets().remove(packet);
@@ -343,11 +362,16 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
         //mail reason to stakeholders
         String subject = properties.getPacketNotDeliveredSubject();
-        String message = properties.getPacketNotDeliveredText()
-                .replaceAll("[packetId]", packet.getPacketId())
-                .replaceAll("[reason]", reason);
-        mailer.send(packet.getClientInfo().getContactDetails().getEmails().get(0), subject, message);
-        mailer.send(packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0), subject, message);
+        String message = null;
+        try {
+            Map<String, String> tagReplacementMap = getDefaultTagReplacementMap(packetId);
+            tagReplacementMap.put("reason", reason);
+            message = tagReplacer.replaceTags(mailContentLoader.getNotDeliveredMail(), tagReplacementMap);
+        } catch (IOException e) {
+            e.printStackTrace();//TODO handle this
+        }
+        mailer.send(emailClient, subject, message);
+        mailer.send(emailDelivery, subject, message);
 
 
         //Return true if application makes it to here
@@ -356,6 +380,12 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
     @Override
     public Boolean deliver(Long roundId, Packet packet) {
+        //First get email addresses from packet to use after they are deleted
+        String emailClient = packet.getClientInfo().getContactDetails().getEmails().get(0);
+        String emailDelivery = packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0);
+        //Same for packetId
+        String packetId = packet.getPacketId();
+
         //Remove packet from round
         DeliveryRound deliveryRound = roundRepository.getOne(roundId);
         deliveryRound.getPackets().remove(packet);
@@ -368,10 +398,14 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
         //mail to stakeholders
         String subject = properties.getPacketDeliveredSubject();
-        String message = properties.getPacketDeliveredText()
-                .replaceAll("[packetId]", packet.getPacketId());
-        mailer.send(packet.getClientInfo().getContactDetails().getEmails().get(0), subject, message);
-        mailer.send(packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0), subject, message);
+        String message = null;
+        try {
+            message = tagReplacer.replaceTags(mailContentLoader.getDeliveredMail(), getDefaultTagReplacementMap(packetId));
+        } catch (IOException e) {
+            e.printStackTrace();//TODO handle this
+        }
+        mailer.send(emailClient, subject, message);
+        mailer.send(emailDelivery, subject, message);
 
 
         //Return true if application makes it to here
@@ -393,5 +427,11 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
         //Return true if application makes it to here
         return true;
+    }
+
+    private Map<String, String> getDefaultTagReplacementMap(String packetId) {
+        Map<String, String> tagReplacementMap = new HashMap<>();
+        tagReplacementMap.put("packetId", packetId);
+        return tagReplacementMap;
     }
 }

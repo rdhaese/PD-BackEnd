@@ -15,9 +15,6 @@ public class LongLatMapper extends AbstractMapper<LongLat, LongLatDTO> {
 
     @Override
     public LongLat mapToBus(LongLatDTO dto) {
-        if (dto == null){
-            return null;
-        }
         LongLat longLat = new LongLat();
         longLat.setLatitude(dto.getLatitude());
         longLat.setLongitude(dto.getLongitude());
@@ -26,9 +23,6 @@ public class LongLatMapper extends AbstractMapper<LongLat, LongLatDTO> {
 
     @Override
     public LongLatDTO mapToDto(LongLat busObj) {
-        if (busObj == null){
-            return null;
-        }
       LongLatDTO dto = new LongLatDTO();
         dto.setLatitude(busObj.getLatitude());
         dto.setLongitude(busObj.getLongitude());

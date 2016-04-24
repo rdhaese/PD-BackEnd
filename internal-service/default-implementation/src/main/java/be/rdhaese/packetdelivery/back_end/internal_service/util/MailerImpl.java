@@ -30,12 +30,12 @@ public class MailerImpl implements Mailer{
             {
                 MimeMessage mail = mailSender.createMimeMessage();
                 try {
-                    MimeMessageHelper helper = new MimeMessageHelper(mail, true);
+                    mail.setContent(message, "text/html");
+                    MimeMessageHelper helper = new MimeMessageHelper(mail, false);
                     helper.setTo(toAddress);
                     helper.setReplyTo(properties.getReplyToAddress());
                     helper.setFrom(properties.getFromAddress());
                     helper.setSubject(subject);
-                    helper.setText(message);
                 } catch (MessagingException e) {
                     e.printStackTrace(); //TODO handle this
                 } finally {}
