@@ -13,6 +13,6 @@ public class LocationUpdateOnTimeCreatedComparator implements Comparator<Locatio
 
     @Override
     public int compare(LocationUpdate o1, LocationUpdate o2) {
-        return o1.getTimeCreated().compareTo(o2.getTimeCreated()); //TODO maybe switch o's around
+        return o2.getTimeCreated().compareTo(o1.getTimeCreated());
     }
 }

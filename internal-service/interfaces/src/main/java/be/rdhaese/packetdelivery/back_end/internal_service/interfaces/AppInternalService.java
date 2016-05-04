@@ -9,19 +9,19 @@ import be.rdhaese.packetdelivery.back_end.model.app_state.AppState;
  */
 public interface AppInternalService {
 
-    String getNewId();
+    String getNewId() throws Exception;
 
-    AppState getAppState(String appId);
+    AppState getAppState(String appId) throws Exception;
 
-    AppState getAppState(Long roundId);
+    AppState getAppState(Long roundId) throws Exception;
 
-    Boolean roundStarted(String appId, Long roundId);
+    Boolean roundStarted(String appId, Long roundId) throws Exception;
 
-    Boolean loadingIn(Long roundId);
+    Boolean loadingIn(Long roundId) throws Exception;
 
-    Boolean nextPacket(Long roundId);
+    Boolean nextPacket(Long roundId) throws Exception;
 
-    Boolean ongoingDelivery(Long roundId);
+    Boolean ongoingDelivery(Long roundId) throws Exception;
 
-    Boolean roundEnded(Long roundId);
+    Boolean roundEnded(Long roundId) throws Exception;
 }

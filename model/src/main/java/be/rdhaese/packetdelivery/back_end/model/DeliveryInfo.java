@@ -1,9 +1,12 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created on 24/11/2015.
@@ -14,9 +17,11 @@ import javax.persistence.OneToOne;
 public class DeliveryInfo extends AbstractEntity {
 
     @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @NotNull
     private ClientInfo clientInfo;
 
     @OneToOne (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @NotNull
     private Region region;
 
     @Override
@@ -57,6 +62,6 @@ public class DeliveryInfo extends AbstractEntity {
 
     @Override
     public String toString() {
-        return null;
+        return ReflectionToStringBuilder.toString(this);
     }
 }

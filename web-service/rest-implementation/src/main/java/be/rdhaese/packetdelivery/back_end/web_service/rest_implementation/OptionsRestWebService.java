@@ -25,16 +25,13 @@ public class OptionsRestWebService implements OptionsWebService {
 
     @Override
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
-    public @ResponseBody OptionsDTO getFor(@PathVariable String username) {
+    public @ResponseBody OptionsDTO getFor(@PathVariable String username) throws Exception {
         return optionsMapper.mapToDto(optionsService.getFor(username));
     }
 
     @Override
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public @ResponseBody Boolean save(@RequestBody OptionsDTO optionsDTO) {
-        System.out.println("DTO: " + optionsDTO);
-        Boolean result = optionsService.save(optionsMapper.mapToBus(optionsDTO));
-        System.out.println("Response: " + result);
-        return result;
+    public @ResponseBody Boolean save(@RequestBody OptionsDTO optionsDTO) throws Exception {
+        return  optionsService.save(optionsMapper.mapToBus(optionsDTO));
     }
 }

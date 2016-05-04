@@ -1,5 +1,6 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.interfaces;
 
+import be.rdhaese.packetdelivery.back_end.model.Address;
 import be.rdhaese.packetdelivery.back_end.model.LongLat;
 import be.rdhaese.packetdelivery.back_end.model.Packet;
 
@@ -15,17 +16,19 @@ public interface DeliveryRoundInternalService {
 
     List<Packet> getPackets(Long roundId) throws Exception;
 
-    Boolean markAsLost(Long roundId, Packet packet);
+    Boolean markAsLost(Long roundId, Packet packet) throws Exception;
 
     Boolean endRound(Long roundId);
 
-    Boolean startRound(Long roundId);
+    Boolean startRound(Long roundId) throws Exception;
 
     Boolean addRemark(Long roundId, String remark);
 
-    Boolean cannotDeliver(Long roundId, Packet packet, String reason);
+    Boolean cannotDeliver(Long roundId, Packet packet, String reason) throws Exception;
 
-    Boolean deliver(Long roundId, Packet packet);
+    Boolean deliver(Long roundId, Packet packet) throws Exception;
 
     Boolean addLocationUpdate(Long roundId, LongLat longLat);
+
+    Address getCompanyAddress() throws Exception;
 }

@@ -1,5 +1,7 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
@@ -28,18 +30,12 @@ public class ContactDetails extends AbstractEntity {
 
         ContactDetails that = (ContactDetails) o;
 
-        if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
-        if (getEmails() != null ? !getEmails().equals(that.getEmails()) : that.getEmails() != null) return false;
-        return !(getPhoneNumbers() != null ? !getPhoneNumbers().equals(that.getPhoneNumbers()) : that.getPhoneNumbers() != null);
-
+        return !(getName() != null ? !getName().equals(that.getName()) : that.getName() != null);
     }
 
     @Override
     public int hashCode() {
-        int result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + (getEmails() != null ? getEmails().hashCode() : 0);
-        result = 31 * result + (getPhoneNumbers() != null ? getPhoneNumbers().hashCode() : 0);
-        return result;
+        return getName() != null ? getName().hashCode() : 0;
     }
 
     public boolean addEmail(String email){
@@ -76,6 +72,6 @@ public class ContactDetails extends AbstractEntity {
 
     @Override
     public String toString() {
-        return null;
+        return ReflectionToStringBuilder.toString(this);
     }
 }

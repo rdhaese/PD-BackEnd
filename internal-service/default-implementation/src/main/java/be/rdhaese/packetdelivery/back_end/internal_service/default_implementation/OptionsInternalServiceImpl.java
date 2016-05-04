@@ -7,9 +7,6 @@ import be.rdhaese.packetdelivery.back_end.persistence.xml_repositories.interface
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
-
 /**
  * Created on 17/04/2016.
  *
@@ -22,39 +19,22 @@ public class OptionsInternalServiceImpl implements OptionsInternalService {
     private OptionsRepository optionsRepository;
 
     @Override
-    public Options getFor(String username) {
-        try {
-            OptionsCollection optionsCollection = optionsRepository.getOptionsCollection();
-            for (Options options : optionsCollection.getOptions()) {
-                if (options.getUser().equals(username)) {
-                    return options;
-                }
+    public Options getFor(String username) throws Exception {
+        OptionsCollection optionsCollection = optionsRepository.getOptionsCollection();
+        for (Options options : optionsCollection.getOptions()) {
+            if (options.getUser().equals(username)) {
+                return options;
             }
-        } catch (Exception e) {
-            //TODO handle this
-            e.printStackTrace();
         }
-        System.out.println("returning new options");
+
+        //No options found for user -> return new options
         return new Options();
     }
 
     @Override
-    public Boolean save(Options options) {
-        OptionsCollection optionsCollection = null;
-        try {
-            optionsCollection = optionsRepository.getOptionsCollection();
-        } catch (IOException | JAXBException e) {
-            //TODO handle this
-            e.printStackTrace();
-            return false;
-        }
+    public Boolean save(Options options) throws Exception {
+        OptionsCollection optionsCollection = optionsRepository.getOptionsCollection();
         optionsCollection.addOptions(options);
-        try {
-            return optionsRepository.save(optionsCollection);
-        } catch (JAXBException e) {
-            //TODO Handle this
-            e.printStackTrace();
-            return false;
-        }
+        return optionsRepository.save(optionsCollection);
     }
 }

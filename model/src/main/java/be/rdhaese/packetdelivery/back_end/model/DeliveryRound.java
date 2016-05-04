@@ -3,8 +3,11 @@ package be.rdhaese.packetdelivery.back_end.model;
 
 import be.rdhaese.packetdelivery.back_end.model.comparator.LocationUpdateOnTimeCreatedComparator;
 import be.rdhaese.packetdelivery.back_end.model.comparator.RemarksOnTimeAddedComparator;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -17,13 +20,17 @@ import java.util.TreeSet;
 @Entity
 public class DeliveryRound extends AbstractEntity {
 
+    public static final Comparator<Remark> REMARK_COMPARATOR = new RemarksOnTimeAddedComparator();
+    public static final Comparator<LocationUpdate> LOCATION_UPDATE_COMPARATOR = new LocationUpdateOnTimeCreatedComparator();
+
     @OneToMany (cascade = {CascadeType.DETACH, CascadeType.REFRESH} )//{CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
     private List<Packet> packets;
     @OneToMany (cascade = CascadeType.ALL)
-    private Set<LocationUpdate> locationUpdates = new TreeSet<>(new LocationUpdateOnTimeCreatedComparator());
+    private Set<LocationUpdate> locationUpdates = new TreeSet<>(LOCATION_UPDATE_COMPARATOR);
     @OneToMany (cascade = CascadeType.ALL)
-        private Set<Remark> remarks = new TreeSet<>(new RemarksOnTimeAddedComparator());
+    private Set<Remark> remarks = new TreeSet<>(REMARK_COMPARATOR);
     @Enumerated(EnumType.STRING)
+    @NotNull
     private RoundStatus roundStatus;
 
     @Override
@@ -38,7 +45,6 @@ public class DeliveryRound extends AbstractEntity {
             return false;
         if (getRemarks() != null ? !getRemarks().equals(that.getRemarks()) : that.getRemarks() != null) return false;
         return getRoundStatus() == that.getRoundStatus();
-
     }
 
     @Override
@@ -84,6 +90,6 @@ public class DeliveryRound extends AbstractEntity {
 
     @Override
     public String toString() {
-        return null;
+        return ReflectionToStringBuilder.toString(this);
     }
 }

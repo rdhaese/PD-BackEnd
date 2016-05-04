@@ -12,11 +12,13 @@ import java.util.Collection;
  * @author Robin D'Haese
  */
 public interface TrackerInternalService {
-    LongLat getCompanyAddress();
+    LongLat getCompanyAddress() throws Exception;
 
-    LongLat getPacketAddress(String packetId);
+    LongLat getPacketAddress(String packetId) throws Exception;
 
     Collection<LocationUpdate> getLocationsUpdates(String packetId);
 
     Collection<Remark> getRemarks(String packetId);
+
+    Integer getAmountOfPacketsLeftBefore(String packetId) throws Exception;
 }

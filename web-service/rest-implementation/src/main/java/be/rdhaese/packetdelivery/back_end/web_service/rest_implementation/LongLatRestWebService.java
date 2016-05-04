@@ -31,12 +31,7 @@ public class LongLatRestWebService implements LongLatWebService {
 
     @Override
     @RequestMapping(value = "/for-address", method = RequestMethod.POST)
-    public LongLatDTO getForAddress(@RequestBody AddressDTO addressDTO) {
-        try {
+    public LongLatDTO getForAddress(@RequestBody AddressDTO addressDTO) throws Exception{
             return longLatMapper.mapToDto(longLatInternalService.getForAddress(addressMapper.mapToBus(addressDTO)));
-        } catch (Exception e) {
-            //TODO do something
-        }
-        return new LongLatDTO(null, null);
     }
 }

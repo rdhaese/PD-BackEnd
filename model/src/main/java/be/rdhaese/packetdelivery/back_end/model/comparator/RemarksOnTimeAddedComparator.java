@@ -12,6 +12,6 @@ import java.util.Comparator;
 public class RemarksOnTimeAddedComparator implements Comparator<Remark> {
     @Override
     public int compare(Remark o1, Remark o2) {
-        return o1.getTimeAdded().compareTo(o2.getTimeAdded()); //TODO maybe switch o's around
+        return o2.getTimeAdded().compareTo(o1.getTimeAdded());
     }
 }

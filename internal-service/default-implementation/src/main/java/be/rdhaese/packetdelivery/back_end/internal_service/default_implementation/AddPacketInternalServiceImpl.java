@@ -6,6 +6,7 @@ import be.rdhaese.packetdelivery.back_end.model.Packet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -29,9 +30,11 @@ public class AddPacketInternalServiceImpl implements AddPacketInternalService {
     @Autowired
     private PacketJpaRepository packetRepository;
 
+    @Transactional
     public String savePacket(Packet packet) {
         generatePacketId(packet);
         packetRepository.save(packet);
+
         return packet.getPacketId();
     }
 

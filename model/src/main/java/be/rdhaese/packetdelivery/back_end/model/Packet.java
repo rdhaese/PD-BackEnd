@@ -1,6 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -16,12 +18,16 @@ public class Packet extends AbstractEntity {
     @NotNull
     private String packetId;
     @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @NotNull
     private ClientInfo clientInfo;
     @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @NotNull
     private DeliveryInfo deliveryInfo;
     @Enumerated(EnumType.STRING)
+    @NotNull
     private PacketStatus packetStatus;
     @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private Date statusChangedOn;
     @NotNull
     private Integer priority = 1;
@@ -93,6 +99,6 @@ public class Packet extends AbstractEntity {
 
     @Override
     public String toString() {
-        return String.format("Packet [ID: %s]", packetId);
+        return ReflectionToStringBuilder.toString(this);
     }
 }

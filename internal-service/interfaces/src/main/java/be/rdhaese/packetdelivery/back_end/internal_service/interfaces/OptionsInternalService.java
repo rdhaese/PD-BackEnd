@@ -9,6 +9,6 @@ import be.rdhaese.packetdelivery.back_end.model.options.Options;
  */
 public interface OptionsInternalService {
 
-    Options getFor(String username);
-    Boolean save(Options options);
+    Options getFor(String username) throws Exception;
+    Boolean save(Options options) throws Exception;
 }

@@ -2,10 +2,10 @@
 <appStates>
     <appStates-entries>
         <appState>
-            <activity>ongoing</activity>
+            <activity>searching</activity>
             <appId>1</appId>
             <currentPacketIndex>0</currentPacketIndex>
-            <roundId>2</roundId>
+            <roundId>3</roundId>
         </appState>
     </appStates-entries>
 </appStates>

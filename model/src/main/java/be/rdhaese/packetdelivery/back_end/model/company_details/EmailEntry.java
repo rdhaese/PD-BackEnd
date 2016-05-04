@@ -1,5 +1,7 @@
 package be.rdhaese.packetdelivery.back_end.model.company_details;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -29,16 +31,13 @@ public class EmailEntry implements Serializable{
 
         EmailEntry that = (EmailEntry) o;
 
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        return !(address != null ? !address.equals(that.address) : that.address != null);
+        return !(getTitle() != null ? !getTitle().equals(that.getTitle()) : that.getTitle() != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = title != null ? title.hashCode() : 0;
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        return result;
+        return getTitle() != null ? getTitle().hashCode() : 0;
     }
 
     @XmlElement(name = "email-title")
@@ -57,5 +56,10 @@ public class EmailEntry implements Serializable{
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

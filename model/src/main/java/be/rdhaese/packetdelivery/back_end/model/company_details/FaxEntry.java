@@ -1,5 +1,7 @@
 package be.rdhaese.packetdelivery.back_end.model.company_details;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -29,16 +31,13 @@ public class FaxEntry implements Serializable{
 
         FaxEntry faxEntry = (FaxEntry) o;
 
-        if (title != null ? !title.equals(faxEntry.title) : faxEntry.title != null) return false;
-        return !(number != null ? !number.equals(faxEntry.number) : faxEntry.number != null);
+        return !(getTitle() != null ? !getTitle().equals(faxEntry.getTitle()) : faxEntry.getTitle() != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = title != null ? title.hashCode() : 0;
-        result = 31 * result + (number != null ? number.hashCode() : 0);
-        return result;
+        return getTitle() != null ? getTitle().hashCode() : 0;
     }
 
     @XmlElement (name = "fax-title")
@@ -57,5 +56,10 @@ public class FaxEntry implements Serializable{
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

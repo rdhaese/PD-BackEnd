@@ -27,18 +27,18 @@ public class ContactInformationRestWebService implements ContactInformationWebSe
     private Mapper<CompanyContactDetails, ContactDetailsDTO> companyContactDetailsMapper;
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public ContactDetailsDTO get(){
+    public ContactDetailsDTO get() throws Exception {
         return companyContactDetailsMapper.mapToDto(editCompanyContactDetailsInternalService.get());
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
-    public boolean post(@RequestBody ContactDetailsDTO contactDetailsDTO){
+    public boolean post(@RequestBody ContactDetailsDTO contactDetailsDTO) throws Exception {
         return editCompanyContactDetailsInternalService.save(companyContactDetailsMapper.mapToBus(contactDetailsDTO));
     }
 
     @Override
     @RequestMapping(value = "/company-name", method = RequestMethod.GET)
-    public String getCompanyName() {
+    public String getCompanyName() throws Exception {
         return editCompanyContactDetailsInternalService.getCompanyName();
     }
 }

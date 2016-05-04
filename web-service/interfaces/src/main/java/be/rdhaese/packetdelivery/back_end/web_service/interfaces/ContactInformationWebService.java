@@ -9,7 +9,7 @@ import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
  */
 public interface ContactInformationWebService {
 
-    ContactDetailsDTO get();
-    boolean post(ContactDetailsDTO contactDetailsDTO);
-    String getCompanyName();
+    ContactDetailsDTO get() throws Exception;
+    boolean post(ContactDetailsDTO contactDetailsDTO) throws Exception;
+    String getCompanyName() throws Exception;
 }

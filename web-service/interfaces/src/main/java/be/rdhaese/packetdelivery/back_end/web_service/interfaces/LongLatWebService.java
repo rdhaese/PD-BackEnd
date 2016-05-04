@@ -10,5 +10,5 @@ import be.rdhaese.packetdelivery.dto.LongLatDTO;
  */
 public interface LongLatWebService {
 
-    LongLatDTO getForAddress(AddressDTO addressDTO);
+    LongLatDTO getForAddress(AddressDTO addressDTO) throws Exception;
 }

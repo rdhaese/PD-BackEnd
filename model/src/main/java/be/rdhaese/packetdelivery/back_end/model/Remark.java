@@ -1,6 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -58,6 +60,6 @@ public class Remark extends AbstractEntity {
 
     @Override
     public String toString() {
-        return null;
+        return ReflectionToStringBuilder.toString(this);
     }
 }

@@ -8,8 +8,8 @@ import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDe
  * @author Robin D'Haese
  */
 public interface CompanyContactDetailsInternalService {
-    CompanyContactDetails get();
-    boolean save(CompanyContactDetails companyContactDetails);
+    CompanyContactDetails get() throws Exception;
+    boolean save(CompanyContactDetails companyContactDetails) throws Exception;
 
-    String getCompanyName();
+    String getCompanyName() throws Exception;
 }

@@ -6,6 +6,7 @@ import be.rdhaese.packetdelivery.back_end.model.Packet;
 import be.rdhaese.packetdelivery.back_end.model.PacketStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class LostPacketsInternalServiceImpl implements LostPacketsInternalServic
     }
 
     @Override
+    @Transactional
     public void markAsFound(String packetId) {
         Packet foundPacket = packetJpaRepository.getPacket(packetId);
         foundPacket.setPacketStatus(PacketStatus.NORMAL);
@@ -35,6 +37,7 @@ public class LostPacketsInternalServiceImpl implements LostPacketsInternalServic
     }
 
     @Override
+    @Transactional
     public void removeFromSystem(String packetId) {
         packetJpaRepository.delete(packetJpaRepository.getPacket(packetId));
     }

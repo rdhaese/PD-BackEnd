@@ -1,6 +1,7 @@
 package be.rdhaese.packetdelivery.back_end.model.company_details;
 
 import be.rdhaese.packetdelivery.back_end.model.Address;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -41,23 +42,19 @@ public class CompanyContactDetails implements Serializable{
 
         CompanyContactDetails that = (CompanyContactDetails) o;
 
-        if (companyName != null ? !companyName.equals(that.companyName) : that.companyName != null) return false;
-        if (aboutText != null ? !aboutText.equals(that.aboutText) : that.aboutText != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (phoneNumbers != null ? !phoneNumbers.equals(that.phoneNumbers) : that.phoneNumbers != null) return false;
-        if (faxNumbers != null ? !faxNumbers.equals(that.faxNumbers) : that.faxNumbers != null) return false;
-        return !(emailAddresses != null ? !emailAddresses.equals(that.emailAddresses) : that.emailAddresses != null);
+        if (getCompanyName() != null ? !getCompanyName().equals(that.getCompanyName()) : that.getCompanyName() != null)
+            return false;
+        if (getAboutText() != null ? !getAboutText().equals(that.getAboutText()) : that.getAboutText() != null)
+            return false;
+        return !(getAddress() != null ? !getAddress().equals(that.getAddress()) : that.getAddress() != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = companyName != null ? companyName.hashCode() : 0;
-        result = 31 * result + (aboutText != null ? aboutText.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (phoneNumbers != null ? phoneNumbers.hashCode() : 0);
-        result = 31 * result + (faxNumbers != null ? faxNumbers.hashCode() : 0);
-        result = 31 * result + (emailAddresses != null ? emailAddresses.hashCode() : 0);
+        int result = getCompanyName() != null ? getCompanyName().hashCode() : 0;
+        result = 31 * result + (getAboutText() != null ? getAboutText().hashCode() : 0);
+        result = 31 * result + (getAddress() != null ? getAddress().hashCode() : 0);
         return result;
     }
 
@@ -115,5 +112,10 @@ public class CompanyContactDetails implements Serializable{
 
     public void setEmailAddresses(List<EmailEntry> emailAddresses) {
         this.emailAddresses = emailAddresses;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

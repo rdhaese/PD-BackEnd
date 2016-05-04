@@ -1,0 +1,12 @@
+<ehcache>
+
+    <!--Will mark the cache as to refresh when it is not used after 4 hours, or every 24 hours-->
+    <cache name="regions"
+           maxEntriesLocalHeap="30"
+           overflowToDisk="false"
+           eternal="false"
+           timeToIdleSeconds="14400" timeToLiveSeconds="86400"
+            >
+    </cache>
+
+</ehcache>

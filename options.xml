@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<appStates>
-    <user-appStates>
-        <appStates-entry>
-            <image-viewer>true</image-viewer>
-            <language>English</language>
-            <print>1</print>
+<options>
+    <user-options>
+        <options-entry>
+            <image-viewer>false</image-viewer>
+            <language>Nederlands</language>
+            <print>0</print>
             <user>pdmaster</user>
-        </appStates-entry>
-    </user-appStates>
-</appStates>
+        </options-entry>
+    </user-options>
+</options>

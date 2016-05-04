@@ -1,12 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.mapper.default_implementation.aspect;
 
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.stage.Stage;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
 /**

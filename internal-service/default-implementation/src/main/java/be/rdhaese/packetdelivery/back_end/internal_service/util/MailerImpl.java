@@ -1,6 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.util;
 
 import be.rdhaese.packetdelivery.back_end.internal_service.properties.InternalServiceProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -16,6 +18,8 @@ import javax.mail.internet.MimeMessage;
  */
 @Component
 public class MailerImpl implements Mailer{
+
+    private Logger logger = LoggerFactory.getLogger(MailerImpl.class);
 
     @Autowired
     private JavaMailSender mailSender;
@@ -37,8 +41,8 @@ public class MailerImpl implements Mailer{
                     helper.setFrom(properties.getFromAddress());
                     helper.setSubject(subject);
                 } catch (MessagingException e) {
-                    e.printStackTrace(); //TODO handle this
-                } finally {}
+                    logger.warn("Could not send email", e);
+                }
                 mailSender.send(mail);
             }}).start();
     }

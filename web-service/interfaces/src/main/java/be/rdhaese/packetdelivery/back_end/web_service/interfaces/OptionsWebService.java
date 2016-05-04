@@ -8,19 +8,19 @@ import be.rdhaese.packetdelivery.dto.OptionsDTO;
  * @author Robin D'Haese
  */
 public interface OptionsWebService {
-    public static final Integer NEVER = 0;
-    public static final Integer ASK = 1;
-    public static final Integer PRINT = 2;
+    Integer NEVER = 0;
+    Integer ASK = 1;
+    Integer PRINT = 2;
 
-    public static final String NL = "Nederlands";
-    public static final String FR = "Français";
-    public static final String DE = "Deutsch";
-    public static final String EN = "English";
+    String NL = "Nederlands";
+    String FR = "Français";
+    String DE = "Deutsch";
+    String EN = "English";
 
-    public static final String[] SUPPORTED_LANGUAGES = new String[]{NL, FR, DE, EN};
+    String[] SUPPORTED_LANGUAGES = new String[]{NL, FR, DE, EN};
 
-    public static final String TAG_NL = "nl";
+    String TAG_NL = "nl";
 
-    OptionsDTO getFor(String username);
-    Boolean save(OptionsDTO optionsDTO);
+    OptionsDTO getFor(String username) throws Exception;
+    Boolean save(OptionsDTO optionsDTO) throws Exception;
 }

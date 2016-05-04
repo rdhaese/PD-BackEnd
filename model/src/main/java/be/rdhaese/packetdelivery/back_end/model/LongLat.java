@@ -1,5 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
@@ -11,9 +14,9 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class LongLat {
 
-    @NotNull
+    @Column(nullable = false) //@NotNull not working in @Embeddable...
     private Double longitude;
-    @NotNull
+    @Column(nullable = false) //@NotNull not working in @Embeddable...
     private Double latitude;
 
     public LongLat() {
@@ -57,5 +60,10 @@ public class LongLat {
 
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

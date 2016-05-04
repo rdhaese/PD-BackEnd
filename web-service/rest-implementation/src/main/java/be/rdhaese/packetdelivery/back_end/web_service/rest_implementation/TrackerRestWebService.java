@@ -35,13 +35,13 @@ public class TrackerRestWebService implements TrackerWebService{
 
     @Override
     @RequestMapping(value = "/company-address", method = RequestMethod.GET)
-    public @ResponseBody LongLatDTO getCompanyAddress() {
+    public @ResponseBody LongLatDTO getCompanyAddress() throws Exception {
        return longLatMapper.mapToDto(trackerService.getCompanyAddress());
     }
 
     @Override
     @RequestMapping(value = "/packet-address/{packetId}", method = RequestMethod.GET)
-    public @ResponseBody LongLatDTO getPacketAddress(@PathVariable String packetId) {
+    public @ResponseBody LongLatDTO getPacketAddress(@PathVariable String packetId) throws Exception {
         return longLatMapper.mapToDto(trackerService.getPacketAddress(packetId));
     }
 
@@ -55,5 +55,11 @@ public class TrackerRestWebService implements TrackerWebService{
     @RequestMapping(value = "/remarks/{packetId}", method = RequestMethod.GET)
     public @ResponseBody Collection<RemarkDTO> getRemarks(@PathVariable String packetId) {
         return remarkMapper.mapToDto(trackerService.getRemarks(packetId));
+    }
+
+    @Override
+    @RequestMapping(value = "/packets-left-before/{packetId}", method = RequestMethod.GET)
+    public @ResponseBody Integer getAmountOfPacketsLeftBefore(@PathVariable String packetId) throws Exception {
+        return trackerService.getAmountOfPacketsLeftBefore(packetId);
     }
 }

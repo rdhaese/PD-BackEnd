@@ -1,6 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
@@ -21,6 +23,7 @@ public class LocationUpdate extends AbstractEntity {
     private Date timeCreated = new Date();
 
     @Embedded
+    @NotNull
     private LongLat longLat;
 
     @Override
@@ -61,6 +64,6 @@ public class LocationUpdate extends AbstractEntity {
 
     @Override
     public String toString() {
-        return null;
+        return ReflectionToStringBuilder.toString(this);
     }
 }

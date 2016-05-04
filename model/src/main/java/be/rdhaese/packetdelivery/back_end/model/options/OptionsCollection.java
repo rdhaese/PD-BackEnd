@@ -31,6 +31,23 @@ public class OptionsCollection {
         return this.options.add(options);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OptionsCollection that = (OptionsCollection) o;
+
+        if (getOptions() != null ? !getOptions().equals(that.getOptions()) : that.getOptions() != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return getOptions() != null ? getOptions().hashCode() : 0;
+    }
+
     public void setOptions(Collection<Options> options) {
         this.options = options;
     }

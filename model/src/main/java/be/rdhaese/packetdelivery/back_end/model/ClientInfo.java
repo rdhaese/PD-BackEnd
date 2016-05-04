@@ -1,9 +1,12 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created on 24/11/2015.
@@ -14,8 +17,10 @@ import javax.persistence.OneToOne;
 public class ClientInfo extends AbstractEntity {
 
     @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @NotNull
     private ContactDetails contactDetails;
     @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @NotNull
     private Address address;
 
     @Override
@@ -56,6 +61,6 @@ public class ClientInfo extends AbstractEntity {
 
     @Override
     public String toString() {
-        return String.format("Client: %s", contactDetails.getName());
+        return ReflectionToStringBuilder.toString(this);
     }
 }

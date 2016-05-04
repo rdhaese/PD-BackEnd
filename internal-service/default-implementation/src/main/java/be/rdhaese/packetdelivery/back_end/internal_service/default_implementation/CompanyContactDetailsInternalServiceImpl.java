@@ -23,33 +23,26 @@ public class CompanyContactDetailsInternalServiceImpl implements CompanyContactD
     private CompanyContactDetailsRepository companyContactDetailsRepository;
 
     @Override
-    public CompanyContactDetails get() {
+    public CompanyContactDetails get() throws Exception{
         try {
             return companyContactDetailsRepository.get();
         } catch (FileNotFoundException e) {
-            //TODO maybe something else
+            //We can create new company details, when saving these, the file will be created
             return new CompanyContactDetails();
-        }catch (IOException e) {
-            e.printStackTrace(); //TODO REMOVE
-        } catch (JAXBException e) {
-            e.printStackTrace(); //TODO REMOVE
         }
-        return null;
     }
 
     @Override
-    public boolean save(CompanyContactDetails companyContactDetails) {
-        try {
+    public boolean save(CompanyContactDetails companyContactDetails) throws Exception{
             companyContactDetailsRepository.save(companyContactDetails);
+
+            //Return true if the app makes it to here
             return true;
-        } catch (JAXBException jaxbe) {
-            jaxbe.printStackTrace(); //TODO REMOVE
-            return false;
-        }
+
     }
 
     @Override
-    public String getCompanyName() {
+    public String getCompanyName() throws Exception{
         CompanyContactDetails companyContactDetails = get();
         if (companyContactDetails == null){
             return null;

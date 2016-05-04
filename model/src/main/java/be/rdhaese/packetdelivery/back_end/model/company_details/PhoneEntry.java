@@ -1,5 +1,7 @@
 package be.rdhaese.packetdelivery.back_end.model.company_details;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -29,18 +31,14 @@ public class PhoneEntry implements Serializable{
 
         PhoneEntry that = (PhoneEntry) o;
 
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        return !(number != null ? !number.equals(that.number) : that.number != null);
+        return !(getTitle() != null ? !getTitle().equals(that.getTitle()) : that.getTitle() != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = title != null ? title.hashCode() : 0;
-        result = 31 * result + (number != null ? number.hashCode() : 0);
-        return result;
+        return getTitle() != null ? getTitle().hashCode() : 0;
     }
-
 
     @XmlElement (name = "phone-title")
     public String getTitle() {
@@ -58,5 +56,10 @@ public class PhoneEntry implements Serializable{
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

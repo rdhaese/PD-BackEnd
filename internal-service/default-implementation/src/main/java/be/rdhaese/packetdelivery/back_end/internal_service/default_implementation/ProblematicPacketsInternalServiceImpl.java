@@ -4,8 +4,10 @@ package be.rdhaese.packetdelivery.back_end.internal_service.default_implementati
 import be.rdhaese.packetdelivery.back_end.model.*;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.PacketJpaRepository;
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.ProblematicPacketsInternalService;
+import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.RegionJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Date;
@@ -21,6 +23,9 @@ public class ProblematicPacketsInternalServiceImpl implements ProblematicPackets
     @Autowired
     private PacketJpaRepository packetJpaRepository;
 
+    @Autowired
+    private RegionJpaRepository regionJpaRepository;
+
     @Override
     public Collection<Packet> getProblematicPackets() {
         return packetJpaRepository.getProblematicPackets();
@@ -32,6 +37,7 @@ public class ProblematicPacketsInternalServiceImpl implements ProblematicPackets
     }
 
     @Override
+    @Transactional
     public void reSend(String packetId) {
         Packet packet = packetJpaRepository.getPacket(packetId);
         packet.setPacketStatus(PacketStatus.NORMAL);
@@ -40,9 +46,11 @@ public class ProblematicPacketsInternalServiceImpl implements ProblematicPackets
     }
 
     @Override
+    @Transactional
     public void returnToSender(String packetId, Region region) {
         Packet packet = packetJpaRepository.getPacket(packetId);
-        packet.getDeliveryInfo().setRegion(region); //TODO maybe this must come from persistence context...
+        region = regionJpaRepository.getRegionFor(region.getRegionCode());
+        packet.getDeliveryInfo().setRegion(region);
         ClientInfo newDeliveryInfo = packet.getClientInfo();
         ClientInfo oldDeliveryInfo = packet.getDeliveryInfo().getClientInfo();
         oldDeliveryInfo.getContactDetails().setName(newDeliveryInfo.getContactDetails().getName());
@@ -73,6 +81,7 @@ public class ProblematicPacketsInternalServiceImpl implements ProblematicPackets
     }
 
     @Override
+    @Transactional
     public void saveDeliveryAddress(String packetId, Address address, Region region) {
         Packet packet = packetJpaRepository.getPacket(packetId);
         packet.getDeliveryInfo().getClientInfo().getAddress().setStreet(address.getStreet());

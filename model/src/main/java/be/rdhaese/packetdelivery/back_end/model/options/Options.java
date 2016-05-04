@@ -1,5 +1,7 @@
 package be.rdhaese.packetdelivery.back_end.model.options;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -76,5 +78,10 @@ public class Options {
 
     public void setImageViewer(Boolean imageViewer) {
         this.imageViewer = imageViewer;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

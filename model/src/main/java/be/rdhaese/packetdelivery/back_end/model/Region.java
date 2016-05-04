@@ -1,6 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -73,6 +75,6 @@ public class Region extends AbstractEntity {
 
     @Override
     public String toString() {
-        return regionCode;
+        return ReflectionToStringBuilder.toString(this);
     }
 }

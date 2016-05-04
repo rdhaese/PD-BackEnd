@@ -8,6 +8,7 @@ import be.rdhaese.packetdelivery.back_end.model.*;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.DeliveryRoundJpaRepository;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.PacketJpaRepository;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.RegionJpaRepository;
+import be.rdhaese.packetdelivery.back_end.persistence.xml_repositories.interfaces.CompanyContactDetailsRepository;
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
@@ -15,7 +16,9 @@ import com.google.maps.model.DirectionsRoute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.*;
 
@@ -62,10 +65,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
     private CompanyContactDetailsInternalService companyContactDetailsInternalService;
 
     @Autowired
-    private AddressToGoogleApiStringConverter addressConverter;
-
-    @Autowired
-    private GeoApiContext geoApiContext;
+    private DeliveryOrderResolver deliveryOrderResolver;
 
     @Autowired
     private Mailer mailer;
@@ -79,7 +79,11 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
     @Autowired
     private InternalServiceProperties properties;
 
+    @Autowired
+    private CompanyContactDetailsRepository companyContactDetailsRepository;
+
     @Override
+    @Transactional
     public Long createNewRound(int amountOfPackets) {
         //Get region with highest priority
         Region regionWithHighestPriority =
@@ -232,46 +236,17 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
     @Override
     public List<Packet> getPackets(Long roundId) throws Exception {
-        //Get packets for roundId
-        List<Packet> packets = roundRepository.getOne(roundId).getPackets();
+        //Get round for roundId
+        DeliveryRound round = roundRepository.getOne(roundId);
+        //Get company address
+        Address companyAddress = companyContactDetailsInternalService.get().getAddress();
 
-        //let google determine the best order to deliver
-        //Convert company address to string that google API can handle
-        String companyAddress = addressConverter.convert(companyContactDetailsInternalService.get().getAddress());
-        //Create the DirectionsApiRequest
-        //This will give us directions, thanks to optimizeWaypoints(true) the addresses in the directions will be sorted to
-        //a route Google thinks is good. We can use that order to sort our packets in the order they should be delivered
-        DirectionsApiRequest directionsApiRequest =
-                //companyAddress is the place to start and return to
-                DirectionsApi.getDirections(geoApiContext, companyAddress, companyAddress)
-                        //Alternative routes are not necessary
-                        .alternatives(false)
-                                //Makes google sort the addresses
-                        .optimizeWaypoints(true);
-
-        //Create waypoints array (packet addresses in string format)
-        String[] waypoints = new String[packets.size()];
-        for (int index = 0; index < packets.size(); index++) {
-            waypoints[index] = addressConverter.convert(packets.get(index).getDeliveryInfo().getClientInfo().getAddress());
-        }
-
-        //Set the waypoints to the request
-        directionsApiRequest.waypoints(waypoints);
-
-        //Make the request and get the routes
-        DirectionsRoute[] directionsRoutes = directionsApiRequest.await().routes;
-
-        //Use the waypoint order to sort the packets
-        List<Packet> packetsSortedOnOrderToDeliver = new ArrayList<>();
-        for (Integer waypoint : directionsRoutes[0].waypointOrder) {
-            packetsSortedOnOrderToDeliver.add(packets.get(waypoint));
-        }
-
-        return packetsSortedOnOrderToDeliver;
+        return deliveryOrderResolver.sort(companyAddress, round.getPackets());
     }
 
     @Override
-    public Boolean markAsLost(Long roundId, Packet packet) {
+    @Transactional
+    public Boolean markAsLost(Long roundId, Packet packet) throws Exception{
         DeliveryRound round = roundRepository.getOne(roundId);
         round.getPackets().remove(packet);
         packet = packetRepository.getPacket(packet.getPacketId());
@@ -281,12 +256,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
         //mail to stakeholders
         String subject = properties.getPacketLostSubject();
-        String message = null;
-        try {
-            message = tagReplacer.replaceTags(mailContentLoader.getLostMail(), getDefaultTagReplacementMap(packet.getPacketId()));
-        } catch (IOException e) {
-            e.printStackTrace();//TODO handle this
-        }
+        String message = tagReplacer.replaceTags(mailContentLoader.getLostMail(), getDefaultTagReplacementMap(packet.getPacketId()));
         mailer.send(packet.getClientInfo().getContactDetails().getEmails().get(0), subject, message);
         mailer.send(packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0), subject, message);
 
@@ -295,6 +265,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
     }
 
     @Override
+    @Transactional
     public Boolean endRound(Long roundId) {
         roundRepository.delete(roundId);
 
@@ -303,7 +274,8 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
     }
 
     @Override
-    public Boolean startRound(Long roundId) {
+    @Transactional
+    public Boolean startRound(Long roundId) throws Exception{
         DeliveryRound deliveryRound = roundRepository.getOne(roundId);
         deliveryRound.setRoundStatus(RoundStatus.STARTED);
         roundRepository.flush();
@@ -311,12 +283,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
         //Send mail to stakeholders of packets
         String subject = properties.getPacketDepartedSubject();
         for (Packet packet : deliveryRound.getPackets()) {
-            String message = null;
-            try {
-                message = tagReplacer.replaceTags(mailContentLoader.getDepartedMail(), getDefaultTagReplacementMap(packet.getPacketId()));
-            } catch (IOException e) {
-                e.printStackTrace();//TODO handle this
-            }
+            String message = tagReplacer.replaceTags(mailContentLoader.getDepartedMail(), getDefaultTagReplacementMap(packet.getPacketId()));
             mailer.send(packet.getClientInfo().getContactDetails().getEmails().get(0), subject, message);
             mailer.send(packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0), subject, message);
         }
@@ -326,6 +293,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
     }
 
     @Override
+    @Transactional
     public Boolean addRemark(Long roundId, String remark) {
         DeliveryRound round = roundRepository.getOne(roundId);
         Remark newRemark = new Remark();
@@ -339,7 +307,8 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
     }
 
     @Override
-    public Boolean cannotDeliver(Long roundId, Packet packet, String reason) {
+    @Transactional
+    public Boolean cannotDeliver(Long roundId, Packet packet, String reason) throws Exception{
         //First get email addresses from packet to use after they are deleted
         String emailClient = packet.getClientInfo().getContactDetails().getEmails().get(0);
         String emailDelivery = packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0);
@@ -362,14 +331,9 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
         //mail reason to stakeholders
         String subject = properties.getPacketNotDeliveredSubject();
-        String message = null;
-        try {
-            Map<String, String> tagReplacementMap = getDefaultTagReplacementMap(packetId);
-            tagReplacementMap.put("reason", reason);
-            message = tagReplacer.replaceTags(mailContentLoader.getNotDeliveredMail(), tagReplacementMap);
-        } catch (IOException e) {
-            e.printStackTrace();//TODO handle this
-        }
+        Map<String, String> tagReplacementMap = getDefaultTagReplacementMap(packetId);
+        tagReplacementMap.put("reason", reason);
+        String message = tagReplacer.replaceTags(mailContentLoader.getNotDeliveredMail(), tagReplacementMap);
         mailer.send(emailClient, subject, message);
         mailer.send(emailDelivery, subject, message);
 
@@ -379,7 +343,8 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
     }
 
     @Override
-    public Boolean deliver(Long roundId, Packet packet) {
+    @Transactional
+    public Boolean deliver(Long roundId, Packet packet) throws Exception{
         //First get email addresses from packet to use after they are deleted
         String emailClient = packet.getClientInfo().getContactDetails().getEmails().get(0);
         String emailDelivery = packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0);
@@ -398,12 +363,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
         //mail to stakeholders
         String subject = properties.getPacketDeliveredSubject();
-        String message = null;
-        try {
-            message = tagReplacer.replaceTags(mailContentLoader.getDeliveredMail(), getDefaultTagReplacementMap(packetId));
-        } catch (IOException e) {
-            e.printStackTrace();//TODO handle this
-        }
+        String message = tagReplacer.replaceTags(mailContentLoader.getDeliveredMail(), getDefaultTagReplacementMap(packetId));
         mailer.send(emailClient, subject, message);
         mailer.send(emailDelivery, subject, message);
 
@@ -413,6 +373,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
     }
 
     @Override
+    @Transactional
     public Boolean addLocationUpdate(Long roundId, LongLat longLat) {
         //Create LocationUpdate for LongLat
         LocationUpdate locationUpdate = new LocationUpdate();
@@ -427,6 +388,11 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
         //Return true if application makes it to here
         return true;
+    }
+
+    @Override
+    public Address getCompanyAddress() throws Exception {
+        return companyContactDetailsRepository.get().getAddress();
     }
 
     private Map<String, String> getDefaultTagReplacementMap(String packetId) {

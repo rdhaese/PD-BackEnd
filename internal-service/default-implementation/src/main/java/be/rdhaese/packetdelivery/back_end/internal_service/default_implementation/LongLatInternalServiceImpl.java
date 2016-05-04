@@ -5,7 +5,7 @@ import be.rdhaese.packetdelivery.back_end.internal_service.properties.InternalSe
 import be.rdhaese.packetdelivery.back_end.internal_service.util.AddressToGoogleApiStringConverter;
 import be.rdhaese.packetdelivery.back_end.model.Address;
 import be.rdhaese.packetdelivery.back_end.model.LongLat;
-;
+
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
@@ -31,7 +31,6 @@ public class LongLatInternalServiceImpl implements LongLatInternalService {
 
     @Override
     public LongLat getForAddress(Address address) throws Exception {
-        //TODO log maps api requests in seperate file
         String addressString = addressConverter.convert(address);
         GeocodingResult[] results =  GeocodingApi.geocode(geoApiContext,
                 addressString).await();

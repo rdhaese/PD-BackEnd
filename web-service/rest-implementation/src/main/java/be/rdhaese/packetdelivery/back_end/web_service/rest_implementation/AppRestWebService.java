@@ -24,43 +24,43 @@ public class AppRestWebService implements AppWebService {
 
     @Override
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public @ResponseBody String getNewId() {
+    public @ResponseBody String getNewId() throws Exception {
         return appService.getNewId();
     }
 
     @Override
     @RequestMapping(value = "/get/{appId}", method = RequestMethod.GET)
-    public @ResponseBody AppStateDTO getAppState(@PathVariable String appId) {
+    public @ResponseBody AppStateDTO getAppState(@PathVariable String appId) throws Exception {
         return appStateMapper.mapToDto(appService.getAppState(appId));
     }
 
     @Override
     @RequestMapping(value = "/round-started/{appId}/{roundId}", method = RequestMethod.GET)
-    public Boolean roundStarted(@PathVariable String appId, @PathVariable Long roundId) {
+    public Boolean roundStarted(@PathVariable String appId, @PathVariable Long roundId) throws Exception {
         return appService.roundStarted(appId, roundId);
     }
 
     @Override
     @RequestMapping(value = "/loading-in/{roundId}", method = RequestMethod.GET)
-    public Boolean loadingIn(@PathVariable Long roundId) {
+    public Boolean loadingIn(@PathVariable Long roundId) throws Exception {
         return appService.loadingIn(roundId);
     }
 
     @Override
     @RequestMapping(value = "/next-packet/{roundId}", method = RequestMethod.GET)
-    public Boolean nextPacket(@PathVariable Long roundId) {
+    public Boolean nextPacket(@PathVariable Long roundId) throws Exception {
         return appService.nextPacket(roundId);
     }
 
     @Override
     @RequestMapping(value = "/round-ongoing/{roundId}", method = RequestMethod.GET)
-    public Boolean ongoingDelivery(@PathVariable Long roundId) {
+    public Boolean ongoingDelivery(@PathVariable Long roundId) throws Exception {
         return appService.ongoingDelivery(roundId);
     }
 
     @Override
     @RequestMapping(value = "/round-ended/{roundId}", method = RequestMethod.GET)
-    public Boolean roundEnded(@PathVariable Long roundId) {
+    public Boolean roundEnded(@PathVariable Long roundId) throws Exception {
         return appService.roundEnded(roundId);
     }
 }

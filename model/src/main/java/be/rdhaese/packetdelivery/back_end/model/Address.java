@@ -1,6 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
@@ -50,7 +52,7 @@ public class Address extends AbstractEntity {
         return result;
     }
 
-    @XmlElement (name = "street")
+    @XmlElement (name = "street", required = true)
     public String getStreet() {
         return street;
     }
@@ -59,7 +61,7 @@ public class Address extends AbstractEntity {
         this.street = street;
     }
 
-    @XmlElement (name = "number")
+    @XmlElement (name = "number" , required = true)
     public String getNumber() {
         return number;
     }
@@ -68,7 +70,7 @@ public class Address extends AbstractEntity {
         this.number = number;
     }
 
-    @XmlElement (name = "mailbox")
+    @XmlElement (name = "mailbox", required = false)
     public String getMailbox() {
         return mailbox;
     }
@@ -77,7 +79,7 @@ public class Address extends AbstractEntity {
         this.mailbox = mailbox;
     }
 
-    @XmlElement (name = "city")
+    @XmlElement (name = "city", required = true)
     public String getCity() {
         return city;
     }
@@ -86,7 +88,7 @@ public class Address extends AbstractEntity {
         this.city = city;
     }
 
-    @XmlElement (name = "postal-code")
+    @XmlElement (name = "postal-code", required = true)
     public String getPostalCode() {
         return postalCode;
     }
@@ -109,7 +111,6 @@ public class Address extends AbstractEntity {
 
     @Override
     public String toString() {
-
-        return String.format("Address [%s %s %s, %s %s]", street, number, mailbox, postalCode, city);
+        return ReflectionToStringBuilder.toString(this);
     }
 }

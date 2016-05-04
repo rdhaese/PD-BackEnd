@@ -1,5 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
@@ -11,13 +14,13 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class RegionName {
 
-    @NotNull
+    @Column(nullable = false) //@NotNull not working in @Embeddable...
     private String nl;
-    @NotNull
+    @Column(nullable = false) //@NotNull not working in @Embeddable...
     private String fr;
-    @NotNull
+    @Column(nullable = false) //@NotNull not working in @Embeddable...
     private String de;
-    @NotNull
+    @Column(nullable = false) //@NotNull not working in @Embeddable...
     private String en;
 
     public String getNl() {
@@ -50,5 +53,33 @@ public class RegionName {
 
     public void setEn(String en) {
         this.en = en;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RegionName that = (RegionName) o;
+
+        if (getNl() != null ? !getNl().equals(that.getNl()) : that.getNl() != null) return false;
+        if (getFr() != null ? !getFr().equals(that.getFr()) : that.getFr() != null) return false;
+        if (getDe() != null ? !getDe().equals(that.getDe()) : that.getDe() != null) return false;
+        return !(getEn() != null ? !getEn().equals(that.getEn()) : that.getEn() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getNl() != null ? getNl().hashCode() : 0;
+        result = 31 * result + (getFr() != null ? getFr().hashCode() : 0);
+        result = 31 * result + (getDe() != null ? getDe().hashCode() : 0);
+        result = 31 * result + (getEn() != null ? getEn().hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

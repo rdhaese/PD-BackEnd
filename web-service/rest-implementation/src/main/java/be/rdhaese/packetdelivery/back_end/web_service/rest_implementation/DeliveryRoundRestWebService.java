@@ -3,10 +3,12 @@ package be.rdhaese.packetdelivery.back_end.web_service.rest_implementation;
 
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.AppInternalService;
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.DeliveryRoundInternalService;
+import be.rdhaese.packetdelivery.back_end.model.Address;
 import be.rdhaese.packetdelivery.back_end.model.LongLat;
 import be.rdhaese.packetdelivery.back_end.web_service.interfaces.DeliveryRoundWebService;
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.Packet;
+import be.rdhaese.packetdelivery.dto.AddressDTO;
 import be.rdhaese.packetdelivery.dto.LongLatDTO;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
     @Autowired
     private Mapper<LongLat, LongLatDTO> longLatMapper;
 
+    @Autowired
+    private Mapper<Address, AddressDTO> addressMapper;
+
     @Override
     @RequestMapping(value = "/new/{amountOfPackets}", method = RequestMethod.GET)
     public Long newRound(@PathVariable int amountOfPackets) {
@@ -46,19 +51,19 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
 
     @Override
     @RequestMapping(value = "/mark-as-lost/{roundId}", method = RequestMethod.POST)
-    public Boolean markAsLost(@PathVariable Long roundId, @RequestBody PacketDTO packet) {
+    public Boolean markAsLost(@PathVariable Long roundId, @RequestBody PacketDTO packet) throws Exception {
         return roundService.markAsLost(roundId, packetMapper.mapToBus(packet));
     }
 
     @Override
     @RequestMapping(value = "deliver/{roundId}", method = RequestMethod.POST)
-    public Boolean deliver(@PathVariable Long roundId, @RequestBody PacketDTO packetDTO) {
+    public Boolean deliver(@PathVariable Long roundId, @RequestBody PacketDTO packetDTO) throws Exception {
         return roundService.deliver(roundId, packetMapper.mapToBus(packetDTO));
     }
 
     @Override
     @RequestMapping(value = "/cannot-deliver/{roundId}/{reason}", method = RequestMethod.POST)
-    public Boolean cannotDeliver(@PathVariable Long roundId, @RequestBody PacketDTO packetDTO, @PathVariable String reason) {
+    public Boolean cannotDeliver(@PathVariable Long roundId, @PathVariable String reason, @RequestBody PacketDTO packetDTO) throws Exception {
         Packet packet = packetMapper.mapToBus(packetDTO);
         return roundService.cannotDeliver(roundId, packet, reason);
     }
@@ -83,7 +88,13 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
 
     @Override
     @RequestMapping(value = "/start/{roundId}", method = RequestMethod.GET)
-    public Boolean startRound(@PathVariable Long roundId) {
+    public Boolean startRound(@PathVariable Long roundId) throws Exception {
         return roundService.startRound(roundId);
+    }
+
+    @Override
+    @RequestMapping(value = "/company-address", method = RequestMethod.GET)
+    public AddressDTO getCompanyAddress() throws Exception {
+        return addressMapper.mapToDto(roundService.getCompanyAddress());
     }
 }

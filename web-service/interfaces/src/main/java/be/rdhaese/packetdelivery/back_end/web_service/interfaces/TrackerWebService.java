@@ -14,8 +14,9 @@ import java.util.Collection;
  */
 public interface TrackerWebService {
 
-    LongLatDTO getCompanyAddress();
-    LongLatDTO getPacketAddress(String packetId);
+    LongLatDTO getCompanyAddress() throws Exception;
+    LongLatDTO getPacketAddress(String packetId) throws Exception;
     Collection<LocationUpdateDTO> getLocationUpdates(String packetId);
     Collection<RemarkDTO> getRemarks(String packetId);
+    Integer getAmountOfPacketsLeftBefore(String packetId) throws Exception;
 }

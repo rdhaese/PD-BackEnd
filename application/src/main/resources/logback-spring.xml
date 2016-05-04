@@ -48,23 +48,38 @@
             <pattern>%d{dd/MM/yyyy-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
+
+    <appender name="MAPS_API_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${HOME:-${USERPROFILE}}/packet-delivery-system/logs/back-end/maps-api.log</file>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DEBUG_MAPS_API_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${HOME:-${USERPROFILE}}/packet-delivery-system/logs/back-end/debug-maps-api.log</file>
+        <encoder>
+            <pattern>%d{dd/MM/yyyy-HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <springProfile name="production">
         <root level="WARN">
             <appender-ref ref="ALL_FILE"/>
             <appender-ref ref="STDOUT"/>
         </root>
 
-        <logger name="be.rdhaese.packetdelivery.back_end.web_service.logging" level="INFO">
-            <appender-ref ref="PACKET_DELIVERY_FILE"/>
-        </logger>
-
-        <logger name="be.rdhaese.packetdelivery.back_end.internal_service_service.logging" level="INFO">
+        <logger name="be.rdhaese.packetdelivery.back_end" level="INFO">
             <appender-ref ref="PACKET_DELIVERY_FILE"/>
         </logger>
 
         <logger name="org.springframework.web" level="WARN"/>
 
         <logger name="org.hibernate" level="WARN"/>
+
+        <logger name="com.google.maps" level="INFO">
+            <appender-ref ref="MAPS_API_FILE"/>
+        </logger>
     </springProfile>
 
     <springProfile name="dev">
@@ -73,17 +88,17 @@
             <appender-ref ref="STDOUT"/>
         </root>
 
-        <logger name="be.rdhaese.packetdelivery.back_end.web_service.logging" level="INFO">
-            <appender-ref ref="DEV_PACKET_DELIVERY_FILE"/>
-        </logger>
-
-        <logger name="be.rdhaese.packetdelivery.back_end.internal_service_service.logging" level="INFO">
+        <logger name="be.rdhaese.packetdelivery.back_end" level="INFO">
             <appender-ref ref="DEV_PACKET_DELIVERY_FILE"/>
         </logger>
 
         <logger name="org.springframework.web" level="INFO"/>
 
         <logger name="org.hibernate" level="INFO"/>
+
+        <logger name="com.google.maps" level="INFO">
+            <appender-ref ref="MAPS_API_FILE"/>
+        </logger>
     </springProfile>
 
     <springProfile name="debug">
@@ -92,16 +107,16 @@
             <appender-ref ref="STDOUT"/>
         </root>
 
-        <logger name="be.rdhaese.packetdelivery.back_end.web_service.logging" level="DEBUG">
-            <appender-ref ref="DEBUG_PACKET_DELIVERY_FILE"/>
-        </logger>
-
-        <logger name="be.rdhaese.packetdelivery.back_end.internal_service_service.logging" level="DEBUG">
+        <logger name="be.rdhaese.packetdelivery.back_end" level="DEBUG">
             <appender-ref ref="DEBUG_PACKET_DELIVERY_FILE"/>
         </logger>
 
         <logger name="org.springframework.web" level="DEBUG"/>
 
         <logger name="org.hibernate" level="DEBUG"/>
+
+        <logger name="com.google.maps" level="DEBUG">
+            <appender-ref ref="MAPS_API_FILE"/>
+        </logger>
     </springProfile>
 </configuration>
