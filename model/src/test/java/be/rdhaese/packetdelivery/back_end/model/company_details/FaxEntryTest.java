@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.createFaxEntry;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createFaxEntry;
 
 /**
  * Created on 4/05/2016.
@@ -27,10 +27,7 @@ public class FaxEntryTest extends AbstractModelTest {
 
     @After
     public void afterTestMethod(){
-        File file = new File(FILE_NAME);
-        if (file.exists()){
-            file.delete();
-        }
+        removeFile(FILE_NAME);
     }
 
     @Test

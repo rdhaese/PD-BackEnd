@@ -1,19 +1,11 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.*;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
 
-import be.rdhaese.packetdelivery.back_end.config.ModelTestConfig;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**

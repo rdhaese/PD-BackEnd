@@ -1,14 +1,13 @@
 package be.rdhaese.packetdelivery.back_end.model.app_state;
 
 import be.rdhaese.packetdelivery.back_end.model.AbstractModelTest;
-import be.rdhaese.packetdelivery.back_end.model.options.Options;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.createAppState;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAppState;
 
 /**
  * Created on 3/05/2016.
@@ -28,10 +27,7 @@ public class AppStateTest extends AbstractModelTest {
 
     @After
     public void afterTestMethod(){
-        File file = new File(FILE_NAME);
-        if (file.exists()){
-            file.delete();
-        }
+        removeFile(FILE_NAME);
     }
 
     @Test

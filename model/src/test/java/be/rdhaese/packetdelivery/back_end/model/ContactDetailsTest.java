@@ -5,9 +5,8 @@ import org.junit.Test;
 
 import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
-import java.util.List;
 
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.createContactDetails;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createContactDetails;
 
 /**
  * Created on 3/05/2016.

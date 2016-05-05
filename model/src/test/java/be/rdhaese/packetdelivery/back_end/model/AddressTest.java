@@ -1,18 +1,14 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
-import be.rdhaese.packetdelivery.back_end.model.options.OptionsCollection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.validation.ConstraintViolationException;
-import javax.xml.bind.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.createAddress;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAddress;
 
 /**
  * Created on 3/05/2016.
@@ -31,10 +27,7 @@ public class AddressTest extends AbstractModelTest {
 
     @After
     public void afterTestMethod(){
-        File file = new File(FILE_NAME);
-        if (file.exists()){
-            file.delete();
-        }
+        removeFile(FILE_NAME);
     }
 
     @Test

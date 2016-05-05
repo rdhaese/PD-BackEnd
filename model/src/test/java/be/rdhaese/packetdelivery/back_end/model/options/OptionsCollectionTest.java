@@ -9,8 +9,8 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.createOptions;
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.createOptionsCollection;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createOptions;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createOptionsCollection;
 
 
 /**
@@ -34,10 +34,7 @@ public class OptionsCollectionTest extends AbstractModelTest {
 
     @After
     public void afterTestMethod() {
-        File file = new File(FILE_NAME);
-        if (file.exists()) {
-            file.delete();
-        }
+        removeFile(FILE_NAME);
     }
 
     @Test

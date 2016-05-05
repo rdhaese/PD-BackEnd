@@ -16,13 +16,14 @@ import java.io.IOException;
  */
 @Repository
 public class OptionsXmlRepository implements OptionsRepository {
-    private static final String FILE_NAME = "options.xml";
+
+    public static final String FILE_NAME = "options.xml";
 
     @Override
     public OptionsCollection getOptionsCollection() throws JAXBException, IOException {
         File file = new File(FILE_NAME);
         if (!file.exists()){
-            throw new FileNotFoundException("Options file doesn't exist");
+            return new OptionsCollection();
         }
         JAXBContext jaxbContext = JAXBContext.newInstance(OptionsCollection.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();

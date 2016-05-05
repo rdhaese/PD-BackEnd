@@ -7,7 +7,7 @@ import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 import java.util.Calendar;
 
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.*;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
 
 
 /**

@@ -1,6 +1,6 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.*;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
 
 import org.junit.Before;
 import org.junit.Test;

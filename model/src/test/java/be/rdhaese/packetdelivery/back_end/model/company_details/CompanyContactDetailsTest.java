@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.*;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
 
 /**
  * Created on 4/05/2016.
@@ -56,10 +56,7 @@ public class CompanyContactDetailsTest extends AbstractModelTest {
 
     @After
     public void afterTestMethod(){
-        File file = new File(FILE_NAME);
-        if (file.exists()){
-            file.delete();
-        }
+        removeFile(FILE_NAME);
     }
 
     @Test

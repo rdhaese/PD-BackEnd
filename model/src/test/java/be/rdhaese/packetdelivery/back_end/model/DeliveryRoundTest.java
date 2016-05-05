@@ -10,7 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.*;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
 
 /**
  * Created on 3/05/2016.

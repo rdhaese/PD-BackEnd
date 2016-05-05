@@ -23,7 +23,7 @@ import java.util.List;
 @Repository
 public class AppStateXmlRepository implements AppStateRepository{
 
-    private static final String FILE_NAME = "app-states.xml";
+    public static final String FILE_NAME = "app-states.xml";
 
     @Override
     public Boolean save(AppState newAppState) throws JAXBException, IOException {
@@ -74,7 +74,6 @@ public class AppStateXmlRepository implements AppStateRepository{
         Collections.sort(appStates, new Comparator<AppState>() {
             @Override
             public int compare(AppState o1, AppState o2) {
-                //TODO could be other way
                 return Integer.compare(Integer.parseInt(o1.getAppId()),Integer.parseInt(o2.getAppId()));
             }
         });
@@ -84,7 +83,7 @@ public class AppStateXmlRepository implements AppStateRepository{
     private AppStateCollection getAppStateCollection() throws JAXBException, IOException {
         File file = new File(FILE_NAME);
         if (!file.exists()){
-            throw new FileNotFoundException("app-states file doesn't exist");
+            return new AppStateCollection();
         }
         JAXBContext jaxbContext = JAXBContext.newInstance(AppStateCollection.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();

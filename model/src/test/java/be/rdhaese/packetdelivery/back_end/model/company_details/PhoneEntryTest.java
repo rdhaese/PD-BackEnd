@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.createPhoneEntry;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createPhoneEntry;
 
 /**
  * Created on 4/05/2016.
@@ -26,10 +26,8 @@ public class PhoneEntryTest extends AbstractModelTest {
 
     @After
     public void afterTestMethod(){
-        File file = new File(FILE_NAME);
-        if (file.exists()){
-            file.delete();
-        }
+        removeFile(FILE_NAME);
+
     }
 
     @Test

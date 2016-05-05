@@ -1,7 +1,6 @@
 package be.rdhaese.packetdelivery.back_end.model.app_state;
 
 import be.rdhaese.packetdelivery.back_end.model.AbstractModelTest;
-import be.rdhaese.packetdelivery.back_end.model.options.OptionsCollection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,8 +9,8 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.createAppState;
-import static be.rdhaese.packetdelivery.back_end.testing.TestUtil.createAppStateCollection;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAppState;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAppStateCollection;
 
 /**
  * Created on 3/05/2016.
@@ -34,10 +33,7 @@ public class AppStateCollectionTest extends AbstractModelTest {
 
     @After
     public void afterTestMethod() {
-        File file = new File(FILE_NAME);
-        if (file.exists()) {
-            file.delete();
-        }
+        removeFile(FILE_NAME);
     }
 
     @Test

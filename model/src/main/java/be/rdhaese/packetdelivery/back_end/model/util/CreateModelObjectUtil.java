@@ -1,4 +1,4 @@
-package be.rdhaese.packetdelivery.back_end.testing;
+package be.rdhaese.packetdelivery.back_end.model.util;
 
 import be.rdhaese.packetdelivery.back_end.model.*;
 import be.rdhaese.packetdelivery.back_end.model.app_state.AppState;
@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author Robin D'Haese
  */
-public class TestUtil {
+public class CreateModelObjectUtil {
 
     public static Remark createRemark(Date timeAdded, String remarkText) {
         Remark remark = new Remark();
