@@ -8,5 +8,5 @@ import be.rdhaese.packetdelivery.back_end.model.Packet;
  * @author Robin D'Haese
  */
 public interface AddPacketInternalService {
-    String savePacket(Packet packet);
+    String savePacket(Packet packet) throws Exception;
 }

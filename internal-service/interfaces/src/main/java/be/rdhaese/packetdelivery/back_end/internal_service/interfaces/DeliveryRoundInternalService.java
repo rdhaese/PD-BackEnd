@@ -31,4 +31,6 @@ public interface DeliveryRoundInternalService {
     Boolean addLocationUpdate(Long roundId, LongLat longLat);
 
     Address getCompanyAddress() throws Exception;
+
+
 }

@@ -2,9 +2,9 @@
 <options>
     <user-options>
         <options-entry>
-            <image-viewer>false</image-viewer>
-            <language>Nederlands</language>
-            <print>0</print>
+            <image-viewer>true</image-viewer>
+            <language>English</language>
+            <print>1</print>
             <user>pdmaster</user>
         </options-entry>
     </user-options>

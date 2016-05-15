@@ -23,7 +23,7 @@ public class DeliveryRound extends AbstractEntity {
     public static final Comparator<Remark> REMARK_COMPARATOR = new RemarksOnTimeAddedComparator();
     public static final Comparator<LocationUpdate> LOCATION_UPDATE_COMPARATOR = new LocationUpdateOnTimeCreatedComparator();
 
-    @OneToMany (cascade = {CascadeType.DETACH, CascadeType.REFRESH} )//{CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
+    @OneToMany (cascade = {CascadeType.DETACH, CascadeType.REFRESH} )
     private List<Packet> packets;
     @OneToMany (cascade = CascadeType.ALL)
     private Set<LocationUpdate> locationUpdates = new TreeSet<>(LOCATION_UPDATE_COMPARATOR);

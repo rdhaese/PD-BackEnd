@@ -71,8 +71,8 @@ public class CreateModelObjectUtil {
     public static ContactDetails createContactDetails(String name, List<String> phoneNumbers, List<String> emails) {
         ContactDetails contactDetails = new ContactDetails();
         contactDetails.setName(name);
-        contactDetails.setPhoneNumbers(phoneNumbers);
-        contactDetails.setEmails(emails);
+        contactDetails.getPhoneNumbers().addAll(phoneNumbers);
+        contactDetails.getEmails().addAll(emails);
         return contactDetails;
     }
 

@@ -28,8 +28,7 @@ public class AppInternalServiceImpl implements AppInternalService {
 
     @Override
     public String getNewId() throws Exception {
-        Integer newId = null;
-        newId = Integer.parseInt(appStateRepository.getLatestId()) + 1;
+        Integer newId = Integer.parseInt(appStateRepository.getLatestId()) + 1;
         AppState newAppState = new AppState();
         newAppState.setAppId(newId.toString());
         if (appStateRepository.save(newAppState)) {

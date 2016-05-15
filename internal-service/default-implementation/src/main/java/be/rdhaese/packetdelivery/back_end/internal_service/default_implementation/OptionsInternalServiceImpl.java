@@ -33,6 +33,9 @@ public class OptionsInternalServiceImpl implements OptionsInternalService {
 
     @Override
     public Boolean save(Options options) throws Exception {
+        if (options == null){
+            return false;
+        }
         OptionsCollection optionsCollection = optionsRepository.getOptionsCollection();
         optionsCollection.addOptions(options);
         return optionsRepository.save(optionsCollection);

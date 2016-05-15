@@ -22,6 +22,10 @@ import java.util.List;
 public class AuthenticationInternalServiceImpl implements AuthenticationInternalService {
 
     private static final String MASTER_ACCOUNT = "pdmaster";
+
+    public static final AttributesMapper<String> USERNAME_MAPPER = new AuthenticationInternalServiceImpl.UsernameAttributesMapper();
+    public static final AttributesMapper<String> PASSWORD_MAPPER = new AuthenticationInternalServiceImpl.PasswordAttributesMapper();
+
     @Autowired
     private LdapTemplate ldapTemplate;
     @Autowired
@@ -35,12 +39,7 @@ public class AuthenticationInternalServiceImpl implements AuthenticationInternal
         }
 
         //First check if the given username exists
-        List<String> users = ldapTemplate.search("", String.format("(sAMAccountName=%s)", username), new AttributesMapper<String>() {
-                @Override
-                public String mapFromAttributes(Attributes attributes) throws NamingException {
-                    return (String) attributes.get("sAMAccountName").get();
-                }
-            });
+        List<String> users = ldapTemplate.search("", String.format("(sAMAccountName=%s)", username), USERNAME_MAPPER);
 
 
         //If none returned
@@ -49,14 +48,8 @@ public class AuthenticationInternalServiceImpl implements AuthenticationInternal
             return AuthenticationResult.NOT_KNOWN;
         }
 
-        //Get password from ldap TODO test this flow
-        List<String> passwords = ldapTemplate.search("", String.format("(sAMAccountName=%s)", username), new AttributesMapper<String>() {
-            @Override
-            public String mapFromAttributes(Attributes attributes) throws NamingException {
-                Attribute userPassword = attributes.get("userPassword");
-               return new String((byte[]) userPassword.get());
-            }
-        });
+        //Get password from ldap
+        List<String> passwords = ldapTemplate.search("", String.format("(sAMAccountName=%s)", username), PASSWORD_MAPPER);
 
        if (passwords.isEmpty()){
            //No password in ldap -> grant permission
@@ -72,4 +65,18 @@ public class AuthenticationInternalServiceImpl implements AuthenticationInternal
         return AuthenticationResult.WRONG_PASSWORD;
     }
 
+    private static class UsernameAttributesMapper implements AttributesMapper<String> {
+        @Override
+        public String mapFromAttributes(Attributes attributes) throws NamingException {
+            return (String) attributes.get("sAMAccountName").get();
+        }
+    }
+
+    private static class PasswordAttributesMapper implements AttributesMapper<String> {
+        @Override
+        public String mapFromAttributes(Attributes attributes) throws NamingException {
+            Attribute userPassword = attributes.get("userPassword");
+           return new String((byte[]) userPassword.get());
+        }
+    }
 }

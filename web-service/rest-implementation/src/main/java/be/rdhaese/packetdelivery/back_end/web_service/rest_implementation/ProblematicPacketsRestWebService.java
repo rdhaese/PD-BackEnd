@@ -38,51 +38,12 @@ public class ProblematicPacketsRestWebService implements ProblematicPacketsWebSe
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public Collection<PacketDTO> getProblematicPackets() {
         return packetMapper.mapToDto(problematicPacketsInternalService.getProblematicPackets());
-
-        //TODO remove or use in test
-//        PacketDTO dto = new PacketDTO();
-//        dto.setPacketId("TE-TE-21012015-12345");
-//        dto.setStatusChangedOn(new Date());
-//        dto.setClientName("bfdsdf");
-//        dto.setClientPhone("osdfodfso");
-//        dto.setClientEmail("esfposdfo");
-//        dto.setDeliveryName("sdofisdofs");
-//        dto.setDeliveryPhone("eosfposdfo");
-//        dto.setDeliveryEmail("siofjiosdfsdf");
-//
-//        PacketDTO dto1 = new PacketDTO();
-//        dto1.setPacketId("T0-T0-21072015-84968");
-//        dto1.setStatusChangedOn(new Date());
-//        dto1.setClientName("bfdsdfqsqdfsdf");
-//        dto1.setClientPhone("osdfosdfqsdfdfso");
-//        dto1.setClientEmail("esqsdffposdfo");
-//        dto1.setDeliveryName("sdofisqsdfdofs");
-//        dto1.setDeliveryPhone("eosfpsdfqosdfo");
-//        dto1.setDeliveryEmail("siofjioqsdffsdfsdf");
-//
-//        List<PacketDTO> dtos = new ArrayList<>();
-//        dtos.add(dto);
-//        dtos.add(dto1);
-//        return dtos;
     }
 
     @Override
     @RequestMapping(value = "/for-id/{packetId}", method = RequestMethod.GET)
     public PacketDTO getProblematicPacket(@PathVariable String packetId) {
-
         return packetMapper.mapToDto(problematicPacketsInternalService.getProblematicPacket(packetId));
-
-        //TODO remove or use in test
-//        PacketDTO dto = new PacketDTO();
-//        dto.setPacketId("TE-TE-21012015-12345");
-//        dto.setStatusChangedOn(new Date());
-//        dto.setClientName("bfdsdf");
-//        dto.setClientPhone("osdfodfso");
-//        dto.setClientEmail("esfposdfo");
-//        dto.setDeliveryName("sdofisdofs");
-//        dto.setDeliveryPhone("eosfposdfo");
-//        dto.setDeliveryEmail("siofjiosdfsdf");
-//        return dto;
     }
 
     @Override

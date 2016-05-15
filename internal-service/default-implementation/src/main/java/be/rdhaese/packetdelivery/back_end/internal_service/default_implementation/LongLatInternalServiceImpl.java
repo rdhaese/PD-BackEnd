@@ -1,14 +1,16 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation;
 
+import be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.util.GeoCoder;
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.LongLatInternalService;
-import be.rdhaese.packetdelivery.back_end.internal_service.properties.InternalServiceProperties;
-import be.rdhaese.packetdelivery.back_end.internal_service.util.AddressToGoogleApiStringConverter;
+import be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.properties.InternalServiceProperties;
+import be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.util.AddressToGoogleApiStringConverter;
 import be.rdhaese.packetdelivery.back_end.model.Address;
 import be.rdhaese.packetdelivery.back_end.model.LongLat;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.Geometry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,20 +29,19 @@ public class LongLatInternalServiceImpl implements LongLatInternalService {
     private AddressToGoogleApiStringConverter addressConverter;
 
     @Autowired
-    private GeoApiContext geoApiContext;
+    private GeoCoder geoCoder;
 
     @Override
     public LongLat getForAddress(Address address) throws Exception {
         String addressString = addressConverter.convert(address);
-        GeocodingResult[] results =  GeocodingApi.geocode(geoApiContext,
-                addressString).await();
+        Geometry geometry = geoCoder.getGeometry(addressString);
         LongLat longLat;
-        if (results.length < 1){
+        if (geometry == null){
             //Default
             longLat = new LongLat(internalServiceProperties.getDefaultLongitude(), internalServiceProperties.getDefaultLatitude());
         } else {
             //returned by google
-            longLat = new LongLat(results[0].geometry.location.lng, results[0].geometry.location.lat);
+            longLat = new LongLat(geometry.location.lng, geometry.location.lat);
         }
         return longLat;
     }

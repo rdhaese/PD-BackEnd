@@ -19,7 +19,7 @@ public class AppStateMapper extends AbstractMapper<AppState, AppStateDTO> {
         AppState appState = new AppState();
         appState.setAppId(dto.getAppId());
         appState.setRoundId(dto.getRoundId());
-        appState.setActivity(AppStateActivity.valueOf(dto.getActivity()));
+        appState.setActivity(AppStateActivity.valueOf(dto.getActivity().toUpperCase()));
         appState.setCurrentPacketIndex(dto.getCurrentPacketIndex());
         return appState;
     }

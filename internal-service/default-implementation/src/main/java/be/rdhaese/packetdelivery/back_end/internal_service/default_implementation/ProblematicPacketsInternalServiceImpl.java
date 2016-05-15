@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -40,9 +41,11 @@ public class ProblematicPacketsInternalServiceImpl implements ProblematicPackets
     @Transactional
     public void reSend(String packetId) {
         Packet packet = packetJpaRepository.getPacket(packetId);
-        packet.setPacketStatus(PacketStatus.NORMAL);
-        packet.setStatusChangedOn(new Date());
-        packetJpaRepository.save(packet);
+        if (packet != null) {
+            packet.setPacketStatus(PacketStatus.NORMAL);
+            packet.setStatusChangedOn(new Date());
+            packetJpaRepository.save(packet);
+        }
     }
 
     @Override
@@ -54,9 +57,9 @@ public class ProblematicPacketsInternalServiceImpl implements ProblematicPackets
         ClientInfo newDeliveryInfo = packet.getClientInfo();
         ClientInfo oldDeliveryInfo = packet.getDeliveryInfo().getClientInfo();
         oldDeliveryInfo.getContactDetails().setName(newDeliveryInfo.getContactDetails().getName());
-        oldDeliveryInfo.getContactDetails().getPhoneNumbers().clear();
+        oldDeliveryInfo.getContactDetails().setPhoneNumbers(new ArrayList<>());
         oldDeliveryInfo.getContactDetails().getPhoneNumbers().addAll(newDeliveryInfo.getContactDetails().getPhoneNumbers());
-        oldDeliveryInfo.getContactDetails().getEmails().clear();
+        oldDeliveryInfo.getContactDetails().setEmails(new ArrayList<>());
         oldDeliveryInfo.getContactDetails().getEmails().addAll(newDeliveryInfo.getContactDetails().getEmails());
         oldDeliveryInfo.getAddress().setStreet(newDeliveryInfo.getAddress().getStreet());
         oldDeliveryInfo.getAddress().setNumber(newDeliveryInfo.getAddress().getNumber());

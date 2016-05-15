@@ -8,5 +8,5 @@ import be.rdhaese.packetdelivery.dto.PacketDTO;
  * @author Robin D'Haese
  */
 public interface AddPacketWebService {
-    String addPacket(PacketDTO packetDTO);
+    String addPacket(PacketDTO packetDTO) throws Exception;
 }

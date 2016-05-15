@@ -7,10 +7,7 @@ import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDe
 import be.rdhaese.packetdelivery.back_end.web_service.interfaces.ContactInformationWebService;
 import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created on 27/12/2015.
@@ -22,23 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class ContactInformationRestWebService implements ContactInformationWebService {
 
     @Autowired
-    private CompanyContactDetailsInternalService editCompanyContactDetailsInternalService;
+    private CompanyContactDetailsInternalService companyContactDetailsInternalService;
     @Autowired
     private Mapper<CompanyContactDetails, ContactDetailsDTO> companyContactDetailsMapper;
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public ContactDetailsDTO get() throws Exception {
-        return companyContactDetailsMapper.mapToDto(editCompanyContactDetailsInternalService.get());
+    public @ResponseBody ContactDetailsDTO get() throws Exception {
+        return companyContactDetailsMapper.mapToDto(companyContactDetailsInternalService.get());
     }
 
     @RequestMapping(value = "/post", method = RequestMethod.POST)
     public boolean post(@RequestBody ContactDetailsDTO contactDetailsDTO) throws Exception {
-        return editCompanyContactDetailsInternalService.save(companyContactDetailsMapper.mapToBus(contactDetailsDTO));
+        return companyContactDetailsInternalService.save(companyContactDetailsMapper.mapToBus(contactDetailsDTO));
     }
 
     @Override
     @RequestMapping(value = "/company-name", method = RequestMethod.GET)
     public String getCompanyName() throws Exception {
-        return editCompanyContactDetailsInternalService.getCompanyName();
+        return companyContactDetailsInternalService.getCompanyName();
     }
 }

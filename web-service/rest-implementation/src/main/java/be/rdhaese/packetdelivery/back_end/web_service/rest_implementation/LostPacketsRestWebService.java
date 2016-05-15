@@ -32,30 +32,6 @@ public class LostPacketsRestWebService implements LostPacketsWebService {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public Collection<PacketDTO> getLostPackets() {
             return packetMapper.mapToDto(lostPacketsInternalService.getLostPackets());
-//        PacketDTO dto = new PacketDTO();
-//        dto.setPacketId("TE-TE-21012015-12345");
-//        dto.setStatusChangedOn(new Date());
-//        dto.setClientName("bfdsdf");
-//        dto.setClientPhone("osdfodfso");
-//        dto.setClientEmail("esfposdfo");
-//        dto.setDeliveryName("sdofisdofs");
-//        dto.setDeliveryPhone("eosfposdfo");
-//        dto.setDeliveryEmail("siofjiosdfsdf");
-//
-//        PacketDTO dto1 = new PacketDTO();
-//        dto1.setPacketId("T0-T0-21072015-84968");
-//        dto1.setStatusChangedOn(new Date());
-//        dto1.setClientName("bfdsdfqsqdfsdf");
-//        dto1.setClientPhone("osdfosdfqsdfdfso");
-//        dto1.setClientEmail("esqsdffposdfo");
-//        dto1.setDeliveryName("sdofisqsdfdofs");
-//        dto1.setDeliveryPhone("eosfpsdfqosdfo");
-//        dto1.setDeliveryEmail("siofjioqsdffsdfsdf");
-//
-//        List<PacketDTO> dtos = new ArrayList<>();
-//        dtos.add(dto);
-//        dtos.add(dto1);
-//        return dtos;
     }
 
     @Override

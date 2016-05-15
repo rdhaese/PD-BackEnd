@@ -28,7 +28,7 @@ public class AddPacketRestWebService implements AddPacketWebService {
     private Mapper<Packet, PacketDTO> packetMapper;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addPacket(@RequestBody PacketDTO packetDTO){
+    public String addPacket(@RequestBody PacketDTO packetDTO) throws Exception {
         return addPacketInternalService.savePacket(packetMapper.mapToBus(packetDTO));
     }
 }

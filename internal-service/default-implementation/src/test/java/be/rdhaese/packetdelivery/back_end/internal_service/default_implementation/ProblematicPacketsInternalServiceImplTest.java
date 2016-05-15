@@ -1,0 +1,254 @@
+package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation;
+
+import be.rdhaese.packetdelivery.back_end.model.*;
+import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.PacketJpaRepository;
+import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.RegionJpaRepository;
+import junit.framework.TestCase;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
+
+/**
+ * Created on 6/05/2016.
+ *
+ * @author Robin D'Haese
+ */
+@RunWith(MockitoJUnitRunner.class)
+@SpringApplicationConfiguration
+public class ProblematicPacketsInternalServiceImplTest extends TestCase {
+
+    private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    @InjectMocks
+    private ProblematicPacketsInternalServiceImpl problematicPacketsInternalService;
+
+    @Mock
+    private PacketJpaRepository packetJpaRepository;
+
+    @Mock
+    private RegionJpaRepository regionJpaRepository;
+
+    @Test
+    public void testGetProblematicPackets() {
+        //Setup mocks
+        List<Packet> packets = Arrays.asList(
+                createPacket("packetId1", null, null, PacketStatus.PROBLEMATIC, null, 0),
+                createPacket("packetId2", null, null, PacketStatus.PROBLEMATIC, null, 0)
+        );
+        when(packetJpaRepository.getProblematicPackets()).thenReturn(packets);
+
+        //Test
+        assertEquals(2, problematicPacketsInternalService.getProblematicPackets().size());
+        verify(packetJpaRepository, times(1)).getProblematicPackets();
+    }
+
+    @Test
+    public void testGetProblematicPAcketForPAcketId() {
+        //Setup mocks
+        Packet problematicPacket = createPacket("packetId1", null, null, PacketStatus.PROBLEMATIC, null, 0);
+        when(packetJpaRepository.getProblematicPacket("packetId1")).thenReturn(problematicPacket);
+
+        //Test
+        assertNull(problematicPacketsInternalService.getProblematicPacket("unknown id"));
+        assertEquals(problematicPacket, problematicPacketsInternalService.getProblematicPacket("packetId1"));
+        verify(packetJpaRepository, times(2)).getProblematicPacket(any());
+    }
+
+    @Test
+    public void testReSend() throws ParseException {
+        //Setup mocks
+        Date packetStatusChangedOn = dateFormat.parse("17/04/2016");
+        Packet problematicPacket = createPacket("packetId1", null, null, PacketStatus.PROBLEMATIC, packetStatusChangedOn, 0);
+        when(packetJpaRepository.getPacket("packetId1")).thenReturn(problematicPacket);
+
+        //Test
+        problematicPacketsInternalService.reSend("unknown id");
+        assertEquals(PacketStatus.PROBLEMATIC, problematicPacket.getPacketStatus());
+        assertTrue(packetStatusChangedOn.equals(problematicPacket.getStatusChangedOn()));
+
+        problematicPacketsInternalService.reSend("packetId1");
+        assertEquals(PacketStatus.NORMAL, problematicPacket.getPacketStatus());
+        assertFalse(packetStatusChangedOn.equals(problematicPacket.getStatusChangedOn()));
+
+        verify(packetJpaRepository, times(2)).getPacket(any());
+        verify(packetJpaRepository, times(1)).save(any(Packet.class));
+    }
+
+    @Test
+    public void testReturnToSender() throws ParseException {
+        //Setup mocks
+        Date date = dateFormat.parse("17/04/2016");
+        Region clientRegion = createRegion(new RegionName(), "CLIENTREGION");
+        Region deliveryregion = createRegion(new RegionName(), "DELIVERYREGION");
+        Packet packet = createPacket(
+                "packetId",
+                createClientInfo(
+                        createContactDetails(
+                                "name",
+                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
+                                Arrays.asList(new String[]{"email1", "email2"})
+                        ),
+                        createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
+                ),
+                createDeliveryInfo(
+                        createClientInfo(
+                                createContactDetails(
+                                        "name",
+                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
+                                        Arrays.asList(new String[]{"email5", "email6"})
+                                ),
+                                createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
+                        ),
+                        deliveryregion
+                ),
+                PacketStatus.PROBLEMATIC,
+                date,
+                2
+        );
+        when(packetJpaRepository.getPacket("packetId")).thenReturn(packet);
+        when(regionJpaRepository.getRegionFor("CLIENTREGION")).thenReturn(clientRegion);
+
+        //Test
+        problematicPacketsInternalService.returnToSender("packetId", clientRegion);
+        assertEquals(packet.getClientInfo(), packet.getDeliveryInfo().getClientInfo());
+        assertEquals(clientRegion, packet.getDeliveryInfo().getRegion());
+        assertEquals(PacketStatus.NORMAL, packet.getPacketStatus());
+        assertThat(packet.getStatusChangedOn(), is(not(date)));
+
+        verify(packetJpaRepository, times(1)).getPacket(any());
+        verify(regionJpaRepository, times(1)).getRegionFor(any());
+        verify(packetJpaRepository, times(1)).save(any(Packet.class));
+    }
+
+    @Test
+    public void testGetProblematicPacketAddressForPacketId() {
+        //Setup mocks
+        Address address = createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke");
+        Packet packet = createPacket(
+                "packetId",
+                createClientInfo(
+                        createContactDetails(
+                                "name",
+                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
+                                Arrays.asList(new String[]{"email1", "email2"})
+                        ),
+                        createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
+                ),
+                createDeliveryInfo(
+                        createClientInfo(
+                                createContactDetails(
+                                        "name",
+                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
+                                        Arrays.asList(new String[]{"email5", "email6"})
+                                ),
+                                address
+                        ),
+                        new Region()
+                ),
+                PacketStatus.PROBLEMATIC,
+                new Date(),
+                2
+        );
+        when(packetJpaRepository.getPacket("packetId")).thenReturn(packet);
+
+        //Test
+        assertEquals(address, problematicPacketsInternalService.getProblematicPacketAddress("packetId"));
+        verify(packetJpaRepository, times(1)).getPacket(any());
+    }
+
+    @Test
+    public void testGetProblematicPacketRegionForPacketId() {
+        //Setup mocks
+        Region region = createRegion(new RegionName(), "CODE");
+        Packet packet = createPacket(
+                "packetId",
+                createClientInfo(
+                        createContactDetails(
+                                "name",
+                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
+                                Arrays.asList(new String[]{"email1", "email2"})
+                        ),
+                        createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
+                ),
+                createDeliveryInfo(
+                        createClientInfo(
+                                createContactDetails(
+                                        "name",
+                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
+                                        Arrays.asList(new String[]{"email5", "email6"})
+                                ),
+                                createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
+                        ),
+                        region
+                ),
+                PacketStatus.PROBLEMATIC,
+                new Date(),
+                2
+        );
+        when(packetJpaRepository.getPacket("packetId")).thenReturn(packet);
+
+        //Test
+        assertEquals(region, problematicPacketsInternalService.getProblematicPacketRegion("packetId"));
+        verify(packetJpaRepository, times(1)).getPacket(any());
+    }
+
+    @Test
+    public void testSaveDeliveryAddress() {
+        //Setup mocks
+        Packet packet = createPacket(
+                "packetId",
+                createClientInfo(
+                        createContactDetails(
+                                "name",
+                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
+                                Arrays.asList(new String[]{"email1", "email2"})
+                        ),
+                        createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
+                ),
+                createDeliveryInfo(
+                        createClientInfo(
+                                createContactDetails(
+                                        "name",
+                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
+                                        Arrays.asList(new String[]{"email5", "email6"})
+                                ),
+                                createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
+                        ),
+                        createRegion(new RegionName(), "CODE1")
+                ),
+                PacketStatus.PROBLEMATIC,
+                new Date(),
+                2
+        );
+        when(packetJpaRepository.getPacket("packetId")).thenReturn(packet);
+
+        //Test
+        Address address = createAddress("street", "number", "mailbox", "postalCode", "city");
+        Region region = createRegion(new RegionName(), "CODE2");
+        problematicPacketsInternalService.saveDeliveryAddress("packetId", address, region);
+
+        assertEquals(address, packet.getDeliveryInfo().getClientInfo().getAddress());
+        assertEquals(region, packet.getDeliveryInfo().getRegion());
+
+        verify(packetJpaRepository, times(1)).getPacket(any());
+        verify(packetJpaRepository, times(1)).save(any(Packet.class));
+    }
+}

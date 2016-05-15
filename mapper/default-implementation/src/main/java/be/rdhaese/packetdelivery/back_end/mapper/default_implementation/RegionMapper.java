@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class RegionMapper extends AbstractMapper<Region, RegionDTO> {
+
     @Autowired
     private RegionsInternalService regionsInternalService;
 

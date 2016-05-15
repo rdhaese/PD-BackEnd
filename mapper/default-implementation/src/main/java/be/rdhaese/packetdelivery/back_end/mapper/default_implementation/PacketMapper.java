@@ -156,6 +156,6 @@ public class PacketMapper extends AbstractMapper<Packet, PacketDTO> {
     private void mapClientInfoContactDetailsToDto(ContactDetails contactDetails, PacketDTO packetDTO) {
         packetDTO.setClientName(contactDetails.getName());
         packetDTO.setClientPhone(contactDetails.getPhoneNumbers().get(0));
-        packetDTO.setClientEmail(contactDetails.getPhoneNumbers().get(0));
+        packetDTO.setClientEmail(contactDetails.getEmails().get(0));
     }
 }
