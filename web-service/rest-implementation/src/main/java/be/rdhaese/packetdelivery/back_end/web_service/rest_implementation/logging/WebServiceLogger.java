@@ -19,7 +19,7 @@ import java.util.Arrays;
 @Aspect
 public class WebServiceLogger {
 
-    private Logger logger = LoggerFactory.getLogger(WebServiceLogger.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebServiceLogger.class);
 
     @Around(value = "execution(* be.rdhaese.packetdelivery.back_end.web_service.interfaces..*(..))")
     public Object log(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -37,7 +37,7 @@ public class WebServiceLogger {
                 result,
                 getMethod(joinPoint)
         );
-        logger.info(logText);
+        LOGGER.info(logText);
     }
 
     private void before(JoinPoint joinPoint) {
@@ -45,20 +45,20 @@ public class WebServiceLogger {
                 "Method [%s] called",
                 getMethod(joinPoint)
         );
-        logger.info(logText);
+        LOGGER.info(logText);
 
-        if (logger.isDebugEnabled()) {
+        if (LOGGER.isDebugEnabled()) {
             logArguments(joinPoint);
         }
     }
 
     private void logArguments(JoinPoint joinPoint) {
-        logger.debug("Arguments:");
+        LOGGER.debug("Arguments:");
         for (Object o : joinPoint.getArgs()) {
             if (o instanceof Object[]) {
-                logger.debug(Arrays.toString((Object[]) o));
+                LOGGER.debug(Arrays.toString((Object[]) o));
             } else {
-                logger.debug(o.toString());
+                LOGGER.debug(o.toString());
             }
         }
     }
@@ -79,11 +79,11 @@ public class WebServiceLogger {
                 "Exception while performing method [%s]",
                 getMethod(joinPoint)
         );
-        logger.warn(logText, t);
+        LOGGER.warn(logText, t);
         throw t;
     }
 
-    private String getMethod(JoinPoint joinPoint){
+    private String getMethod(JoinPoint joinPoint) {
         return String.format(
                 "%s.%s",
                 joinPoint.getSignature().getDeclaringTypeName(),

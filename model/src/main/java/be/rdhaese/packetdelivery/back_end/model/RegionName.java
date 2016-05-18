@@ -4,7 +4,6 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created on 15/04/2016.
@@ -63,9 +62,7 @@ public class RegionName {
         RegionName that = (RegionName) o;
 
         if (getNl() != null ? !getNl().equals(that.getNl()) : that.getNl() != null) return false;
-        if (getFr() != null ? !getFr().equals(that.getFr()) : that.getFr() != null) return false;
-        if (getDe() != null ? !getDe().equals(that.getDe()) : that.getDe() != null) return false;
-        return !(getEn() != null ? !getEn().equals(that.getEn()) : that.getEn() != null);
+        return !(getFr() != null ? !getFr().equals(that.getFr()) : that.getFr() != null) && !(getDe() != null ? !getDe().equals(that.getDe()) : that.getDe() != null) && !(getEn() != null ? !getEn().equals(that.getEn()) : that.getEn() != null);
 
     }
 

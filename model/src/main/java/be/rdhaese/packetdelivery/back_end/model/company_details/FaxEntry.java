@@ -11,8 +11,8 @@ import java.io.Serializable;
  *
  * @author Robin D'Haese
  */
-@XmlRootElement (name = "fax")
-public class FaxEntry implements Serializable{
+@XmlRootElement(name = "fax")
+public class FaxEntry implements Serializable {
     private String title;
     private String number;
 
@@ -40,7 +40,7 @@ public class FaxEntry implements Serializable{
         return getTitle() != null ? getTitle().hashCode() : 0;
     }
 
-    @XmlElement (name = "fax-title")
+    @XmlElement(name = "fax-title")
     public String getNumber() {
         return number;
     }
@@ -49,7 +49,7 @@ public class FaxEntry implements Serializable{
         this.number = number;
     }
 
-    @XmlElement (name = "fax-number")
+    @XmlElement(name = "fax-number")
     public String getTitle() {
         return title;
     }

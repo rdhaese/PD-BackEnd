@@ -1,7 +1,5 @@
 package be.rdhaese.packetdelivery.back_end.model.app_state;
 
-import be.rdhaese.packetdelivery.back_end.model.options.Options;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,7 +16,7 @@ public class AppStateCollection {
 
     private Collection<AppState> appStates;
 
-    public AppStateCollection(){
+    public AppStateCollection() {
         appStates = new HashSet<>();
     }
 
@@ -29,12 +27,12 @@ public class AppStateCollection {
         return appStates;
     }
 
-    public Boolean addAppState(AppState appState){
-        this.appStates.remove(appState);
-        return this.appStates.add(appState);
-    }
-
     public void setAppStates(Collection<AppState> appStates) {
         this.appStates = appStates;
+    }
+
+    public void addAppState(AppState appState) {
+        this.appStates.remove(appState);
+        this.appStates.add(appState);
     }
 }

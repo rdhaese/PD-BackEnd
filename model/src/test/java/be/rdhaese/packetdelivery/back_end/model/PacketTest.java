@@ -15,12 +15,13 @@ import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUti
  *
  * @author Robin D'Haese
  */
+@SuppressWarnings("unchecked") //When getting result list from query, no type is known
 public class PacketTest extends AbstractModelTest {
 
     private Packet packet;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         Region region = createRegion(createRegionName("nl", "fr", "de", "en"), "CODE");
         Region adjacentRegion1 = createRegion(createRegionName("nl1", "fr1", "de1", "en1"), "CODE1");
         Region adjacentRegion2 = createRegion(createRegionName("nl2", "fr2", "de2", "en2"), "CODE2");
@@ -33,17 +34,17 @@ public class PacketTest extends AbstractModelTest {
                 createClientInfo(
                         createContactDetails(
                                 "name",
-                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                                Arrays.asList(new String[]{"email1", "email2"})
+                                Arrays.asList("phonenumber1", "phoneNumber2"),
+                                Arrays.asList("email1", "email2")
                         ),
                         createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
                 ),
-               createDeliveryInfo(
+                createDeliveryInfo(
                         createClientInfo(
                                 createContactDetails(
                                         "name",
-                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
-                                        Arrays.asList(new String[]{"email5", "email6"})
+                                        Arrays.asList("phonenumber3", "phoneNumber4"),
+                                        Arrays.asList("email5", "email6")
                                 ),
                                 createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
                         ),
@@ -56,7 +57,7 @@ public class PacketTest extends AbstractModelTest {
     }
 
     @Test
-    public void testCanPersist(){
+    public void testCanPersist() {
         //Check if id is null on creation
         assertNull(packet.getId());
 
@@ -73,7 +74,7 @@ public class PacketTest extends AbstractModelTest {
     }
 
     @Test
-    public void testClientInfoRemovedWithPacket(){
+    public void testClientInfoRemovedWithPacket() {
         //Persist
         persistFlushAndClear(packet);
 
@@ -87,7 +88,7 @@ public class PacketTest extends AbstractModelTest {
     }
 
     @Test
-    public void testDeliveryInfoRemovedWithPacket(){
+    public void testDeliveryInfoRemovedWithPacket() {
         //Persist
         persistFlushAndClear(packet);
 
@@ -101,42 +102,42 @@ public class PacketTest extends AbstractModelTest {
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testPacketIdCannotBeNull(){
+    public void testPacketIdCannotBeNull() {
         packet.setPacketId(null);
 
         persistFlushAndClear(packet);
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testClientInfoCannotBeNull(){
+    public void testClientInfoCannotBeNull() {
         packet.setClientInfo(null);
 
         persistFlushAndClear(packet);
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testDeliveryInfoCannotBeNull(){
+    public void testDeliveryInfoCannotBeNull() {
         packet.setDeliveryInfo(null);
 
         persistFlushAndClear(packet);
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testPacketStatusCannotBeNull(){
+    public void testPacketStatusCannotBeNull() {
         packet.setPacketStatus(null);
 
         persistFlushAndClear(packet);
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testStatusChangedOnCannotBeNull(){
+    public void testStatusChangedOnCannotBeNull() {
         packet.setStatusChangedOn(null);
 
         persistFlushAndClear(packet);
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testPriorityCannotBeNull(){
+    public void testPriorityCannotBeNull() {
         packet.setPriority(null);
 
         persistFlushAndClear(packet);

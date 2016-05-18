@@ -26,8 +26,11 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class JpaTestConfig {
 
+    private static final String PACKAGES_TO_SCAN = "be.rdhaese.packetdelivery.back_end.model";
+    private static final String DATABASE_PLATFORM = "org.hibernate.dialect.H2Dialect";
+
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().
                 setType(EmbeddedDatabaseType.H2).
                 build();
@@ -38,22 +41,22 @@ public class JpaTestConfig {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
-        entityManagerFactoryBean.setPackagesToScan("be.rdhaese.packetdelivery.back_end.model");
+        entityManagerFactoryBean.setPackagesToScan(PACKAGES_TO_SCAN);
 
         return entityManagerFactoryBean;
     }
 
     @Bean
-    public JpaVendorAdapter jpaVendorAdapter(){
+    public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-        jpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.H2Dialect");
+        jpaVendorAdapter.setDatabasePlatform(DATABASE_PLATFORM);
         jpaVendorAdapter.setShowSql(true);
         jpaVendorAdapter.setGenerateDdl(true);
         return jpaVendorAdapter;
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 }

@@ -11,6 +11,8 @@ import java.io.IOException;
  * @author Robin D'Haese
  */
 public interface OptionsRepository {
-    OptionsCollection getOptionsCollection() throws JAXBException, IOException;
-    Boolean save (OptionsCollection optionsCollection) throws JAXBException;
+    OptionsCollection getOptionsCollection() throws JAXBException;
+
+    @SuppressWarnings("SameReturnValue")
+    Boolean save(OptionsCollection optionsCollection) throws JAXBException;
 }

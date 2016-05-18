@@ -11,6 +11,7 @@ import java.util.List;
  *
  * @author Robin D'Haese
  */
+@SuppressWarnings("SameReturnValue")
 public interface DeliveryRoundInternalService {
     Long createNewRound(int amountOfPackets);
 

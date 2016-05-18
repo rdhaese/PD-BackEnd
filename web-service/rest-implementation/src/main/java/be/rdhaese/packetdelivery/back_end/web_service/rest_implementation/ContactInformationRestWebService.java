@@ -23,8 +23,10 @@ public class ContactInformationRestWebService implements ContactInformationWebSe
     @Autowired
     private Mapper<CompanyContactDetails, ContactDetailsDTO> companyContactDetailsMapper;
 
+    @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public @ResponseBody ContactDetailsDTO get() throws Exception {
+    public
+    ContactDetailsDTO get() throws Exception {
         return companyContactDetailsMapper.mapToDto(companyContactDetailsInternalService.get());
     }
 

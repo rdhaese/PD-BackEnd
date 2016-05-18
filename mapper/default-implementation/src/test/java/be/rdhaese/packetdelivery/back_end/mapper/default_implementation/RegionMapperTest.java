@@ -17,7 +17,6 @@ import java.util.Date;
 
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createRegion;
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createRegionName;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 /**
@@ -35,7 +34,7 @@ public class RegionMapperTest extends TestCase {
     @Mock
     private RegionsInternalService regionsInternalService;
 
-    private Date date = Calendar.getInstance().getTime();
+    private final Date date = Calendar.getInstance().getTime();
     private Region region;
     private RegionDTO regionDto;
 
@@ -52,13 +51,13 @@ public class RegionMapperTest extends TestCase {
 
     @Test
     public void testMapToBus() {
-        assertEquals(region, mapper.mapToBus(regionDto));
+        TestCase.assertEquals(region, mapper.mapToBus(regionDto));
         verify(regionsInternalService, times(1)).getRegionFor(anyString());
     }
 
     @Test
     public void testMapToDto() {
         verifyNoMoreInteractions(regionsInternalService);
-        assertEquals(regionDto, mapper.mapToDto(region));
+        TestCase.assertEquals(regionDto, mapper.mapToDto(region));
     }
 }

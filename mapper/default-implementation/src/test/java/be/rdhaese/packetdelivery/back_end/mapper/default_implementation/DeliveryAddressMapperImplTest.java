@@ -1,6 +1,5 @@
 package be.rdhaese.packetdelivery.back_end.mapper.default_implementation;
 
-import be.rdhaese.packetdelivery.back_end.mapper.interfaces.DeliveryAddressMapper;
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.Address;
 import be.rdhaese.packetdelivery.back_end.model.Region;
@@ -15,9 +14,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 
-import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAddress;
-import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createRegion;
-import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createRegionName;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -43,8 +40,8 @@ public class DeliveryAddressMapperImplTest extends TestCase {
 
 
     @Before
-    public void setUp(){
-         region = createRegion(createRegionName("nameNl", "nameFr", "nameDe", "nameEn"), "CODE");
+    public void setUp() {
+        region = createRegion(createRegionName("nameNl", "nameFr", "nameDe", "nameEn"), "CODE");
         when(regionMapper.mapToBus(any(RegionDTO.class))).thenReturn(region);
 
         address = createAddress("Street", "Number", null, "postalCode", "city");
@@ -65,19 +62,19 @@ public class DeliveryAddressMapperImplTest extends TestCase {
     }
 
     @Test
-    public void testMapToBus(){
+    public void testMapToBus() {
         Object[] busObjs = deliveryAddressMapper.mapToBus(deliveryAddressDto);
 
-        assertEquals(3, busObjs.length);
-        assertEquals(packetId, busObjs[0]);
-        assertEquals(address, busObjs[1]);
-        assertEquals(region, busObjs[2]);
+        TestCase.assertEquals(3, busObjs.length);
+        TestCase.assertEquals(packetId, busObjs[0]);
+        TestCase.assertEquals(address, busObjs[1]);
+        TestCase.assertEquals(region, busObjs[2]);
 
         verify(regionMapper, times(1)).mapToBus(any(RegionDTO.class));
     }
 
     @Test
-    public void testMapToDto(){
-        assertEquals(deliveryAddressDto, deliveryAddressMapper.mapToDto(address, region, packetId));
+    public void testMapToDto() {
+        TestCase.assertEquals(deliveryAddressDto, deliveryAddressMapper.mapToDto(address, region, packetId));
     }
 }

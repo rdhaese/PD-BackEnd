@@ -1,9 +1,9 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation;
 
-import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.PacketJpaRepository;
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.LostPacketsInternalService;
 import be.rdhaese.packetdelivery.back_end.model.Packet;
 import be.rdhaese.packetdelivery.back_end.model.PacketStatus;
+import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.PacketJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ public class LostPacketsInternalServiceImpl implements LostPacketsInternalServic
 
     @Override
     public Collection<Packet> getLostPackets() {
-       return packetJpaRepository.getLostPackets();
+        return packetJpaRepository.getLostPackets();
     }
 
     @Override

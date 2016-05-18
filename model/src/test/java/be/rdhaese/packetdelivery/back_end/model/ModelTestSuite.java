@@ -1,9 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
-import be.rdhaese.packetdelivery.back_end.model.*;
 import be.rdhaese.packetdelivery.back_end.model.app_state.AppStateTestSuite;
 import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyDetailsTestSuite;
-import be.rdhaese.packetdelivery.back_end.model.comparator.*;
+import be.rdhaese.packetdelivery.back_end.model.comparator.ComparatorTestSuite;
 import be.rdhaese.packetdelivery.back_end.model.options.OptionsTestSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

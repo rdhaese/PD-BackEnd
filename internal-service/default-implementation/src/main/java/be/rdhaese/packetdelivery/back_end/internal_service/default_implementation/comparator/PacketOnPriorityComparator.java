@@ -11,7 +11,7 @@ import java.util.Comparator;
  * @author Robin D'Haese
  */
 @Component("packetOnPriorityComparator")
-public class PacketOnPriorityComparator implements Comparator<Packet>{
+public class PacketOnPriorityComparator implements Comparator<Packet> {
 
     @Override
     public int compare(Packet o1, Packet o2) {

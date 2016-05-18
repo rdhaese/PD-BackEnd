@@ -10,6 +10,8 @@ import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
 public interface ContactInformationWebService {
 
     ContactDetailsDTO get() throws Exception;
+
     boolean post(ContactDetailsDTO contactDetailsDTO) throws Exception;
+
     String getCompanyName() throws Exception;
 }

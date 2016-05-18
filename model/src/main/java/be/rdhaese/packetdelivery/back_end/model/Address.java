@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.beans.Transient;
 
 /**
  * Created on 24/11/2015.
@@ -14,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Robin D'Haese
  */
 @Entity
-@XmlRootElement (name = "address")
+@XmlRootElement(name = "address")
 public class Address extends AbstractEntity {
     @NotNull
     private String street;
@@ -35,10 +36,7 @@ public class Address extends AbstractEntity {
 
         if (getStreet() != null ? !getStreet().equals(address.getStreet()) : address.getStreet() != null) return false;
         if (getNumber() != null ? !getNumber().equals(address.getNumber()) : address.getNumber() != null) return false;
-        if (getMailbox() != null ? !getMailbox().equals(address.getMailbox()) : address.getMailbox() != null)
-            return false;
-        if (getCity() != null ? !getCity().equals(address.getCity()) : address.getCity() != null) return false;
-        return !(getPostalCode() != null ? !getPostalCode().equals(address.getPostalCode()) : address.getPostalCode() != null);
+        return !(getMailbox() != null ? !getMailbox().equals(address.getMailbox()) : address.getMailbox() != null) && !(getCity() != null ? !getCity().equals(address.getCity()) : address.getCity() != null) && !(getPostalCode() != null ? !getPostalCode().equals(address.getPostalCode()) : address.getPostalCode() != null);
 
     }
 
@@ -52,7 +50,7 @@ public class Address extends AbstractEntity {
         return result;
     }
 
-    @XmlElement (name = "street", required = true)
+    @XmlElement(name = "street", required = true)
     public String getStreet() {
         return street;
     }
@@ -61,7 +59,7 @@ public class Address extends AbstractEntity {
         this.street = street;
     }
 
-    @XmlElement (name = "number" , required = true)
+    @XmlElement(name = "number", required = true)
     public String getNumber() {
         return number;
     }
@@ -70,7 +68,7 @@ public class Address extends AbstractEntity {
         this.number = number;
     }
 
-    @XmlElement (name = "mailbox", required = false)
+    @XmlElement(name = "mailbox", required = false)
     public String getMailbox() {
         return mailbox;
     }
@@ -79,7 +77,7 @@ public class Address extends AbstractEntity {
         this.mailbox = mailbox;
     }
 
-    @XmlElement (name = "city", required = true)
+    @XmlElement(name = "city", required = true)
     public String getCity() {
         return city;
     }
@@ -88,7 +86,7 @@ public class Address extends AbstractEntity {
         this.city = city;
     }
 
-    @XmlElement (name = "postal-code", required = true)
+    @XmlElement(name = "postal-code", required = true)
     public String getPostalCode() {
         return postalCode;
     }
@@ -97,13 +95,15 @@ public class Address extends AbstractEntity {
         this.postalCode = postalCode;
     }
 
-    @java.beans.Transient
+    @SuppressWarnings("EmptyMethod")
+    @Transient
     @Override
     public Long getId() {
         return super.getId();
     }
 
-    @java.beans.Transient
+    @SuppressWarnings("EmptyMethod")
+    @Transient
     @Override
     public Long getVersion() {
         return super.getVersion();

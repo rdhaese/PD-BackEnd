@@ -5,8 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createFaxEntry;
 
 /**
@@ -21,17 +19,17 @@ public class FaxEntryTest extends AbstractModelTest {
     private FaxEntry faxEntry;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         faxEntry = createFaxEntry("title", "number");
     }
 
     @After
-    public void afterTestMethod(){
+    public void afterTestMethod() {
         removeFile(FILE_NAME);
     }
 
     @Test
-    public void testCanPersistToXml() throws Exception{
+    public void testCanPersistToXml() throws Exception {
         //Save to file
         persistToXml(FaxEntry.class, faxEntry, FILE_NAME);
 

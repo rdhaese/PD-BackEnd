@@ -10,22 +10,9 @@ import be.rdhaese.packetdelivery.dto.DeliveryAddressDTO;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
 import be.rdhaese.packetdelivery.dto.RegionDTO;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Robin D'Haese
  */
-public class ProblematicPacketsRestWebServiceTest extends AbstractRestWebServiceTest{
+public class ProblematicPacketsRestWebServiceTest extends AbstractRestWebServiceTest {
 
     @Autowired //Mock, see TestConfig
     private ProblematicPacketsInternalService problematicPacketsInternalService;
@@ -57,7 +44,7 @@ public class ProblematicPacketsRestWebServiceTest extends AbstractRestWebService
     private DeliveryAddressMapper deliveryAddressMapper;
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         reset(problematicPacketsInternalService, packetMapper,
                 regionMapper, deliveryAddressMapper);
     }
@@ -126,7 +113,7 @@ public class ProblematicPacketsRestWebServiceTest extends AbstractRestWebService
 
         mockMvc.perform(post("/problematic-packets/return-to-sender/packetId")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(convertObjectToJsonBytes(regionDTO)))
+                .content(AbstractRestWebServiceTest.convertObjectToJsonBytes(regionDTO)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
@@ -161,13 +148,13 @@ public class ProblematicPacketsRestWebServiceTest extends AbstractRestWebService
         Region region = createRegion(createRegionName("nl", "fr", "de", "en"), "CODE");
         DeliveryAddressDTO deliveryAddressDTO = new DeliveryAddressDTO();
         deliveryAddressDTO.setPacketId("packetId");
-        Object[] objects = new Object[]{"packetId", address, region};
+        Object[] objects = {"packetId", address, region};
 
         when(deliveryAddressMapper.mapToBus(deliveryAddressDTO)).thenReturn(objects);
 
         mockMvc.perform(post("/problematic-packets/save-delivery-address")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        .content(convertObjectToJsonBytes(deliveryAddressDTO)))
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(AbstractRestWebServiceTest.convertObjectToJsonBytes(deliveryAddressDTO)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 

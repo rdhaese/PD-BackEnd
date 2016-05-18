@@ -26,7 +26,7 @@ public class AddressMapper extends AbstractMapper<Address, AddressDTO> {
 
     @Override
     public AddressDTO mapToDto(Address busObj) {
-       AddressDTO dto = new AddressDTO();
+        AddressDTO dto = new AddressDTO();
         dto.setStreet(busObj.getStreet());
         dto.setNumber(busObj.getNumber());
         dto.setMailbox(busObj.getMailbox());

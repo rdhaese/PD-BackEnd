@@ -11,6 +11,7 @@ import java.nio.file.Files;
  *
  * @author Robin D'Haese
  */
+@SuppressWarnings("ConstantConditions") //Files are hardcoded
 @Component
 public class MailContentLoader {
 

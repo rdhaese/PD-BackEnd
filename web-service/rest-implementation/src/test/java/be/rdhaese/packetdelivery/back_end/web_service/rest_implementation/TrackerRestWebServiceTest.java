@@ -2,8 +2,12 @@ package be.rdhaese.packetdelivery.back_end.web_service.rest_implementation;
 
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.TrackerInternalService;
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
-import be.rdhaese.packetdelivery.back_end.model.*;
-import be.rdhaese.packetdelivery.dto.*;
+import be.rdhaese.packetdelivery.back_end.model.LocationUpdate;
+import be.rdhaese.packetdelivery.back_end.model.LongLat;
+import be.rdhaese.packetdelivery.back_end.model.Remark;
+import be.rdhaese.packetdelivery.dto.LocationUpdateDTO;
+import be.rdhaese.packetdelivery.dto.LongLatDTO;
+import be.rdhaese.packetdelivery.dto.RemarkDTO;
 import org.junit.After;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +20,16 @@ import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.*;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 /**
  * Created on 13/05/2016.
  *
  * @author Robin D'Haese
  */
-public class TrackerRestWebServiceTest extends  AbstractRestWebServiceTest{
+public class TrackerRestWebServiceTest extends AbstractRestWebServiceTest {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -44,7 +44,7 @@ public class TrackerRestWebServiceTest extends  AbstractRestWebServiceTest{
     private Mapper<Remark, RemarkDTO> remarkMapper;
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         reset(trackerService, longLatMapper,
                 locationUpdateMapper, remarkMapper);
     }
@@ -60,7 +60,7 @@ public class TrackerRestWebServiceTest extends  AbstractRestWebServiceTest{
         mockMvc.perform(get("/tracker/company-address"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(content().bytes(convertObjectToJsonBytes(longLatDTO)));
+                .andExpect(content().bytes(AbstractRestWebServiceTest.convertObjectToJsonBytes(longLatDTO)));
 
         verify(trackerService, times(1)).getCompanyAddress();
         verify(longLatMapper, times(1)).mapToDto(longLat);
@@ -77,7 +77,7 @@ public class TrackerRestWebServiceTest extends  AbstractRestWebServiceTest{
         mockMvc.perform(get("/tracker/packet-address/packetId"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(content().bytes(convertObjectToJsonBytes(longLatDTO)));
+                .andExpect(content().bytes(AbstractRestWebServiceTest.convertObjectToJsonBytes(longLatDTO)));
 
         verify(trackerService, times(1)).getPacketAddress("packetId");
         verify(longLatMapper, times(1)).mapToDto(longLat);

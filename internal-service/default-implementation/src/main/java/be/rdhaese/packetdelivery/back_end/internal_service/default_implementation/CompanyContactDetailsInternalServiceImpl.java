@@ -7,8 +7,6 @@ import be.rdhaese.packetdelivery.back_end.persistence.xml_repositories.interface
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
-
 /**
  * Created on 27/12/2015.
  *
@@ -22,12 +20,7 @@ public class CompanyContactDetailsInternalServiceImpl implements CompanyContactD
 
     @Override
     public CompanyContactDetails get() throws Exception {
-        try {
             return companyContactDetailsRepository.get();
-        } catch (FileNotFoundException e) {
-            //We can create new company details, when saving these, the file will be created
-            return new CompanyContactDetails();
-        }
     }
 
     @Override

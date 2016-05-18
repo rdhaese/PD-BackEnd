@@ -114,7 +114,7 @@ public class CreateModelObjectUtil {
         return deliveryRound;
     }
 
-    public static Options createOptions(String user, String language, int print, boolean imageViewer) {
+    public static Options createOptions(String user, String language, int print, Boolean imageViewer) {
         Options options = new Options();
         options.setUser(user);
         options.setLanguage(language);
@@ -138,34 +138,35 @@ public class CreateModelObjectUtil {
         return appState;
     }
 
-    public static AppStateCollection createAppStateCollection(List<AppState> appStateList){
+    public static AppStateCollection createAppStateCollection(List<AppState> appStateList) {
         AppStateCollection appStateCollection = new AppStateCollection();
         appStateCollection.setAppStates(appStateList);
         return appStateCollection;
     }
 
-    public static EmailEntry createEmailEntry(String title, String address){
+    public static EmailEntry createEmailEntry(String title, String address) {
         EmailEntry emailEntry = new EmailEntry();
         emailEntry.setTitle(title);
         emailEntry.setAddress(address);
         return emailEntry;
     }
 
-    public static FaxEntry createFaxEntry(String title, String number){
+    @SuppressWarnings("SameParameterValue")
+    public static FaxEntry createFaxEntry(String title, String number) {
         FaxEntry faxEntry = new FaxEntry();
         faxEntry.setTitle(title);
         faxEntry.setNumber(number);
         return faxEntry;
     }
 
-    public static PhoneEntry createPhoneEntry(String title, String number){
+    public static PhoneEntry createPhoneEntry(String title, String number) {
         PhoneEntry phoneEntry = new PhoneEntry();
         phoneEntry.setTitle(title);
         phoneEntry.setNumber(number);
         return phoneEntry;
     }
 
-    public static CompanyContactDetails createCompanyContactDetails(String companyName, Address address, List<PhoneEntry> phoneEntries, List<FaxEntry> faxEntries, List<EmailEntry> emailEntries, String aboutText){
+    public static CompanyContactDetails createCompanyContactDetails(String companyName, Address address, List<PhoneEntry> phoneEntries, List<FaxEntry> faxEntries, List<EmailEntry> emailEntries, String aboutText) {
         CompanyContactDetails companyContactDetails = new CompanyContactDetails();
         companyContactDetails.setCompanyName(companyName);
         companyContactDetails.setAddress(address);

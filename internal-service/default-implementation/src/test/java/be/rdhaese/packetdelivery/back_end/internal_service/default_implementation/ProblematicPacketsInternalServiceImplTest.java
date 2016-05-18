@@ -4,7 +4,6 @@ import be.rdhaese.packetdelivery.back_end.model.*;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.PacketJpaRepository;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.RegionJpaRepository;
 import junit.framework.TestCase;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,7 +22,6 @@ import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUti
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 /**
@@ -35,7 +33,7 @@ import static org.mockito.Mockito.*;
 @SpringApplicationConfiguration
 public class ProblematicPacketsInternalServiceImplTest extends TestCase {
 
-    private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
     @InjectMocks
     private ProblematicPacketsInternalServiceImpl problematicPacketsInternalService;
@@ -56,7 +54,7 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
         when(packetJpaRepository.getProblematicPackets()).thenReturn(packets);
 
         //Test
-        assertEquals(2, problematicPacketsInternalService.getProblematicPackets().size());
+        TestCase.assertEquals(2, problematicPacketsInternalService.getProblematicPackets().size());
         verify(packetJpaRepository, times(1)).getProblematicPackets();
     }
 
@@ -67,26 +65,26 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
         when(packetJpaRepository.getProblematicPacket("packetId1")).thenReturn(problematicPacket);
 
         //Test
-        assertNull(problematicPacketsInternalService.getProblematicPacket("unknown id"));
-        assertEquals(problematicPacket, problematicPacketsInternalService.getProblematicPacket("packetId1"));
+        TestCase.assertNull(problematicPacketsInternalService.getProblematicPacket("unknown id"));
+        TestCase.assertEquals(problematicPacket, problematicPacketsInternalService.getProblematicPacket("packetId1"));
         verify(packetJpaRepository, times(2)).getProblematicPacket(any());
     }
 
     @Test
     public void testReSend() throws ParseException {
         //Setup mocks
-        Date packetStatusChangedOn = dateFormat.parse("17/04/2016");
+        Date packetStatusChangedOn = DATE_FORMAT.parse("17/04/2016");
         Packet problematicPacket = createPacket("packetId1", null, null, PacketStatus.PROBLEMATIC, packetStatusChangedOn, 0);
         when(packetJpaRepository.getPacket("packetId1")).thenReturn(problematicPacket);
 
         //Test
         problematicPacketsInternalService.reSend("unknown id");
-        assertEquals(PacketStatus.PROBLEMATIC, problematicPacket.getPacketStatus());
-        assertTrue(packetStatusChangedOn.equals(problematicPacket.getStatusChangedOn()));
+        TestCase.assertEquals(PacketStatus.PROBLEMATIC, problematicPacket.getPacketStatus());
+        TestCase.assertTrue(packetStatusChangedOn.equals(problematicPacket.getStatusChangedOn()));
 
         problematicPacketsInternalService.reSend("packetId1");
-        assertEquals(PacketStatus.NORMAL, problematicPacket.getPacketStatus());
-        assertFalse(packetStatusChangedOn.equals(problematicPacket.getStatusChangedOn()));
+        TestCase.assertEquals(PacketStatus.NORMAL, problematicPacket.getPacketStatus());
+        TestCase.assertFalse(packetStatusChangedOn.equals(problematicPacket.getStatusChangedOn()));
 
         verify(packetJpaRepository, times(2)).getPacket(any());
         verify(packetJpaRepository, times(1)).save(any(Packet.class));
@@ -95,7 +93,7 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
     @Test
     public void testReturnToSender() throws ParseException {
         //Setup mocks
-        Date date = dateFormat.parse("17/04/2016");
+        Date date = DATE_FORMAT.parse("17/04/2016");
         Region clientRegion = createRegion(new RegionName(), "CLIENTREGION");
         Region deliveryregion = createRegion(new RegionName(), "DELIVERYREGION");
         Packet packet = createPacket(
@@ -103,8 +101,8 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
                 createClientInfo(
                         createContactDetails(
                                 "name",
-                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                                Arrays.asList(new String[]{"email1", "email2"})
+                                Arrays.asList("phonenumber1", "phoneNumber2"),
+                                Arrays.asList("email1", "email2")
                         ),
                         createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
                 ),
@@ -112,8 +110,8 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
                         createClientInfo(
                                 createContactDetails(
                                         "name",
-                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
-                                        Arrays.asList(new String[]{"email5", "email6"})
+                                        Arrays.asList("phonenumber3", "phoneNumber4"),
+                                        Arrays.asList("email5", "email6")
                                 ),
                                 createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
                         ),
@@ -128,9 +126,9 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
 
         //Test
         problematicPacketsInternalService.returnToSender("packetId", clientRegion);
-        assertEquals(packet.getClientInfo(), packet.getDeliveryInfo().getClientInfo());
-        assertEquals(clientRegion, packet.getDeliveryInfo().getRegion());
-        assertEquals(PacketStatus.NORMAL, packet.getPacketStatus());
+        TestCase.assertEquals(packet.getClientInfo(), packet.getDeliveryInfo().getClientInfo());
+        TestCase.assertEquals(clientRegion, packet.getDeliveryInfo().getRegion());
+        TestCase.assertEquals(PacketStatus.NORMAL, packet.getPacketStatus());
         assertThat(packet.getStatusChangedOn(), is(not(date)));
 
         verify(packetJpaRepository, times(1)).getPacket(any());
@@ -147,8 +145,8 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
                 createClientInfo(
                         createContactDetails(
                                 "name",
-                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                                Arrays.asList(new String[]{"email1", "email2"})
+                                Arrays.asList("phonenumber1", "phoneNumber2"),
+                                Arrays.asList("email1", "email2")
                         ),
                         createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
                 ),
@@ -156,8 +154,8 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
                         createClientInfo(
                                 createContactDetails(
                                         "name",
-                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
-                                        Arrays.asList(new String[]{"email5", "email6"})
+                                        Arrays.asList("phonenumber3", "phoneNumber4"),
+                                        Arrays.asList("email5", "email6")
                                 ),
                                 address
                         ),
@@ -170,7 +168,7 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
         when(packetJpaRepository.getPacket("packetId")).thenReturn(packet);
 
         //Test
-        assertEquals(address, problematicPacketsInternalService.getProblematicPacketAddress("packetId"));
+        TestCase.assertEquals(address, problematicPacketsInternalService.getProblematicPacketAddress("packetId"));
         verify(packetJpaRepository, times(1)).getPacket(any());
     }
 
@@ -183,8 +181,8 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
                 createClientInfo(
                         createContactDetails(
                                 "name",
-                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                                Arrays.asList(new String[]{"email1", "email2"})
+                                Arrays.asList("phonenumber1", "phoneNumber2"),
+                                Arrays.asList("email1", "email2")
                         ),
                         createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
                 ),
@@ -192,8 +190,8 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
                         createClientInfo(
                                 createContactDetails(
                                         "name",
-                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
-                                        Arrays.asList(new String[]{"email5", "email6"})
+                                        Arrays.asList("phonenumber3", "phoneNumber4"),
+                                        Arrays.asList("email5", "email6")
                                 ),
                                 createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
                         ),
@@ -206,7 +204,7 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
         when(packetJpaRepository.getPacket("packetId")).thenReturn(packet);
 
         //Test
-        assertEquals(region, problematicPacketsInternalService.getProblematicPacketRegion("packetId"));
+        TestCase.assertEquals(region, problematicPacketsInternalService.getProblematicPacketRegion("packetId"));
         verify(packetJpaRepository, times(1)).getPacket(any());
     }
 
@@ -218,8 +216,8 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
                 createClientInfo(
                         createContactDetails(
                                 "name",
-                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                                Arrays.asList(new String[]{"email1", "email2"})
+                                Arrays.asList("phonenumber1", "phoneNumber2"),
+                                Arrays.asList("email1", "email2")
                         ),
                         createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
                 ),
@@ -227,8 +225,8 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
                         createClientInfo(
                                 createContactDetails(
                                         "name",
-                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
-                                        Arrays.asList(new String[]{"email5", "email6"})
+                                        Arrays.asList("phonenumber3", "phoneNumber4"),
+                                        Arrays.asList("email5", "email6")
                                 ),
                                 createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
                         ),
@@ -245,8 +243,8 @@ public class ProblematicPacketsInternalServiceImplTest extends TestCase {
         Region region = createRegion(new RegionName(), "CODE2");
         problematicPacketsInternalService.saveDeliveryAddress("packetId", address, region);
 
-        assertEquals(address, packet.getDeliveryInfo().getClientInfo().getAddress());
-        assertEquals(region, packet.getDeliveryInfo().getRegion());
+        TestCase.assertEquals(address, packet.getDeliveryInfo().getClientInfo().getAddress());
+        TestCase.assertEquals(region, packet.getDeliveryInfo().getRegion());
 
         verify(packetJpaRepository, times(1)).getPacket(any());
         verify(packetJpaRepository, times(1)).save(any(Packet.class));

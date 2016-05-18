@@ -5,7 +5,6 @@ import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.Packet;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -69,7 +68,7 @@ public class LostPacketsRestWebServiceTest extends AbstractRestWebServiceTest {
 
         mockMvc.perform(post("/lost-packets/mark-as-found")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(convertObjectToJsonBytes(packetIds)))
+                .content(AbstractRestWebServiceTest.convertObjectToJsonBytes(packetIds)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
@@ -84,7 +83,7 @@ public class LostPacketsRestWebServiceTest extends AbstractRestWebServiceTest {
 
         mockMvc.perform(post("/lost-packets/remove-from-system")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(convertObjectToJsonBytes(packetIds)))
+                .content(AbstractRestWebServiceTest.convertObjectToJsonBytes(packetIds)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 

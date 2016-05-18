@@ -21,13 +21,13 @@ public class PacketIdGenerator {
     @Autowired
     private PacketIdDateKeeper dateKeeper;
 
-    private int previousNumber = 0;
+    private int previousNumber;
 
     public String generatePacketId(Packet packet) throws Exception {
-        if (packet == null){
+        if (packet == null) {
             return null;
         }
-        if (previousNumber > 99999){
+        if (previousNumber > 99999) {
             throw new Exception("Max of packet ids for a day reached [99999]");
         }
         StringBuilder packetId = new StringBuilder();
@@ -53,12 +53,12 @@ public class PacketIdGenerator {
                 .append(ID_SEPARATOR)
                 .append(getLast5Numbers(packet.getStatusChangedOn()));
 
-       return packetId.toString().toUpperCase();
+        return packetId.toString().toUpperCase();
     }
 
     private StringBuilder getLast5Numbers(Date date) {
         StringBuilder numbers = new StringBuilder();
-        if(dateKeeper.isAfterLastDateChecked(date)){
+        if (dateKeeper.isAfterLastDateChecked(date)) {
             previousNumber = 0;
         }
         numbers.append(previousNumber);

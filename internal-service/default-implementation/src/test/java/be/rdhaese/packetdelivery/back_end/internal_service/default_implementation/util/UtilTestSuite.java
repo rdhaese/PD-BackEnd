@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    AddressToGoogleApiStringConverterTest.class,
+        AddressToGoogleApiStringConverterTest.class,
         DeliveryRoundCreatorTest.class,
         PacketIdDateKeeperTest.class,
         PacketIdGeneratorTest.class,

@@ -47,6 +47,7 @@ public class RegionWithPriority {
     public void setPriority(Integer priority) {
         this.priority = priority;
         if (this.priority == null) {
+            //noinspection UnusedAssignment
             priority = 0;
         }
     }

@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Robin D'Haese
  */
 @Component
-public class PacketIdDateKeeper {
+class PacketIdDateKeeper {
 
     private LocalDate lastDateChecked = LocalDate.now();
 

@@ -1,9 +1,9 @@
 package be.rdhaese.packetdelivery.back_end.web_service.rest_implementation;
 
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.LongLatInternalService;
+import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.Address;
 import be.rdhaese.packetdelivery.back_end.model.LongLat;
-import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.web_service.interfaces.LongLatWebService;
 import be.rdhaese.packetdelivery.dto.AddressDTO;
 import be.rdhaese.packetdelivery.dto.LongLatDTO;
@@ -31,7 +31,7 @@ public class LongLatRestWebService implements LongLatWebService {
 
     @Override
     @RequestMapping(value = "/for-address", method = RequestMethod.POST)
-    public LongLatDTO getForAddress(@RequestBody AddressDTO addressDTO) throws Exception{
-            return longLatMapper.mapToDto(longLatInternalService.getForAddress(addressMapper.mapToBus(addressDTO)));
+    public LongLatDTO getForAddress(@RequestBody AddressDTO addressDTO) throws Exception {
+        return longLatMapper.mapToDto(longLatInternalService.getForAddress(addressMapper.mapToBus(addressDTO)));
     }
 }

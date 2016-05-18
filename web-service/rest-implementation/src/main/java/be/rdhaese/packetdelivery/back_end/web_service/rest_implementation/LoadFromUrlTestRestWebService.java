@@ -1,6 +1,5 @@
 package be.rdhaese.packetdelivery.back_end.web_service.rest_implementation;
 
-import be.rdhaese.packetdelivery.dto.PacketDTO;
 import be.rdhaese.packetdelivery.dto.PacketInformationDTO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

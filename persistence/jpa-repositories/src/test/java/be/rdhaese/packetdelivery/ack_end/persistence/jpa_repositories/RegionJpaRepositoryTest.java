@@ -21,7 +21,7 @@ public class RegionJpaRepositoryTest extends AbstractJpaRepositoryTest {
     private RegionJpaRepository regionJpaRepository;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         Region region = createRegion(createRegionName("nl", "fr", "de", "en"), "CODE");
         Region adjacentRegion1 = createRegion(createRegionName("nl1", "fr1", "de1", "en1"), "CODE1");
         Region adjacentRegion2 = createRegion(createRegionName("nl2", "fr2", "de2", "en2"), "CODE2");
@@ -33,12 +33,12 @@ public class RegionJpaRepositoryTest extends AbstractJpaRepositoryTest {
     }
 
     @After
-    public void afterTestMethod(){
+    public void afterTestMethod() {
         regionJpaRepository.deleteAll();
     }
 
     @Test
-    public void testGetRegionForCode(){
+    public void testGetRegionForCode() {
         assertNotNull(regionJpaRepository.getRegionFor("CODE"));
         assertNotNull(regionJpaRepository.getRegionFor("CODE3"));
         assertNull(regionJpaRepository.getRegionFor("UNKNOWN_CODE"));

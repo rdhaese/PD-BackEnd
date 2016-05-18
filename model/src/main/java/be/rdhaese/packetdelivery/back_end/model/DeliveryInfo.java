@@ -16,11 +16,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class DeliveryInfo extends AbstractEntity {
 
-    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @NotNull
     private ClientInfo clientInfo;
 
-    @OneToOne (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @NotNull
     private Region region;
 
@@ -31,9 +31,7 @@ public class DeliveryInfo extends AbstractEntity {
 
         DeliveryInfo that = (DeliveryInfo) o;
 
-        if (getClientInfo() != null ? !getClientInfo().equals(that.getClientInfo()) : that.getClientInfo() != null)
-            return false;
-        return !(getRegion() != null ? !getRegion().equals(that.getRegion()) : that.getRegion() != null);
+        return !(getClientInfo() != null ? !getClientInfo().equals(that.getClientInfo()) : that.getClientInfo() != null) && !(getRegion() != null ? !getRegion().equals(that.getRegion()) : that.getRegion() != null);
 
     }
 

@@ -26,7 +26,7 @@ public class DeliveryOrderResolver {
     @Autowired
     private GeoApiContext geoApiContext;
 
-    public List<Packet> sort(Address companyAddress, List<Packet> packets) throws Exception{
+    public List<Packet> sort(Address companyAddress, List<Packet> packets) throws Exception {
         //let google determine the best order to deliver
         //Convert company address to string that google API can handle
         String companyAddressAsString = addressConverter.convert(companyAddress);

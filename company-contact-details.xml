@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--suppress XmlUnboundNsPrefix, XmlUnboundNsPrefix -->
 <contact-details>
     <about-text>Do you wish to contact us?
 
-Do you want to use our services?
+        Do you want to use our services?
 
-Use the information above.
-Hope to hear you soon! (:</about-text>
+        Use the information above.
+        Hope to hear you soon! (:
+    </about-text>
     <address>
         <city>Lokeren</city>
         <number>6</number>
         <postal-code>9160</postal-code>
         <street>Brouwerijstraat</street>
     </address>
-    <company-name> Packet Delivery</company-name>
+    <company-name>Packet Delivery</company-name>
     <email-addresses>
         <email>
             <email-address>sdfdsf@gmail.com</email-address>

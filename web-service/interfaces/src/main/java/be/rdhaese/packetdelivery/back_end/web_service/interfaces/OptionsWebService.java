@@ -17,10 +17,11 @@ public interface OptionsWebService {
     String DE = "Deutsch";
     String EN = "English";
 
-    String[] SUPPORTED_LANGUAGES = new String[]{NL, FR, DE, EN};
+    String[] SUPPORTED_LANGUAGES = {NL, FR, DE, EN};
 
     String TAG_NL = "nl";
 
     OptionsDTO getFor(String username) throws Exception;
+
     Boolean save(OptionsDTO optionsDTO) throws Exception;
 }

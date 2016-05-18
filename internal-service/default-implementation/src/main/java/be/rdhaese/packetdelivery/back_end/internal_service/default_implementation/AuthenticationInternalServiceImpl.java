@@ -21,11 +21,9 @@ import java.util.List;
 @Service
 public class AuthenticationInternalServiceImpl implements AuthenticationInternalService {
 
-    private static final String MASTER_ACCOUNT = "pdmaster";
-
     public static final AttributesMapper<String> USERNAME_MAPPER = new AuthenticationInternalServiceImpl.UsernameAttributesMapper();
     public static final AttributesMapper<String> PASSWORD_MAPPER = new AuthenticationInternalServiceImpl.PasswordAttributesMapper();
-
+    private static final String MASTER_ACCOUNT = "pdmaster";
     @Autowired
     private LdapTemplate ldapTemplate;
     @Autowired
@@ -33,7 +31,7 @@ public class AuthenticationInternalServiceImpl implements AuthenticationInternal
 
     public AuthenticationResult authenticate(String username, String password) {
         //Check if its the master account to use the application without AD
-        if (MASTER_ACCOUNT.equals(username) && passwordEncoder.matches(MASTER_ACCOUNT, password)){
+        if (MASTER_ACCOUNT.equals(username) && passwordEncoder.matches(MASTER_ACCOUNT, password)) {
             //Logging in with master account --> permission is granted
             return AuthenticationResult.GRANTED;
         }
@@ -43,7 +41,7 @@ public class AuthenticationInternalServiceImpl implements AuthenticationInternal
 
 
         //If none returned
-        if (users.size() == 0){
+        if (users.size() == 0) {
             //--> User not known to system
             return AuthenticationResult.NOT_KNOWN;
         }
@@ -51,12 +49,12 @@ public class AuthenticationInternalServiceImpl implements AuthenticationInternal
         //Get password from ldap
         List<String> passwords = ldapTemplate.search("", String.format("(sAMAccountName=%s)", username), PASSWORD_MAPPER);
 
-       if (passwords.isEmpty()){
-           //No password in ldap -> grant permission
-           return AuthenticationResult.GRANTED;
-       }
+        if (passwords.isEmpty()) {
+            //No password in ldap -> grant permission
+            return AuthenticationResult.GRANTED;
+        }
 
-        if (passwordEncoder.matches(passwords.get(0), password)){
+        if (passwordEncoder.matches(passwords.get(0), password)) {
             //Passwords match
             return AuthenticationResult.GRANTED;
         }
@@ -76,7 +74,7 @@ public class AuthenticationInternalServiceImpl implements AuthenticationInternal
         @Override
         public String mapFromAttributes(Attributes attributes) throws NamingException {
             Attribute userPassword = attributes.get("userPassword");
-           return new String((byte[]) userPassword.get());
+            return new String((byte[]) userPassword.get());
         }
     }
 }

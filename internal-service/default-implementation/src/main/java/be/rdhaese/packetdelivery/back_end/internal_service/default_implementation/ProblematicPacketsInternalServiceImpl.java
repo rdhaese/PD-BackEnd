@@ -1,9 +1,9 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation;
 
 
+import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.ProblematicPacketsInternalService;
 import be.rdhaese.packetdelivery.back_end.model.*;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.PacketJpaRepository;
-import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.ProblematicPacketsInternalService;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.RegionJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,7 +70,6 @@ public class ProblematicPacketsInternalServiceImpl implements ProblematicPackets
         packet.setStatusChangedOn(new Date());
         packetJpaRepository.save(packet);
     }
-
 
 
     @Override

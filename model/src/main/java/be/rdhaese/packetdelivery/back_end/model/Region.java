@@ -3,7 +3,10 @@ package be.rdhaese.packetdelivery.back_end.model;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,8 +25,8 @@ public class Region extends AbstractEntity {
 
     @NotNull
     private String regionCode;
-    
-    @ManyToMany (cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Region> adjacentRegions = new HashSet<>();
 
     @Override
@@ -33,8 +36,7 @@ public class Region extends AbstractEntity {
 
         Region region = (Region) o;
 
-        if (getName() != null ? !getName().equals(region.getName()) : region.getName() != null) return false;
-        return !(getRegionCode() != null ? !getRegionCode().equals(region.getRegionCode()) : region.getRegionCode() != null);
+        return !(getName() != null ? !getName().equals(region.getName()) : region.getName() != null) && !(getRegionCode() != null ? !getRegionCode().equals(region.getRegionCode()) : region.getRegionCode() != null);
 
     }
 
@@ -45,8 +47,8 @@ public class Region extends AbstractEntity {
         return result;
     }
 
-    public boolean addAdjacentRegion(Region region){
-        return adjacentRegions.add(region);
+    public void addAdjacentRegion(Region region) {
+        adjacentRegions.add(region);
     }
 
     public Set<Region> getAdjacentRegions() {

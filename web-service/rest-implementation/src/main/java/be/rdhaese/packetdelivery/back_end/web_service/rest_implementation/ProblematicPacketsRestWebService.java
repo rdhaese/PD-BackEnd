@@ -4,9 +4,9 @@ import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.Problemati
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.DeliveryAddressMapper;
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.Address;
+import be.rdhaese.packetdelivery.back_end.model.Packet;
 import be.rdhaese.packetdelivery.back_end.model.Region;
 import be.rdhaese.packetdelivery.back_end.web_service.interfaces.ProblematicPacketsWebService;
-import be.rdhaese.packetdelivery.back_end.model.Packet;
 import be.rdhaese.packetdelivery.dto.DeliveryAddressDTO;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
 import be.rdhaese.packetdelivery.dto.RegionDTO;
@@ -62,7 +62,7 @@ public class ProblematicPacketsRestWebService implements ProblematicPacketsWebSe
 
     @Override
     @RequestMapping(value = "/delivery-address/{packetId}", method = RequestMethod.GET)
-    public DeliveryAddressDTO getDeliveryAddress(@PathVariable String packetId){
+    public DeliveryAddressDTO getDeliveryAddress(@PathVariable String packetId) {
         return deliveryAddressMapper.mapToDto(
                 problematicPacketsInternalService.getProblematicPacketAddress(packetId),
                 problematicPacketsInternalService.getProblematicPacketRegion(packetId),
@@ -73,7 +73,7 @@ public class ProblematicPacketsRestWebService implements ProblematicPacketsWebSe
     @Override
     @RequestMapping(value = "/save-delivery-address", method = RequestMethod.POST)
     public Boolean saveDeliveryAddress(@RequestBody DeliveryAddressDTO deliveryAddressDTO) {
-         Object[] objects = deliveryAddressMapper.mapToBus(deliveryAddressDTO);
+        Object[] objects = deliveryAddressMapper.mapToBus(deliveryAddressDTO);
         String packetId = (String) objects[0];
         Address address = (Address) objects[1];
         Region region = (Region) objects[2];

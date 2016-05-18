@@ -1,8 +1,8 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.interfaces;
 
 import be.rdhaese.packetdelivery.back_end.model.Address;
-import be.rdhaese.packetdelivery.back_end.model.Region;
 import be.rdhaese.packetdelivery.back_end.model.Packet;
+import be.rdhaese.packetdelivery.back_end.model.Region;
 
 import java.util.Collection;
 
@@ -12,17 +12,17 @@ import java.util.Collection;
  * @author Robin D'Haese
  */
 public interface ProblematicPacketsInternalService {
-     Collection<Packet> getProblematicPackets();
+    Collection<Packet> getProblematicPackets();
 
-     Packet getProblematicPacket(String packetId);
+    Packet getProblematicPacket(String packetId);
 
-     void reSend(String packetId);
+    void reSend(String packetId);
 
-     void returnToSender(String packetId, Region region);
+    void returnToSender(String packetId, Region region);
 
-     Address getProblematicPacketAddress(String packetId);
+    Address getProblematicPacketAddress(String packetId);
 
-     Region getProblematicPacketRegion(String packetId);
+    Region getProblematicPacketRegion(String packetId);
 
-     void saveDeliveryAddress(String packetId, Address address, Region region);
+    void saveDeliveryAddress(String packetId, Address address, Region region);
 }

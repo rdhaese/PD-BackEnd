@@ -28,7 +28,7 @@ public class PacketsListMerger {
 
     public List<Packet> mergeLists(int amountOfPackets, List<Packet> packets1, List<Packet> packets2) {
         List<Packet> packets = new ArrayList<>(packets1);
-        if (amountOfPackets < 1){
+        if (amountOfPackets < 1) {
             return packets;
         }
         //If there are too much packets, we need only the ones with the highest priority from the second list

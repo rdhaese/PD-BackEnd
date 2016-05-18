@@ -7,7 +7,8 @@ import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 import java.util.Calendar;
 
-import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createLocationUpdate;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createLongLat;
 
 
 /**
@@ -20,12 +21,12 @@ public class LocationUpdateTest extends AbstractModelTest {
     private LocationUpdate locationUpdate;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         locationUpdate = createLocationUpdate(Calendar.getInstance().getTime(), createLongLat(12.345, 6d));
     }
 
     @Test
-    public void testCanPersist(){
+    public void testCanPersist() {
         //Check if id is null on creation
         assertNull(locationUpdate.getId());
 
@@ -36,34 +37,34 @@ public class LocationUpdateTest extends AbstractModelTest {
         assertNotNull(locationUpdate.getId());
 
         //Check if location update can be found on assigned id
-        LocationUpdate newLocationUpdate =  getEntityManager().find(LocationUpdate.class, locationUpdate.getId());
+        LocationUpdate newLocationUpdate = getEntityManager().find(LocationUpdate.class, locationUpdate.getId());
         assertNotNull(newLocationUpdate);
         assertEquals(locationUpdate.getLongLat(), newLocationUpdate.getLongLat());
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testTimeCreatedCannotBeNull(){
+    public void testTimeCreatedCannotBeNull() {
         locationUpdate.setTimeCreated(null);
 
         persistFlushAndClear(locationUpdate);
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testLongLatCannotBeNull(){
+    public void testLongLatCannotBeNull() {
         locationUpdate.setLongLat(null);
 
         persistFlushAndClear(locationUpdate);
     }
 
     @Test(expected = PersistenceException.class) //See LongLat class why not ConstraintValidationException
-    public void testLongitudeCannotBeNull(){
+    public void testLongitudeCannotBeNull() {
         locationUpdate.getLongLat().setLongitude(null);
 
         persistFlushAndClear(locationUpdate);
     }
 
     @Test(expected = PersistenceException.class) //See LongLat class why not ConstraintValidationException
-    public void testLatitudeCannotBeNull(){
+    public void testLatitudeCannotBeNull() {
         locationUpdate.getLongLat().setLatitude(null);
 
         persistFlushAndClear(locationUpdate);

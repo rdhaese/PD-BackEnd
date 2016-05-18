@@ -1,6 +1,5 @@
 package be.rdhaese.packetdelivery.back_end.model.comparator;
 
-import be.rdhaese.packetdelivery.back_end.model.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

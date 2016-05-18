@@ -19,9 +19,9 @@ public class ContactDetails extends AbstractEntity {
     @NotNull
     private String name;
     @ElementCollection
-    private List<String> emails = new ArrayList<String>();
+    private List<String> emails = new ArrayList<>();
     @ElementCollection
-    private List<String> phoneNumbers = new ArrayList<String>();
+    private List<String> phoneNumbers = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
@@ -38,12 +38,12 @@ public class ContactDetails extends AbstractEntity {
         return getName() != null ? getName().hashCode() : 0;
     }
 
-    public boolean addEmail(String email){
-        return emails.add(email);
+    public void addEmail(String email) {
+        emails.add(email);
     }
 
-    public boolean addPhoneNumber(String phoneNumber){
-        return phoneNumbers.add(phoneNumber);
+    public void addPhoneNumber(String phoneNumber) {
+        phoneNumbers.add(phoneNumber);
     }
 
     public String getName() {

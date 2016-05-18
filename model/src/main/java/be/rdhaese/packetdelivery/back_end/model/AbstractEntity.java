@@ -20,6 +20,7 @@ public abstract class AbstractEntity implements Serializable {
 
     @Override
     public abstract boolean equals(Object o);
+
     @Override
     public abstract int hashCode();
 
@@ -34,7 +35,7 @@ public abstract class AbstractEntity implements Serializable {
         this.id = id;
     }
 
-    public Long getVersion() {
+    Long getVersion() {
         return version;
     }
 

@@ -33,9 +33,7 @@ public class LocationUpdate extends AbstractEntity {
 
         LocationUpdate that = (LocationUpdate) o;
 
-        if (getTimeCreated() != null ? !getTimeCreated().equals(that.getTimeCreated()) : that.getTimeCreated() != null)
-            return false;
-        return !(getLongLat() != null ? !getLongLat().equals(that.getLongLat()) : that.getLongLat() != null);
+        return !(getTimeCreated() != null ? !getTimeCreated().equals(that.getTimeCreated()) : that.getTimeCreated() != null) && !(getLongLat() != null ? !getLongLat().equals(that.getLongLat()) : that.getLongLat() != null);
 
     }
 

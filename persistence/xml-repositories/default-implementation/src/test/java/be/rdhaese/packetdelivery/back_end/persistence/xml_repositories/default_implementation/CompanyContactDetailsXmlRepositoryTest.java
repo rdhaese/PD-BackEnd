@@ -2,13 +2,11 @@ package be.rdhaese.packetdelivery.back_end.persistence.xml_repositories.default_
 
 import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDetails;
 import be.rdhaese.packetdelivery.back_end.persistence.xml_repositories.interfaces.CompanyContactDetailsRepository;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.bind.JAXBException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -22,7 +20,7 @@ public class CompanyContactDetailsXmlRepositoryTest extends AbstractXmlRepositor
     private CompanyContactDetailsRepository companyContactDetailsRepository;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         removeFile(CompanyContactDetailsXmlRepository.FILE_NAME);
     }
 

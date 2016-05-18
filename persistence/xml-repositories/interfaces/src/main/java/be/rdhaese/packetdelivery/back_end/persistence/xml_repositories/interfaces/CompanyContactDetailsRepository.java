@@ -5,7 +5,6 @@ import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDe
 import org.springframework.stereotype.Repository;
 
 import javax.xml.bind.JAXBException;
-import java.io.IOException;
 
 /**
  * Created on 27/12/2015.
@@ -14,6 +13,7 @@ import java.io.IOException;
  */
 @Repository
 public interface CompanyContactDetailsRepository {
-    CompanyContactDetails get() throws JAXBException, IOException;
+    CompanyContactDetails get() throws JAXBException;
+
     void save(CompanyContactDetails companyContactDetails) throws JAXBException;
 }

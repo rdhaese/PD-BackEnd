@@ -1,12 +1,9 @@
 package be.rdhaese.packetdelivery.back_end.mapper.default_implementation;
 
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.RegionsInternalService;
-import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
-import be.rdhaese.packetdelivery.back_end.model.Address;
 import be.rdhaese.packetdelivery.back_end.model.Packet;
 import be.rdhaese.packetdelivery.back_end.model.PacketStatus;
 import be.rdhaese.packetdelivery.back_end.model.Region;
-import be.rdhaese.packetdelivery.dto.AddressDTO;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
 import junit.framework.TestCase;
 import org.junit.Before;
@@ -19,6 +16,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
@@ -40,12 +38,12 @@ public class PacketMapperTest extends TestCase {
     @Mock
     private RegionsInternalService regionsInternalService;
 
-    private Date date = Calendar.getInstance().getTime();
+    private final Date date = Calendar.getInstance().getTime();
     private Packet packet;
     private PacketDTO packetDto;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         Region region = createRegion(
                 createRegionName("nameNl", "nameFr", "nameDe", "nameEn"),
                 "CODE"
@@ -58,8 +56,8 @@ public class PacketMapperTest extends TestCase {
                 createClientInfo(
                         createContactDetails(
                                 "name1",
-                                Arrays.asList(new String[]{"phonenumber1"}),
-                                Arrays.asList(new String[]{"email1"})
+                                Collections.singletonList("phonenumber1"),
+                                Collections.singletonList("email1")
                         ),
                         createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
                 ),
@@ -67,8 +65,8 @@ public class PacketMapperTest extends TestCase {
                         createClientInfo(
                                 createContactDetails(
                                         "name2",
-                                        Arrays.asList(new String[]{"phonenumber3"}),
-                                        Arrays.asList(new String[]{"email5"})
+                                        Collections.singletonList("phonenumber3"),
+                                        Collections.singletonList("email5")
                                 ),
                                 createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
                         ),
@@ -78,7 +76,7 @@ public class PacketMapperTest extends TestCase {
                 date,
                 0
         );
-       
+
         packetDto = new PacketDTO();
         packetDto.setPacketId("packetId");
         packetDto.setPacketStatus("NORMAL");
@@ -107,14 +105,14 @@ public class PacketMapperTest extends TestCase {
     }
 
     @Test
-    public void testMapToBus(){
-        assertEquals(packet, mapper.mapToBus(packetDto));
+    public void testMapToBus() {
+        TestCase.assertEquals(packet, mapper.mapToBus(packetDto));
         verify(regionsInternalService, times(1)).getRegionFor(anyString());
     }
 
     @Test
-    public void testMapToDto(){
+    public void testMapToDto() {
         verifyNoMoreInteractions(regionsInternalService);
-        assertEquals(packetDto, mapper.mapToDto(packet));
+        TestCase.assertEquals(packetDto, mapper.mapToDto(packet));
     }
 }

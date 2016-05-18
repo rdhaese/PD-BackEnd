@@ -10,7 +10,9 @@ import java.util.List;
  * @author Robin D'Haese
  */
 public interface RegionsInternalService {
-     void save(Region region);
-     Region getRegionFor(String regionCode);
-     List<Region> getRegions();
+    void save(Region region);
+
+    Region getRegionFor(String regionCode);
+
+    List<Region> getRegions();
 }

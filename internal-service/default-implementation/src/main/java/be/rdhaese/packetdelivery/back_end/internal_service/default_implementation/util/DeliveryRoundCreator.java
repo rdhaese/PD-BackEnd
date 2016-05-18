@@ -29,7 +29,7 @@ public class DeliveryRoundCreator {
     private Comparator<Packet> packetOnStatusChangedComparator;
 
     public DeliveryRound createRound(int amountOfPackets, List<Packet> packets) {
-        if ((amountOfPackets < 1) || (packets == null) || (packets.size() < 1)){
+        if (amountOfPackets < 1 || packets == null || packets.size() < 1) {
             return null;
         }
 

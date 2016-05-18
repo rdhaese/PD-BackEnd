@@ -1,13 +1,12 @@
 package be.rdhaese.packetdelivery.back_end.web_service.rest_implementation;
 
 
-import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.AppInternalService;
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.DeliveryRoundInternalService;
+import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.Address;
 import be.rdhaese.packetdelivery.back_end.model.LongLat;
-import be.rdhaese.packetdelivery.back_end.web_service.interfaces.DeliveryRoundWebService;
-import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.Packet;
+import be.rdhaese.packetdelivery.back_end.web_service.interfaces.DeliveryRoundWebService;
 import be.rdhaese.packetdelivery.dto.AddressDTO;
 import be.rdhaese.packetdelivery.dto.LongLatDTO;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
@@ -45,7 +44,7 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
 
     @Override
     @RequestMapping(value = "/packets/{roundId}", method = RequestMethod.GET)
-    public List<PacketDTO> getPackets(@PathVariable Long roundId) throws Exception{
+    public List<PacketDTO> getPackets(@PathVariable Long roundId) throws Exception {
         return (List<PacketDTO>) packetMapper.mapToDto(roundService.getPackets(roundId));
     }
 
@@ -71,7 +70,7 @@ public class DeliveryRoundRestWebService implements DeliveryRoundWebService {
     @Override
     @RequestMapping(value = "/add-remark/{roundId}/{remark}", method = RequestMethod.GET)
     public Boolean addRemark(@PathVariable Long roundId, @PathVariable String remark) {
-       return roundService.addRemark(roundId, remark);
+        return roundService.addRemark(roundId, remark);
     }
 
     @Override

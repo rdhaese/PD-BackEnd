@@ -5,8 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createEmailEntry;
 
 /**
@@ -20,17 +18,17 @@ public class EmailEntryTest extends AbstractModelTest {
     private EmailEntry emailEntry;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         emailEntry = createEmailEntry("title", "address");
     }
 
     @After
-    public void afterTestMethod(){
+    public void afterTestMethod() {
         removeFile(FILE_NAME);
     }
 
     @Test
-    public void testCanPersistToXml() throws Exception{
+    public void testCanPersistToXml() throws Exception {
         //Save to file
         persistToXml(EmailEntry.class, emailEntry, FILE_NAME);
 

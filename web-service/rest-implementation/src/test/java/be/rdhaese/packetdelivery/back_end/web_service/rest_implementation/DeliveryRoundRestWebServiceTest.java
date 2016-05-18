@@ -1,60 +1,40 @@
 package be.rdhaese.packetdelivery.back_end.web_service.rest_implementation;
 
-import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.CompanyContactDetailsInternalService;
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.DeliveryRoundInternalService;
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.Address;
 import be.rdhaese.packetdelivery.back_end.model.LongLat;
 import be.rdhaese.packetdelivery.back_end.model.Packet;
-import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDetails;
 import be.rdhaese.packetdelivery.dto.AddressDTO;
-import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
 import be.rdhaese.packetdelivery.dto.LongLatDTO;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAddress;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created on 13/05/2016.
  *
  * @author Robin D'Haese
  */
-public class DeliveryRoundRestWebServiceTest extends AbstractRestWebServiceTest{
+public class DeliveryRoundRestWebServiceTest extends AbstractRestWebServiceTest {
 
     @Autowired //Mock, see TestConfig
     private DeliveryRoundInternalService deliveryRoundInternalService;
 
     @Autowired //Mock, see TestConfig
-   private Mapper<Packet, PacketDTO> packetMapper;
+    private Mapper<Packet, PacketDTO> packetMapper;
 
     @Autowired //Mock, see TestConfig
     private Mapper<LongLat, LongLatDTO> longLatMapper;
@@ -115,7 +95,7 @@ public class DeliveryRoundRestWebServiceTest extends AbstractRestWebServiceTest{
 
         mockMvc.perform(post("/round/mark-as-lost/2")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(convertObjectToJsonBytes(packetDto)))
+                .content(AbstractRestWebServiceTest.convertObjectToJsonBytes(packetDto)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
@@ -135,7 +115,7 @@ public class DeliveryRoundRestWebServiceTest extends AbstractRestWebServiceTest{
 
         mockMvc.perform(post("/round/deliver/2")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(convertObjectToJsonBytes(packetDto)))
+                .content(AbstractRestWebServiceTest.convertObjectToJsonBytes(packetDto)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
@@ -155,7 +135,7 @@ public class DeliveryRoundRestWebServiceTest extends AbstractRestWebServiceTest{
 
         mockMvc.perform(post("/round/cannot-deliver/2/reason")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(convertObjectToJsonBytes(packetDto)))
+                .content(AbstractRestWebServiceTest.convertObjectToJsonBytes(packetDto)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
@@ -184,7 +164,7 @@ public class DeliveryRoundRestWebServiceTest extends AbstractRestWebServiceTest{
 
         mockMvc.perform(post("/round/add-location-update/2")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(convertObjectToJsonBytes(longLatDTO)))
+                .content(AbstractRestWebServiceTest.convertObjectToJsonBytes(longLatDTO)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
@@ -217,7 +197,7 @@ public class DeliveryRoundRestWebServiceTest extends AbstractRestWebServiceTest{
     @Test
     public void testGetCompanyAddress() throws Exception {
         Address address = createAddress("street", "number", null, "postalCode", "city");
-        AddressDTO addressDTO = new AddressDTO("street", "number", null, "city","postalCode");
+        AddressDTO addressDTO = new AddressDTO("street", "number", null, "city", "postalCode");
 
         when(deliveryRoundInternalService.getCompanyAddress()).thenReturn(address);
         when(addressMapper.mapToDto(address)).thenReturn(addressDTO);

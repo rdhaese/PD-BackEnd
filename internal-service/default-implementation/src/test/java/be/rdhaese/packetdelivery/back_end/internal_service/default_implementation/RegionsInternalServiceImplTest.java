@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createRegion;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 /**
@@ -48,19 +46,19 @@ public class RegionsInternalServiceImplTest extends TestCase {
 
     @Test
     public void testGetRegionForRegionCode() {
-        assertNotNull(regionsInternalService.getRegionFor("CODE"));
-        assertNull(regionsInternalService.getRegionFor("UNKNOWN_CODE"));
+        TestCase.assertNotNull(regionsInternalService.getRegionFor("CODE"));
+        TestCase.assertNull(regionsInternalService.getRegionFor("UNKNOWN_CODE"));
         verify(regionJpaRepository, times(2)).getRegionFor(any());
     }
 
     @Test
-    public void testGetRegions(){
-        assertEquals(2, regionsInternalService.getRegions().size());
+    public void testGetRegions() {
+        TestCase.assertEquals(2, regionsInternalService.getRegions().size());
         verify(regionJpaRepository, times(1)).findAll();
     }
 
     @Test
-    public void testSaveRegion(){
+    public void testSaveRegion() {
         regionsInternalService.save(createRegion(new RegionName(), "CODE3"));
         verify(regionJpaRepository, times(1)).save(any(Region.class));
     }

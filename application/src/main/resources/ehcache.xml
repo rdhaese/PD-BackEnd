@@ -1,3 +1,4 @@
+<!--suppress XmlUnboundNsPrefix -->
 <ehcache>
 
     <!--Will mark the cache as to refresh when it is not used after 4 hours, or every 24 hours-->

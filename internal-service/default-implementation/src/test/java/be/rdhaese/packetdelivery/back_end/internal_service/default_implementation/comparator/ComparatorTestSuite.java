@@ -16,6 +16,6 @@ import org.junit.runners.Suite;
         RegionWithPriorityOnPriorityComparatorTest.class,
         RegionWithPriorityOnPacketCountComparatorTest.class,
         RegionWithPriorityOnRegionCodeComparatorTest.class
-        })
+})
 public class ComparatorTestSuite {
 }

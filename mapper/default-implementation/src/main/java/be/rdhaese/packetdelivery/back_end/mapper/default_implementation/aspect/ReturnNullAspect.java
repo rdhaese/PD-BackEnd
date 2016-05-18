@@ -16,11 +16,11 @@ public class ReturnNullAspect {
 
     @Around("execution(* be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper.*(..))")
     public Object returnNullWhenArgumentIsNull(ProceedingJoinPoint joinPoint) throws Throwable {
-       if (joinPoint.getArgs().length > 0){
-           if (joinPoint.getArgs()[0] == null){
-               return null;
-           }
-       }
+        if (joinPoint.getArgs().length > 0) {
+            if (joinPoint.getArgs()[0] == null) {
+                return null;
+            }
+        }
         return joinPoint.proceed();
     }
 }

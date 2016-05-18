@@ -17,10 +17,10 @@ public class Packet extends AbstractEntity {
 
     @NotNull
     private String packetId;
-    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @NotNull
     private ClientInfo clientInfo;
-    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @NotNull
     private DeliveryInfo deliveryInfo;
     @Enumerated(EnumType.STRING)

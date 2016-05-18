@@ -9,11 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
 
@@ -29,16 +27,13 @@ public class PacketJpaRepositoryTest extends AbstractJpaRepositoryTest {
     @Autowired
     private RegionJpaRepository regionJpaRepository;
     private Region region;
-    private Region adjacentRegion1;
-    private Region adjacentRegion2;
-    private Region adjacentRegion3;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         region = createRegion(createRegionName("nl", "fr", "de", "en"), "CODE");
-        adjacentRegion1 = createRegion(createRegionName("nl1", "fr1", "de1", "en1"), "CODE1");
-        adjacentRegion2 = createRegion(createRegionName("nl2", "fr2", "de2", "en2"), "CODE2");
-        adjacentRegion3 = createRegion(createRegionName("nl3", "fr3", "de3", "en3"), "CODE3");
+        Region adjacentRegion1 = createRegion(createRegionName("nl1", "fr1", "de1", "en1"), "CODE1");
+        Region adjacentRegion2 = createRegion(createRegionName("nl2", "fr2", "de2", "en2"), "CODE2");
+        Region adjacentRegion3 = createRegion(createRegionName("nl3", "fr3", "de3", "en3"), "CODE3");
         adjacentRegion1.getAdjacentRegions().add(adjacentRegion2);
         adjacentRegion1.getAdjacentRegions().add(adjacentRegion3);
         region.getAdjacentRegions().add(adjacentRegion1);
@@ -53,36 +48,36 @@ public class PacketJpaRepositoryTest extends AbstractJpaRepositoryTest {
     }
 
     @After
-    public void afterTestMethod(){
+    public void afterTestMethod() {
         packetJpaRepository.deleteAll();
         regionJpaRepository.deleteAll();
     }
 
     @Test
-    public void testGetPacketForPacketId(){
+    public void testGetPacketForPacketId() {
         assertNotNull(packetJpaRepository.getPacket("packetId1"));
         assertNotNull(packetJpaRepository.getPacket("packetId5"));
         assertNull(packetJpaRepository.getPacket("unknownPacketId"));
     }
 
     @Test
-    public void testGetLostPackets(){
+    public void testGetLostPackets() {
         assertEquals(1, packetJpaRepository.getLostPackets().size());
     }
 
     @Test
-    public void testGetProblematicPackets(){
+    public void testGetProblematicPackets() {
         assertEquals(2, packetJpaRepository.getProblematicPackets().size());
     }
 
     @Test
-    public void testGetProblematicPacketForPacketId(){
+    public void testGetProblematicPacketForPacketId() {
         assertNotNull(packetJpaRepository.getProblematicPacket("packetId3"));
         assertNull(packetJpaRepository.getProblematicPacket("packetId5"));
     }
 
     @Test
-    public void testGetForRegionOnRegionId(){
+    public void testGetForRegionOnRegionId() {
         assertEquals(2, packetJpaRepository.getForRegion(region.getId()).size());
         assertEquals(0, packetJpaRepository.getForRegion(9999999L).size());
     }
@@ -94,8 +89,8 @@ public class PacketJpaRepositoryTest extends AbstractJpaRepositoryTest {
                 createClientInfo(
                         createContactDetails(
                                 "name",
-                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                                Arrays.asList(new String[]{"email1", "email2"})
+                                Arrays.asList("phonenumber1", "phoneNumber2"),
+                                Arrays.asList("email1", "email2")
                         ),
                         createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
                 ),
@@ -103,8 +98,8 @@ public class PacketJpaRepositoryTest extends AbstractJpaRepositoryTest {
                         createClientInfo(
                                 createContactDetails(
                                         "name",
-                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
-                                        Arrays.asList(new String[]{"email5", "email6"})
+                                        Arrays.asList("phonenumber3", "phoneNumber4"),
+                                        Arrays.asList("email5", "email6")
                                 ),
                                 createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
                         ),
@@ -123,8 +118,8 @@ public class PacketJpaRepositoryTest extends AbstractJpaRepositoryTest {
                 createClientInfo(
                         createContactDetails(
                                 "name",
-                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                                Arrays.asList(new String[]{"email1", "email2"})
+                                Arrays.asList("phonenumber1", "phoneNumber2"),
+                                Arrays.asList("email1", "email2")
                         ),
                         createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
                 ),
@@ -132,8 +127,8 @@ public class PacketJpaRepositoryTest extends AbstractJpaRepositoryTest {
                         createClientInfo(
                                 createContactDetails(
                                         "name",
-                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
-                                        Arrays.asList(new String[]{"email5", "email6"})
+                                        Arrays.asList("phonenumber3", "phoneNumber4"),
+                                        Arrays.asList("email5", "email6")
                                 ),
                                 createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
                         ),
@@ -152,8 +147,8 @@ public class PacketJpaRepositoryTest extends AbstractJpaRepositoryTest {
                 createClientInfo(
                         createContactDetails(
                                 "name",
-                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                                Arrays.asList(new String[]{"email1", "email2"})
+                                Arrays.asList("phonenumber1", "phoneNumber2"),
+                                Arrays.asList("email1", "email2")
                         ),
                         createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
                 ),
@@ -161,8 +156,8 @@ public class PacketJpaRepositoryTest extends AbstractJpaRepositoryTest {
                         createClientInfo(
                                 createContactDetails(
                                         "name",
-                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
-                                        Arrays.asList(new String[]{"email5", "email6"})
+                                        Arrays.asList("phonenumber3", "phoneNumber4"),
+                                        Arrays.asList("email5", "email6")
                                 ),
                                 createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
                         ),
@@ -181,8 +176,8 @@ public class PacketJpaRepositoryTest extends AbstractJpaRepositoryTest {
                 createClientInfo(
                         createContactDetails(
                                 "name",
-                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                                Arrays.asList(new String[]{"email1", "email2"})
+                                Arrays.asList("phonenumber1", "phoneNumber2"),
+                                Arrays.asList("email1", "email2")
                         ),
                         createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
                 ),
@@ -190,8 +185,8 @@ public class PacketJpaRepositoryTest extends AbstractJpaRepositoryTest {
                         createClientInfo(
                                 createContactDetails(
                                         "name",
-                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
-                                        Arrays.asList(new String[]{"email5", "email6"})
+                                        Arrays.asList("phonenumber3", "phoneNumber4"),
+                                        Arrays.asList("email5", "email6")
                                 ),
                                 createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
                         ),
@@ -210,8 +205,8 @@ public class PacketJpaRepositoryTest extends AbstractJpaRepositoryTest {
                 createClientInfo(
                         createContactDetails(
                                 "name",
-                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                                Arrays.asList(new String[]{"email1", "email2"})
+                                Arrays.asList("phonenumber1", "phoneNumber2"),
+                                Arrays.asList("email1", "email2")
                         ),
                         createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
                 ),
@@ -219,8 +214,8 @@ public class PacketJpaRepositoryTest extends AbstractJpaRepositoryTest {
                         createClientInfo(
                                 createContactDetails(
                                         "name",
-                                        Arrays.asList(new String[]{"phonenumber3", "phoneNumber4"}),
-                                        Arrays.asList(new String[]{"email5", "email6"})
+                                        Arrays.asList("phonenumber3", "phoneNumber4"),
+                                        Arrays.asList("email5", "email6")
                                 ),
                                 createAddress("Dagmoedstraat", "77", null, "9506", "Schendelbeke")
                         ),

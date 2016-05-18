@@ -23,11 +23,11 @@ public class DeliveryRound extends AbstractEntity {
     public static final Comparator<Remark> REMARK_COMPARATOR = new RemarksOnTimeAddedComparator();
     public static final Comparator<LocationUpdate> LOCATION_UPDATE_COMPARATOR = new LocationUpdateOnTimeCreatedComparator();
 
-    @OneToMany (cascade = {CascadeType.DETACH, CascadeType.REFRESH} )
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     private List<Packet> packets;
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<LocationUpdate> locationUpdates = new TreeSet<>(LOCATION_UPDATE_COMPARATOR);
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Remark> remarks = new TreeSet<>(REMARK_COMPARATOR);
     @Enumerated(EnumType.STRING)
     @NotNull
@@ -41,10 +41,7 @@ public class DeliveryRound extends AbstractEntity {
         DeliveryRound that = (DeliveryRound) o;
 
         if (getPackets() != null ? !getPackets().equals(that.getPackets()) : that.getPackets() != null) return false;
-        if (getLocationUpdates() != null ? !getLocationUpdates().equals(that.getLocationUpdates()) : that.getLocationUpdates() != null)
-            return false;
-        if (getRemarks() != null ? !getRemarks().equals(that.getRemarks()) : that.getRemarks() != null) return false;
-        return getRoundStatus() == that.getRoundStatus();
+        return !(getLocationUpdates() != null ? !getLocationUpdates().equals(that.getLocationUpdates()) : that.getLocationUpdates() != null) && !(getRemarks() != null ? !getRemarks().equals(that.getRemarks()) : that.getRemarks() != null) && getRoundStatus() == that.getRoundStatus();
     }
 
     @Override

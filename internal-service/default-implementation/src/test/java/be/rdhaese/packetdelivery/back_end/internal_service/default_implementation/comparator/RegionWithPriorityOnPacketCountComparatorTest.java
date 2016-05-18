@@ -1,7 +1,7 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.comparator;
 
-import be.rdhaese.packetdelivery.back_end.model.Region;
 import be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.util.RegionWithPriority;
+import be.rdhaese.packetdelivery.back_end.model.Region;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,13 +14,13 @@ import static junit.framework.TestCase.assertTrue;
  */
 public class RegionWithPriorityOnPacketCountComparatorTest {
 
-    private RegionWithPriorityOnPacketCountComparator comparator = new RegionWithPriorityOnPacketCountComparator();
+    private static final RegionWithPriorityOnPacketCountComparator COMPARATOR = new RegionWithPriorityOnPacketCountComparator();
     private RegionWithPriority regionWithPriority1;
     private RegionWithPriority regionWithPriority2;
     private RegionWithPriority regionWithPriority3;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         regionWithPriority1 = new RegionWithPriority(new Region());
         regionWithPriority1.setPacketCount(1);
 
@@ -32,9 +32,9 @@ public class RegionWithPriorityOnPacketCountComparatorTest {
     }
 
     @Test
-    public void testCompare(){
-        assertTrue(comparator.compare(regionWithPriority1, regionWithPriority2) > 0);
-        assertTrue(comparator.compare(regionWithPriority2, regionWithPriority3) < 0);
-        assertTrue(comparator.compare(regionWithPriority1, regionWithPriority3) == 0);
+    public void testCompare() {
+        assertTrue(COMPARATOR.compare(regionWithPriority1, regionWithPriority2) > 0);
+        assertTrue(COMPARATOR.compare(regionWithPriority2, regionWithPriority3) < 0);
+        assertTrue(COMPARATOR.compare(regionWithPriority1, regionWithPriority3) == 0);
     }
 }

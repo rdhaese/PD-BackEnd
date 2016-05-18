@@ -17,9 +17,9 @@ import javax.mail.internet.MimeMessage;
  * @author Robin D'Haese
  */
 @Component
-public class MailerImpl implements Mailer{
+public class MailerImpl implements Mailer {
 
-    private Logger logger = LoggerFactory.getLogger(MailerImpl.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(MailerImpl.class);
 
     @Autowired
     private JavaMailSender mailSender;
@@ -29,21 +29,19 @@ public class MailerImpl implements Mailer{
 
     @Override
     public void send(String toAddress, String subject, String message) {
-        new Thread(new Runnable() {
-            public void run()
-            {
-                MimeMessage mail = mailSender.createMimeMessage();
-                try {
-                    mail.setContent(message, "text/html");
-                    MimeMessageHelper helper = new MimeMessageHelper(mail, false);
-                    helper.setTo(toAddress);
-                    helper.setReplyTo(properties.getReplyToAddress());
-                    helper.setFrom(properties.getFromAddress());
-                    helper.setSubject(subject);
-                } catch (MessagingException e) {
-                    logger.warn("Could not send email", e);
-                }
-                mailSender.send(mail);
-            }}).start();
+        new Thread(() -> {
+            MimeMessage mail = mailSender.createMimeMessage();
+            try {
+                mail.setContent(message, "text/html");
+                MimeMessageHelper helper = new MimeMessageHelper(mail, false);
+                helper.setTo(toAddress);
+                helper.setReplyTo(properties.getReplyToAddress());
+                helper.setFrom(properties.getFromAddress());
+                helper.setSubject(subject);
+            } catch (MessagingException e) {
+                LOGGER.warn("Could not send email", e);
+            }
+            mailSender.send(mail);
+        }).start();
     }
 }

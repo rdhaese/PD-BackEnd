@@ -7,7 +7,6 @@ import be.rdhaese.packetdelivery.back_end.model.company_details.EmailEntry;
 import be.rdhaese.packetdelivery.back_end.model.company_details.FaxEntry;
 import be.rdhaese.packetdelivery.back_end.model.company_details.PhoneEntry;
 import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,18 +17,19 @@ import java.util.Map;
 
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAddress;
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createCompanyContactDetails;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.TestCase.assertEquals;
 
 /**
  * Created on 13/05/2016.
  *
  * @author Robin D'Haese
  */
-public class CompanyContactDetailsMapperTest extends TestCase {
+public class CompanyContactDetailsMapperTest {
     private Mapper<CompanyContactDetails, ContactDetailsDTO> mapper;
 
     private CompanyContactDetails companyContactDetails;
     private ContactDetailsDTO contactDetailsDto;
-    private Address address;
     private List<PhoneEntry> phoneNumbers;
     private List<FaxEntry> faxNumbers;
     private List<EmailEntry> emails;
@@ -37,7 +37,7 @@ public class CompanyContactDetailsMapperTest extends TestCase {
     @Before
     public void setUp() {
         mapper = new CompanyContactDetailsMapper();
-        address = createAddress("street", "number", null, "postalCode", "city");
+        Address address = createAddress("street", "number", null, "postalCode", "city");
         phoneNumbers = Arrays.asList(new PhoneEntry("title1", "number1"), new PhoneEntry("title2", "number2"));
         faxNumbers = Arrays.asList(new FaxEntry("title3", "number3"), new FaxEntry("title4", "number4"));
         emails = Arrays.asList(new EmailEntry("title5", "email1"), new EmailEntry("title6", "email2"));

@@ -1,7 +1,6 @@
 package be.rdhaese.packetdelivery.ack_end.persistence.jpa_repositories;
 
 import be.rdhaese.packetdelivery.ack_end.persistence.jpa_repositories.config.JpaTestConfig;
-import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.config.JpaConfig;
 import junit.framework.TestCase;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;

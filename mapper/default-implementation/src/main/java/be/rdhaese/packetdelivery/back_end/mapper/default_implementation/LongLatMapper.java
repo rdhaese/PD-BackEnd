@@ -23,7 +23,7 @@ public class LongLatMapper extends AbstractMapper<LongLat, LongLatDTO> {
 
     @Override
     public LongLatDTO mapToDto(LongLat busObj) {
-      LongLatDTO dto = new LongLatDTO();
+        LongLatDTO dto = new LongLatDTO();
         dto.setLatitude(busObj.getLatitude());
         dto.setLongitude(busObj.getLongitude());
         return dto;

@@ -10,8 +10,10 @@ import java.util.Collection;
 public interface Mapper<B, D> {
 
     B mapToBus(D dto);
+
     D mapToDto(B busObj);
 
     Collection<B> mapToBus(Collection<D> dtos);
+
     Collection<D> mapToDto(Collection<B> busObjs);
 }

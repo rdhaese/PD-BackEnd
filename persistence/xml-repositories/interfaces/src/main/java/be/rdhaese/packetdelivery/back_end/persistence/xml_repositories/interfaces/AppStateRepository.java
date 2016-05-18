@@ -11,12 +11,13 @@ import java.io.IOException;
  * @author Robin D'Haese
  */
 public interface AppStateRepository {
-    Boolean save(AppState newAppState) throws JAXBException, IOException;
+    @SuppressWarnings("SameReturnValue")
+    Boolean save(AppState newAppState) throws JAXBException;
 
-    AppState getAppState(String appId) throws JAXBException, IOException;
+    AppState getAppState(String appId) throws JAXBException;
 
-    AppState getAppState(Long roundId) throws JAXBException, IOException;
+    AppState getAppState(Long roundId) throws JAXBException;
 
-    String getLatestId() throws JAXBException, IOException;
+    String getLatestId() throws JAXBException;
 
 }

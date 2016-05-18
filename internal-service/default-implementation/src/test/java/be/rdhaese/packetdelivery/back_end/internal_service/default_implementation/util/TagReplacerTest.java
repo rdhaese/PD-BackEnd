@@ -1,18 +1,20 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.util;
 
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertNull;
+
 /**
  * Created on 5/05/2016.
  *
  * @author Robin D'Haese
  */
-public class TagReplacerTest extends TestCase {
+public class TagReplacerTest {
 
     private TagReplacer tagReplacer;
 
@@ -20,7 +22,7 @@ public class TagReplacerTest extends TestCase {
     private String textWithTags;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         tagReplacer = new TagReplacer();
         tagsMap = new HashMap<>();
         tagsMap.put("tag1", "replacedTag1");
@@ -29,37 +31,35 @@ public class TagReplacerTest extends TestCase {
     }
 
     @Test
-    public void testReplaceTagsWithNullText(){
-        textWithTags = null;
-        assertNull(tagReplacer.replaceTags(textWithTags, tagsMap));
+    public void testReplaceTagsWithNullText() {
+        assertNull(tagReplacer.replaceTags(null, tagsMap));
     }
 
     @Test
-    public void testReplaceTagsWithEmptyText(){
+    public void testReplaceTagsWithEmptyText() {
         textWithTags = "";
         assertEquals("", tagReplacer.replaceTags(textWithTags, tagsMap));
     }
 
     @Test
-    public void testReplaceTagsWithNullMap(){
-        tagsMap = null;
-        assertEquals(textWithTags, tagReplacer.replaceTags(textWithTags,tagsMap));
+    public void testReplaceTagsWithNullMap() {
+        assertEquals(textWithTags, tagReplacer.replaceTags(textWithTags, null));
     }
 
     @Test
-    public void testReplaceTagsWithEmptyMap(){
+    public void testReplaceTagsWithEmptyMap() {
         tagsMap = new HashMap<>();
-        assertEquals(textWithTags, tagReplacer.replaceTags(textWithTags,tagsMap));
+        assertEquals(textWithTags, tagReplacer.replaceTags(textWithTags, tagsMap));
     }
 
     @Test
-    public void testReplaceTagsWithTextWithoutTags(){
+    public void testReplaceTagsWithTextWithoutTags() {
         textWithTags = "this text contains no tags";
         assertEquals(textWithTags, tagReplacer.replaceTags(textWithTags, tagsMap));
     }
 
     @Test
-    public void testReplaceTags(){
+    public void testReplaceTags() {
         String expectedText = "Test text to replace replacedTag1 and replacedTag2. replacedTag1 even 2 times!";
         assertEquals(expectedText, tagReplacer.replaceTags(textWithTags, tagsMap));
     }

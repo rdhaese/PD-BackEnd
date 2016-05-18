@@ -29,11 +29,11 @@ public abstract class AbstractModelTest extends TestCase {
     @PersistenceContext
     private EntityManager entityManager;
 
-    protected EntityManager getEntityManager() {
+    EntityManager getEntityManager() {
         return entityManager;
     }
 
-    protected void persistFlushAndClear(Object o) {
+    void persistFlushAndClear(Object o) {
         entityManager.persist(o);
         entityManager.flush();
         entityManager.clear();
@@ -53,12 +53,14 @@ public abstract class AbstractModelTest extends TestCase {
         }
         JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        //noinspection unchecked
         return (T) jaxbUnmarshaller.unmarshal(file);
     }
 
-    protected void removeFile(String fileName){
+    protected void removeFile(String fileName) {
         File file = new File(fileName);
-        if (file.exists()){
+        if (file.exists()) {
+            //noinspection ResultOfMethodCallIgnored
             file.delete();
         }
     }

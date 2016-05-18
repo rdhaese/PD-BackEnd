@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 @SpringApplicationConfiguration
 public class PacketIdGeneratorTest extends TestCase {
 
-    private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
     @InjectMocks
     private PacketIdGenerator packetIdGenerator;
@@ -36,7 +36,7 @@ public class PacketIdGeneratorTest extends TestCase {
     @Test
     public void testGeneratePacketIdForNullPacket() throws Exception {
         verifyNoMoreInteractions(packetIdDateKeeper);
-        assertNull(packetIdGenerator.generatePacketId(null));
+        TestCase.assertNull(packetIdGenerator.generatePacketId(null));
     }
 
     @Test
@@ -64,15 +64,15 @@ public class PacketIdGeneratorTest extends TestCase {
                         null
                 ),
                 null,
-                dateFormat.parse("27/04/2016"),
+                DATE_FORMAT.parse("27/04/2016"),
                 0
         );
         when(packetIdDateKeeper.isAfterLastDateChecked(packet.getStatusChangedOn())).thenReturn(true);
 
         //Test
         String packetId = packetIdGenerator.generatePacketId(packet);
-        assertNotNull(packetId);
-        assertEquals("RO-GW-27042016-00000", packetId);
+        TestCase.assertNotNull(packetId);
+        TestCase.assertEquals("RO-GW-27042016-00000", packetId);
 
         verify(packetIdDateKeeper, times(1)).isAfterLastDateChecked(any());
     }
@@ -102,15 +102,15 @@ public class PacketIdGeneratorTest extends TestCase {
                         null
                 ),
                 null,
-                dateFormat.parse("27/04/2016"),
+                DATE_FORMAT.parse("27/04/2016"),
                 0
         );
         when(packetIdDateKeeper.isAfterLastDateChecked(packet.getStatusChangedOn())).thenReturn(true);
 
         //Test
         String packetId = packetIdGenerator.generatePacketId(packet);
-        assertNotNull(packetId);
-        assertEquals("R_-GW-27042016-00000", packetId);
+        TestCase.assertNotNull(packetId);
+        TestCase.assertEquals("R_-GW-27042016-00000", packetId);
 
         verify(packetIdDateKeeper, times(1)).isAfterLastDateChecked(any());
     }
@@ -140,15 +140,15 @@ public class PacketIdGeneratorTest extends TestCase {
                         null
                 ),
                 null,
-                dateFormat.parse("27/04/2016"),
+                DATE_FORMAT.parse("27/04/2016"),
                 0
         );
         when(packetIdDateKeeper.isAfterLastDateChecked(packet.getStatusChangedOn())).thenReturn(true);
 
         //Test
         String packetId = packetIdGenerator.generatePacketId(packet);
-        assertNotNull(packetId);
-        assertEquals("RO-G_-27042016-00000", packetId);
+        TestCase.assertNotNull(packetId);
+        TestCase.assertEquals("RO-G_-27042016-00000", packetId);
 
         verify(packetIdDateKeeper, times(1)).isAfterLastDateChecked(any());
     }
@@ -178,24 +178,24 @@ public class PacketIdGeneratorTest extends TestCase {
                         null
                 ),
                 null,
-                dateFormat.parse("27/04/2016"),
+                DATE_FORMAT.parse("27/04/2016"),
                 0
         );
         when(packetIdDateKeeper.isAfterLastDateChecked(packet.getStatusChangedOn())).thenReturn(false);
 
         //Test
         String packetId = packetIdGenerator.generatePacketId(packet);
-        assertNotNull(packetId);
-        assertEquals("RO-GW-27042016-00000", packetId);
+        TestCase.assertNotNull(packetId);
+        TestCase.assertEquals("RO-GW-27042016-00000", packetId);
 
         verify(packetIdDateKeeper, times(1)).isAfterLastDateChecked(any());
 
-       for (int index = 0; index < 123; index++){
-           packetId = packetIdGenerator.generatePacketId(packet);
-           assertNotNull(packetId);
-       }
+        for (int index = 0; index < 123; index++) {
+            packetId = packetIdGenerator.generatePacketId(packet);
+            TestCase.assertNotNull(packetId);
+        }
 
-        assertEquals("RO-GW-27042016-00123", packetId);
+        TestCase.assertEquals("RO-GW-27042016-00123", packetId);
         verify(packetIdDateKeeper, times(124)).isAfterLastDateChecked(any());
     }
 
@@ -224,23 +224,23 @@ public class PacketIdGeneratorTest extends TestCase {
                         null
                 ),
                 null,
-                dateFormat.parse("27/04/2016"),
+                DATE_FORMAT.parse("27/04/2016"),
                 0
         );
         when(packetIdDateKeeper.isAfterLastDateChecked(packet.getStatusChangedOn())).thenReturn(false);
 
         //Test
         String packetId;
-        for (int index = 0; index < 100000; index++){
+        for (int index = 0; index < 100000; index++) {
             packetId = packetIdGenerator.generatePacketId(packet);
-            assertNotNull(packetId);
+            TestCase.assertNotNull(packetId);
         }
 
         //Exception will be thrown on next generation of a packet id
-        try{
+        try {
             packetIdGenerator.generatePacketId(packet);
         } catch (Exception e) {
-            assertEquals("Max of packet ids for a day reached [99999]", e.getMessage());
+            TestCase.assertEquals("Max of packet ids for a day reached [99999]", e.getMessage());
             throw e;
         }
     }
@@ -270,7 +270,7 @@ public class PacketIdGeneratorTest extends TestCase {
                         null
                 ),
                 null,
-                dateFormat.parse("27/04/2016"),
+                DATE_FORMAT.parse("27/04/2016"),
                 0
         );
         //Means a new day has started
@@ -278,12 +278,12 @@ public class PacketIdGeneratorTest extends TestCase {
 
         //Test
         String packetId = packetIdGenerator.generatePacketId(packet);
-        assertNotNull(packetId);
-        assertEquals("RO-GW-27042016-00000", packetId);
+        TestCase.assertNotNull(packetId);
+        TestCase.assertEquals("RO-GW-27042016-00000", packetId);
 
         packetId = packetIdGenerator.generatePacketId(packet);
-        assertNotNull(packetId);
-        assertEquals("RO-GW-27042016-00000", packetId);
+        TestCase.assertNotNull(packetId);
+        TestCase.assertEquals("RO-GW-27042016-00000", packetId);
 
         verify(packetIdDateKeeper, times(2)).isAfterLastDateChecked(any());
     }

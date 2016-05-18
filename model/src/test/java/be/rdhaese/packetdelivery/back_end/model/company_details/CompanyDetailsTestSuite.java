@@ -1,7 +1,5 @@
 package be.rdhaese.packetdelivery.back_end.model.company_details;
 
-import be.rdhaese.packetdelivery.back_end.model.app_state.AppStateCollectionTest;
-import be.rdhaese.packetdelivery.back_end.model.app_state.AppStateTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

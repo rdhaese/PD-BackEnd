@@ -7,15 +7,14 @@ import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 import java.util.List;
 
-import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAddress;
-import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createContactDetails;
-import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createClientInfo;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
 
 /**
  * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */
+@SuppressWarnings("ALL") //When getting result list from query, no type is known
 public class ClientInfoTest extends AbstractModelTest {
 
     private ClientInfo clientInfo;
@@ -25,15 +24,15 @@ public class ClientInfoTest extends AbstractModelTest {
         clientInfo = createClientInfo(
                 createContactDetails(
                         "name",
-                        Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                        Arrays.asList(new String[]{"email1", "email2"})
+                        Arrays.asList("phonenumber1", "phoneNumber2"),
+                        Arrays.asList("email1", "email2")
                 ),
                 createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
         );
     }
 
     @Test
-    public void testCanPersist(){
+    public void testCanPersist() {
         //Check if id is null on creation
         assertNull(clientInfo.getId());
 
@@ -51,7 +50,7 @@ public class ClientInfoTest extends AbstractModelTest {
     }
 
     @Test
-    public void testAddressRemovedWithClientInfo(){
+    public void testAddressRemovedWithClientInfo() {
         //Persist
         persistFlushAndClear(clientInfo);
 
@@ -65,7 +64,7 @@ public class ClientInfoTest extends AbstractModelTest {
     }
 
     @Test
-    public void testContactDetailsRemovedWithClientInfo(){
+    public void testContactDetailsRemovedWithClientInfo() {
         //Persist
         persistFlushAndClear(clientInfo);
 
@@ -79,14 +78,14 @@ public class ClientInfoTest extends AbstractModelTest {
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testContactDetailsCannotBeNull(){
+    public void testContactDetailsCannotBeNull() {
         clientInfo.setContactDetails(null);
 
         persistFlushAndClear(clientInfo);
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testAddressCannotBeNull(){
+    public void testAddressCannotBeNull() {
         clientInfo.setAddress(null);
 
         persistFlushAndClear(clientInfo);

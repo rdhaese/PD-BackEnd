@@ -17,9 +17,9 @@ import static junit.framework.TestCase.assertTrue;
  */
 public class RemarksOnTimeAddedComparatorTest {
 
-    private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+    private static final RemarksOnTimeAddedComparator COMPARATOR = new RemarksOnTimeAddedComparator();
 
-    private RemarksOnTimeAddedComparator comparator = new RemarksOnTimeAddedComparator();
     private Remark remark1;
     private Remark remark2;
     private Remark remark3;
@@ -27,19 +27,19 @@ public class RemarksOnTimeAddedComparatorTest {
     @Before
     public void setUp() throws ParseException {
         remark1 = new Remark();
-        remark1.setTimeAdded(dateFormat.parse("19/02/2016"));
+        remark1.setTimeAdded(DATE_FORMAT.parse("19/02/2016"));
 
         remark2 = new Remark();
-        remark2.setTimeAdded(dateFormat.parse("20/02/2016"));
+        remark2.setTimeAdded(DATE_FORMAT.parse("20/02/2016"));
 
         remark3 = new Remark();
-        remark3.setTimeAdded(dateFormat.parse("19/02/2016"));
+        remark3.setTimeAdded(DATE_FORMAT.parse("19/02/2016"));
     }
 
     @Test
-    public void testCompare(){
-        assertTrue(comparator.compare(remark1, remark2) > 0);
-        assertTrue(comparator.compare(remark2, remark3) < 0);
-        assertTrue(comparator.compare(remark1, remark3) == 0);
+    public void testCompare() {
+        assertTrue(COMPARATOR.compare(remark1, remark2) > 0);
+        assertTrue(COMPARATOR.compare(remark2, remark3) < 0);
+        assertTrue(COMPARATOR.compare(remark1, remark3) == 0);
     }
 }

@@ -11,8 +11,8 @@ import java.io.Serializable;
  *
  * @author Robin D'Haese
  */
-@XmlRootElement (name = "email")
-public class EmailEntry implements Serializable{
+@XmlRootElement(name = "email")
+public class EmailEntry implements Serializable {
     private String title;
     private String address;
 
