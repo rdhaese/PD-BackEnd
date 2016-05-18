@@ -9,6 +9,7 @@ import be.rdhaese.packetdelivery.back_end.model.Packet;
 import be.rdhaese.packetdelivery.dto.AddressDTO;
 import be.rdhaese.packetdelivery.dto.LongLatDTO;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -37,57 +39,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Robin D'Haese
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = LongLatRestWebServiceTest.Config.class)
-@WebAppConfiguration
-public class LongLatRestWebServiceTest {
+public class LongLatRestWebServiceTest extends AbstractRestWebServiceTest {
 
-    @Configuration
-    @EnableWebMvc
-    static class Config{
-
-        //Controller to test
-        @Bean
-        public LongLatRestWebService longLatRestWebService(){
-            return new LongLatRestWebService();
-        }
-
-        //Mocks
-        @Bean
-        public LongLatInternalService longLatInternalService(){
-            return mock(LongLatInternalService.class);
-        }
-
-        @Bean
-        public Mapper<LongLat, LongLatDTO> longLatMapper(){
-            return mock(Mapper.class);
-        }
-
-        @Bean
-        public Mapper<Address, AddressDTO> addressMapper(){
-            return mock(Mapper.class);
-        }
-    }
-
-    @Autowired
-    private WebApplicationContext ctx;
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp(){
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-    }
-
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private LongLatInternalService longLatInternalService;
 
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private Mapper<LongLat, LongLatDTO> longLatMapper;
 
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private Mapper<Address, AddressDTO> addressMapper;
+
+    @After
+    public void tearDown() {
+        reset(longLatInternalService, longLatMapper, addressMapper);
+    }
 
     @Test
     public void testGetForAddress() throws Exception {
@@ -101,16 +67,14 @@ public class LongLatRestWebServiceTest {
         when(longLatMapper.mapToDto(longLat)).thenReturn(longLatDTO);
 
         mockMvc.perform(post("/long-lat/for-address")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(addressDTO)))
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(convertObjectToJsonBytes(addressDTO)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(content().bytes(TestUtil.convertObjectToJsonBytes(longLatDTO)));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().bytes(convertObjectToJsonBytes(longLatDTO)));
 
         verify(addressMapper, times(1)).mapToBus(addressDTO);
         verify(longLatInternalService, times(1)).getForAddress(address);
         verify(longLatMapper, times(1)).mapToDto(longLat);
     }
-
-
 }

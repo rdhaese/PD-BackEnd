@@ -7,6 +7,7 @@ import be.rdhaese.packetdelivery.back_end.model.Packet;
 import be.rdhaese.packetdelivery.back_end.model.Region;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
 import be.rdhaese.packetdelivery.dto.RegionDTO;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -41,49 +43,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Robin D'Haese
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = RegionsRestWebServiceTest.Config.class)
-@WebAppConfiguration
-public class RegionsRestWebServiceTest {
+public class RegionsRestWebServiceTest extends AbstractRestWebServiceTest {
 
-    @Configuration
-    @EnableWebMvc
-    static class Config{
-
-        //Controller to test
-        @Bean
-        public RegionsRestWebService regionsRestWebService(){
-            return new RegionsRestWebService();
-        }
-
-        //Mocks
-        @Bean
-        public RegionsInternalService regionsInternalService(){
-            return mock(RegionsInternalService.class);
-        }
-
-        @Bean
-        public Mapper<Region, RegionDTO> regionMapper(){
-            return mock(Mapper.class);
-        }
-    }
-
-    @Autowired
-    private WebApplicationContext ctx;
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp(){
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-    }
-
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private RegionsInternalService regionsInternalService;
 
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private Mapper<Region, RegionDTO> regionMapper;
+
+    @After
+    public void tearDown(){
+        reset(regionsInternalService, regionMapper);
+    }
 
     @Test
     public void testRegions() throws Exception {
@@ -103,7 +74,7 @@ public class RegionsRestWebServiceTest {
 
         mockMvc.perform(get("/regions/all"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.[0].code", is("CODE1")))
                 .andExpect(jsonPath("$.[1].code", is("CODE2")));
 

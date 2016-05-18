@@ -4,6 +4,7 @@ import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.CompanyCon
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDetails;
 import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -31,56 +33,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Robin D'Haese
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ContactInformationRestWebServiceTest.Config.class)
-@WebAppConfiguration
-public class ContactInformationRestWebServiceTest {
+public class ContactInformationRestWebServiceTest extends AbstractRestWebServiceTest{
+
+    @Autowired //Mock, see TestConfig
+    private CompanyContactDetailsInternalService companyContactDetailsInternalService;
+
+    @Autowired //Mock, see TestConfig
+    private Mapper<CompanyContactDetails, ContactDetailsDTO> contactDetailsMapper;
 
     private CompanyContactDetails companyContactDetails;
     private ContactDetailsDTO contactDetailsDTO;
 
-    @Configuration
-    @EnableWebMvc
-    static class Config {
-
-        //Controller to test
-        @Bean
-        public ContactInformationRestWebService contactInformationRestWebService() {
-            return new ContactInformationRestWebService();
-        }
-
-        //Mocks
-        @Bean
-        public CompanyContactDetailsInternalService companyContactDetailsInternalService() {
-            return mock(CompanyContactDetailsInternalService.class);
-        }
-
-        @Bean
-        public Mapper<CompanyContactDetails, ContactDetailsDTO> contactDetailsMapper() {
-            return mock(Mapper.class);
-        }
-    }
-
-    @Autowired
-    private WebApplicationContext ctx;
-
-    private MockMvc mockMvc;
-
     @Before
+    @Override
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
+        super.setUp();
+        reset(companyContactDetailsInternalService, contactDetailsMapper);
+
         companyContactDetails = new CompanyContactDetails();
         companyContactDetails.setCompanyName("companyName");
         contactDetailsDTO = new ContactDetailsDTO();
         contactDetailsDTO.setCompanyName("companyName");
     }
 
-    @Autowired
-    private CompanyContactDetailsInternalService companyContactDetailsInternalService;
-
-    @Autowired
-    private Mapper<CompanyContactDetails, ContactDetailsDTO> contactDetailsMapper;
+    @After
+    public void tearDown() {
+        reset(companyContactDetailsInternalService, contactDetailsMapper);
+    }
 
     @Test
     public void testGet() throws Exception {
@@ -88,9 +67,9 @@ public class ContactInformationRestWebServiceTest {
         when(contactDetailsMapper.mapToDto(companyContactDetails)).thenReturn(contactDetailsDTO);
 
         mockMvc.perform(get("/contact-information/get")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.companyName", is("companyName")));
 
         verify(companyContactDetailsInternalService, times(1)).get();
@@ -104,8 +83,8 @@ public class ContactInformationRestWebServiceTest {
 
         mockMvc.perform(
                 post("/contact-information/post")
-                        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                        .content(TestUtil.convertObjectToJsonBytes(contactDetailsDTO)))
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(convertObjectToJsonBytes(contactDetailsDTO)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 

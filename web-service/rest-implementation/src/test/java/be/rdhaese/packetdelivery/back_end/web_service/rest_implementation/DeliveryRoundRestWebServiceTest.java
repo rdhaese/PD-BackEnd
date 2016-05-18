@@ -11,6 +11,7 @@ import be.rdhaese.packetdelivery.dto.AddressDTO;
 import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
 import be.rdhaese.packetdelivery.dto.LongLatDTO;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -46,66 +48,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Robin D'Haese
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = DeliveryRoundRestWebServiceTest.Config.class)
-@WebAppConfiguration
-public class DeliveryRoundRestWebServiceTest {
+public class DeliveryRoundRestWebServiceTest extends AbstractRestWebServiceTest{
 
-    @Configuration
-    @EnableWebMvc
-    static class Config{
-
-        //Controller to test
-        @Bean
-        public DeliveryRoundRestWebService deliveryRoundRestWebService(){
-            return new DeliveryRoundRestWebService();
-        }
-
-        //Mocks
-        @Bean
-        public DeliveryRoundInternalService deliveryRoundInternalService(){
-            return mock(DeliveryRoundInternalService.class);
-        }
-
-        @Bean
-        public Mapper<Packet, PacketDTO> packetMapper(){
-            return mock(Mapper.class);
-        }
-
-        @Bean
-        public Mapper<LongLat, LongLatDTO> longLatMapper(){
-            return mock(Mapper.class);
-        }
-
-        @Bean
-        public Mapper<Address, AddressDTO> addressMapper(){
-            return mock(Mapper.class);
-        }
-    }
-
-    @Autowired
-    private WebApplicationContext ctx;
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp(){
-        MockitoAnnotations.initMocks(this);
-        Mockito.reset(packetMapper);
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-    }
-
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private DeliveryRoundInternalService deliveryRoundInternalService;
 
-    @Autowired
+    @Autowired //Mock, see TestConfig
    private Mapper<Packet, PacketDTO> packetMapper;
 
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private Mapper<LongLat, LongLatDTO> longLatMapper;
 
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private Mapper<Address, AddressDTO> addressMapper;
+
+    @After
+    public void tearDown() {
+        reset(deliveryRoundInternalService, packetMapper, longLatMapper, addressMapper);
+    }
 
     @Test
     public void testNewRound() throws Exception {
@@ -154,8 +114,8 @@ public class DeliveryRoundRestWebServiceTest {
         when(deliveryRoundInternalService.markAsLost(2L, packet)).thenReturn(true);
 
         mockMvc.perform(post("/round/mark-as-lost/2")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(packetDto)))
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(convertObjectToJsonBytes(packetDto)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
@@ -174,8 +134,8 @@ public class DeliveryRoundRestWebServiceTest {
         when(deliveryRoundInternalService.deliver(2L, packet)).thenReturn(true);
 
         mockMvc.perform(post("/round/deliver/2")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(packetDto)))
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(convertObjectToJsonBytes(packetDto)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
@@ -194,8 +154,8 @@ public class DeliveryRoundRestWebServiceTest {
         when(deliveryRoundInternalService.cannotDeliver(2L, packet, "reason")).thenReturn(true);
 
         mockMvc.perform(post("/round/cannot-deliver/2/reason")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(packetDto)))
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(convertObjectToJsonBytes(packetDto)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
@@ -223,8 +183,8 @@ public class DeliveryRoundRestWebServiceTest {
         when(deliveryRoundInternalService.addLocationUpdate(2L, longLat)).thenReturn(true);
 
         mockMvc.perform(post("/round/add-location-update/2")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(longLatDTO)))
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(convertObjectToJsonBytes(longLatDTO)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
@@ -264,7 +224,7 @@ public class DeliveryRoundRestWebServiceTest {
 
         mockMvc.perform(get("/round/company-address"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.street", is("street")))
                 .andExpect(jsonPath("$.city", is("city")));
 

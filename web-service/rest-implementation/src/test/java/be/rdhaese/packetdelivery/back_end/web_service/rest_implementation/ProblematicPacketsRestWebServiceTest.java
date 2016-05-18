@@ -9,6 +9,7 @@ import be.rdhaese.packetdelivery.back_end.model.Region;
 import be.rdhaese.packetdelivery.dto.DeliveryAddressDTO;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
 import be.rdhaese.packetdelivery.dto.RegionDTO;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -40,65 +42,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Robin D'Haese
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ProblematicPacketsRestWebServiceTest.Config.class)
-@WebAppConfiguration
-public class ProblematicPacketsRestWebServiceTest {
+public class ProblematicPacketsRestWebServiceTest extends AbstractRestWebServiceTest{
 
-    @Configuration
-    @EnableWebMvc
-    static class Config {
-
-        //Controller to test
-        @Bean
-        public ProblematicPacketsRestWebService problematicPacketsRestWebService() {
-            return new ProblematicPacketsRestWebService();
-        }
-
-        //Mocks
-        @Bean
-        public ProblematicPacketsInternalService problematicPacketsInternalService() {
-            return mock(ProblematicPacketsInternalService.class);
-        }
-
-        @Bean
-        public Mapper<Packet, PacketDTO> packetMapper() {
-            return mock(Mapper.class);
-        }
-
-        @Bean
-        public Mapper<Region, RegionDTO> regionMapper() {
-            return mock(Mapper.class);
-        }
-
-        @Bean
-        public DeliveryAddressMapper deliveryAddressMapper() {
-            return mock(DeliveryAddressMapper.class);
-        }
-    }
-
-    @Autowired
-    private WebApplicationContext ctx;
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-    }
-
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private ProblematicPacketsInternalService problematicPacketsInternalService;
 
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private Mapper<Packet, PacketDTO> packetMapper;
 
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private Mapper<Region, RegionDTO> regionMapper;
 
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private DeliveryAddressMapper deliveryAddressMapper;
+
+    @After
+    public void tearDown(){
+        reset(problematicPacketsInternalService, packetMapper,
+                regionMapper, deliveryAddressMapper);
+    }
 
     @Test
     public void testGetProblematicPackets() throws Exception {
@@ -118,7 +80,7 @@ public class ProblematicPacketsRestWebServiceTest {
 
         mockMvc.perform(get("/problematic-packets/all"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.[0].packetId", is("packetId1")))
                 .andExpect(jsonPath("$.[1].packetId", is("packetId2")));
 
@@ -138,7 +100,7 @@ public class ProblematicPacketsRestWebServiceTest {
 
         mockMvc.perform(get("/problematic-packets/for-id/packetId1"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.packetId", is("packetId1")));
 
         verify(problematicPacketsInternalService, times(1)).getProblematicPacket("packetId1");
@@ -163,8 +125,8 @@ public class ProblematicPacketsRestWebServiceTest {
         when(regionMapper.mapToBus(regionDTO)).thenReturn(region);
 
         mockMvc.perform(post("/problematic-packets/return-to-sender/packetId")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(regionDTO)))
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(convertObjectToJsonBytes(regionDTO)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 
@@ -185,7 +147,7 @@ public class ProblematicPacketsRestWebServiceTest {
 
         mockMvc.perform(get("/problematic-packets/delivery-address/packetId"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.packetId", is("packetId")));
 
         verify(problematicPacketsInternalService, times(1)).getProblematicPacketAddress("packetId");
@@ -204,8 +166,8 @@ public class ProblematicPacketsRestWebServiceTest {
         when(deliveryAddressMapper.mapToBus(deliveryAddressDTO)).thenReturn(objects);
 
         mockMvc.perform(post("/problematic-packets/save-delivery-address")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(deliveryAddressDTO)))
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(convertObjectToJsonBytes(deliveryAddressDTO)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 

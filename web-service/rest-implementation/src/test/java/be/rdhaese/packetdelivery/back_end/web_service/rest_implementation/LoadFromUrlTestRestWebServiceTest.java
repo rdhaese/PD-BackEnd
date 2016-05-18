@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -41,36 +42,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Robin D'Haese
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = LoadFromUrlTestRestWebServiceTest.Config.class)
-@WebAppConfiguration
-public class LoadFromUrlTestRestWebServiceTest {
-
-    @Configuration
-    @EnableWebMvc
-    static class Config{
-        //Controller to test
-        @Bean
-        public LoadFromUrlTestRestWebService loadFromUrlTestRestWebService(){
-            return new LoadFromUrlTestRestWebService();
-        }
-    }
-
-    @Autowired
-    private WebApplicationContext ctx;
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp(){
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-    }
+public class LoadFromUrlTestRestWebServiceTest extends AbstractRestWebServiceTest{
 
     @Test
     public void testPacket2ReturnsPacket2() throws Exception {
         mockMvc.perform(get("/test-service/packet2"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.deliveryCity", is("Oostende")));
     }
 
@@ -78,7 +56,7 @@ public class LoadFromUrlTestRestWebServiceTest {
     public void testPacket3ReturnsPacket3() throws Exception {
         mockMvc.perform(get("/test-service/packet3"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.deliveryCity", isEmptyOrNullString()));
     }
 
@@ -86,27 +64,27 @@ public class LoadFromUrlTestRestWebServiceTest {
     public void testAllOtherUrlsReturnPacket1() throws Exception {
         mockMvc.perform(get("/test-service/packet1"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.deliveryCity", is("Genk")));
 
         mockMvc.perform(get("/test-service/"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.deliveryCity", is("Genk")));
 
         mockMvc.perform(get("/test-service"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.deliveryCity", is("Genk")));
 
         mockMvc.perform(get("/test-service/packet1/pkosdfpkosdfo"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.deliveryCity", is("Genk")));
 
         mockMvc.perform(get("/test-service/packet1/sjisdjif/sdosdpkosdpkosdf/dsofksdof"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.deliveryCity", is("Genk")));
     }
 }

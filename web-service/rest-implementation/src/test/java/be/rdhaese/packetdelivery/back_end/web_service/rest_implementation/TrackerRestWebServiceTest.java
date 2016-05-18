@@ -1,36 +1,20 @@
 package be.rdhaese.packetdelivery.back_end.web_service.rest_implementation;
 
-import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.DeliveryRoundInternalService;
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.TrackerInternalService;
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.*;
-import be.rdhaese.packetdelivery.back_end.model.options.Options;
 import be.rdhaese.packetdelivery.dto.*;
-import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.http.MediaType;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAddress;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.*;
@@ -45,67 +29,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Robin D'Haese
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = TrackerRestWebServiceTest.Config.class)
-@WebAppConfiguration
-public class TrackerRestWebServiceTest {
+public class TrackerRestWebServiceTest extends  AbstractRestWebServiceTest{
 
-    @Configuration
-    @EnableWebMvc
-    static class Config{
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
-        //Controller to test
-        @Bean
-        public TrackerRestWebService trackerRestWebService(){
-            return new TrackerRestWebService();
-        }
-
-        //Mocks
-        @Bean
-        public TrackerInternalService trackerInternalService(){
-            return mock(TrackerInternalService.class);
-        }
-
-        @Bean
-        public Mapper<LocationUpdate, LocationUpdateDTO> locationUpdateMapper(){
-            return mock(Mapper.class);
-        }
-
-        @Bean
-        public Mapper<LongLat, LongLatDTO> longLatMapper(){
-            return mock(Mapper.class);
-        }
-
-        @Bean
-        public Mapper<Remark, RemarkDTO> remarkMapper(){
-            return mock(Mapper.class);
-        }
-    }
-
-    @Autowired
-    private WebApplicationContext ctx;
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp(){
-        MockitoAnnotations.initMocks(this);
-        Mockito.reset(longLatMapper);
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-    }
-
-    private static final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private TrackerInternalService trackerService;
 
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private Mapper<LongLat, LongLatDTO> longLatMapper;
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private Mapper<LocationUpdate, LocationUpdateDTO> locationUpdateMapper;
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private Mapper<Remark, RemarkDTO> remarkMapper;
 
+    @After
+    public void tearDown(){
+        reset(trackerService, longLatMapper,
+                locationUpdateMapper, remarkMapper);
+    }
 
     @Test
     public void testGetCompanyAddress() throws Exception {
@@ -117,8 +59,8 @@ public class TrackerRestWebServiceTest {
 
         mockMvc.perform(get("/tracker/company-address"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(content().bytes(TestUtil.convertObjectToJsonBytes(longLatDTO)));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().bytes(convertObjectToJsonBytes(longLatDTO)));
 
         verify(trackerService, times(1)).getCompanyAddress();
         verify(longLatMapper, times(1)).mapToDto(longLat);
@@ -134,8 +76,8 @@ public class TrackerRestWebServiceTest {
 
         mockMvc.perform(get("/tracker/packet-address/packetId"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(content().bytes(TestUtil.convertObjectToJsonBytes(longLatDTO)));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().bytes(convertObjectToJsonBytes(longLatDTO)));
 
         verify(trackerService, times(1)).getPacketAddress("packetId");
         verify(longLatMapper, times(1)).mapToDto(longLat);
@@ -143,8 +85,8 @@ public class TrackerRestWebServiceTest {
 
     @Test
     public void testGetLocationUpdates() throws Exception {
-        Date date1 = dateFormat.parse("17/04/2016");
-        Date date2 = dateFormat.parse("17/04/2016");
+        Date date1 = DATE_FORMAT.parse("17/04/2016");
+        Date date2 = DATE_FORMAT.parse("17/04/2016");
         LocationUpdate locationUpdate1 = new LocationUpdate();
         locationUpdate1.setTimeCreated(date1);
         LocationUpdate locationUpdate2 = new LocationUpdate();
@@ -159,7 +101,7 @@ public class TrackerRestWebServiceTest {
 
         mockMvc.perform(get("/tracker/location-updates/packetId"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.[0].timeCreated", is(date1.getTime())))
                 .andExpect(jsonPath("$.[1].timeCreated", is(date2.getTime())));
 
@@ -169,8 +111,8 @@ public class TrackerRestWebServiceTest {
 
     @Test
     public void testGetRemarks() throws Exception {
-        Date date1 = dateFormat.parse("17/04/2016");
-        Date date2 = dateFormat.parse("17/04/2016");
+        Date date1 = DATE_FORMAT.parse("17/04/2016");
+        Date date2 = DATE_FORMAT.parse("17/04/2016");
         Remark remark1 = new Remark();
         remark1.setTimeAdded(date1);
         Remark remark2 = new Remark();
@@ -187,7 +129,7 @@ public class TrackerRestWebServiceTest {
 
         mockMvc.perform(get("/tracker/remarks/packetId"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.[0].timeAdded", is(date1.getTime())))
                 .andExpect(jsonPath("$.[1].timeAdded", is(date2.getTime())));
 

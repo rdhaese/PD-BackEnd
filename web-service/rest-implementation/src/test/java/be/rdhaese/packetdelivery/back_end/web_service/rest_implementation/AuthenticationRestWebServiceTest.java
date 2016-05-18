@@ -7,6 +7,7 @@ import be.rdhaese.packetdelivery.back_end.mapper.default_implementation.AppState
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.app_state.AppState;
 import be.rdhaese.packetdelivery.dto.AppStateDTO;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,41 +36,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Robin D'Haese
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = AuthenticationRestWebServiceTest.Config.class)
-@WebAppConfiguration
-public class AuthenticationRestWebServiceTest {
+public class AuthenticationRestWebServiceTest extends AbstractRestWebServiceTest{
 
-    @Configuration
-    @EnableWebMvc
-    static class Config {
-
-        //Controller to test
-        @Bean
-        public AuthenticationRestWebService authenticationRestWebService() {
-            return new AuthenticationRestWebService();
-        }
-
-        //Mocks
-        @Bean
-        public AuthenticationInternalService authenticationInternalService() {
-            return mock(AuthenticationInternalService.class);
-        }
-    }
-
-    @Autowired
-    private WebApplicationContext ctx;
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-    }
-
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private AuthenticationInternalService authenticationInternalService;
+
+    @After
+    public void tearDown(){
+        reset(authenticationInternalService);
+    }
 
     @Test
     public void testAuthenticate() throws Exception {

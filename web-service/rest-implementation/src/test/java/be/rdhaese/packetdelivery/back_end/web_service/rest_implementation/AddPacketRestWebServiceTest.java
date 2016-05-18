@@ -6,8 +6,10 @@ import be.rdhaese.packetdelivery.back_end.mapper.default_implementation.PacketMa
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.Packet;
 import be.rdhaese.packetdelivery.back_end.web_service.interfaces.AddPacketWebService;
+import be.rdhaese.packetdelivery.back_end.web_service.rest_implementation.config.TestConfig;
 import be.rdhaese.packetdelivery.dto.PacketDTO;
 import junit.framework.TestCase;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -39,49 +42,18 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
  *
  * @author Robin D'Haese
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = AddPacketRestWebServiceTest.Config.class)
-@WebAppConfiguration
-public class AddPacketRestWebServiceTest {
+public class AddPacketRestWebServiceTest extends AbstractRestWebServiceTest{
 
-    @Configuration
-    @EnableWebMvc
-    static class Config{
-
-        //Controller to test
-        @Bean
-        public AddPacketRestWebService addPacketWebService(){
-            return new AddPacketRestWebService();
-        }
-
-        //Mocks
-        @Bean
-        public AddPacketInternalService addPacketInternalService(){
-            return mock(AddPacketInternalService.class);
-        }
-
-        @Bean
-        public Mapper<Packet, PacketDTO> packetMapper(){
-            return mock(Mapper.class);
-        }
-    }
-
-    @Autowired
-    private WebApplicationContext ctx;
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp(){
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-    }
-
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private AddPacketInternalService addPacketInternalService;
 
-    @Autowired
+    @Autowired //Mock, see TestConfig
     private Mapper<Packet, PacketDTO> packetMapper;
+
+    @After
+    public void tearDown(){
+        reset(addPacketInternalService, packetMapper);
+    }
 
     @Test
     public void testAddPacket() throws Exception {
@@ -91,8 +63,8 @@ public class AddPacketRestWebServiceTest {
         when(addPacketInternalService.savePacket(packet)).thenReturn("packetId");
 
         mockMvc.perform(post("/packet/add")
-                        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                        .content(TestUtil.convertObjectToJsonBytes(packetDTO))
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(convertObjectToJsonBytes(packetDTO))
         )
                 .andExpect(status().isOk())
                 .andExpect(content().string("packetId"));
@@ -100,5 +72,4 @@ public class AddPacketRestWebServiceTest {
         verify(packetMapper, times(1)).mapToBus(packetDTO);
         verify(addPacketInternalService, times(1)).savePacket(packet);
     }
-
 }
