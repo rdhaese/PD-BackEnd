@@ -1,15 +1,12 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation;
 
-import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.AppInternalService;
 import be.rdhaese.packetdelivery.back_end.model.DeliveryRound;
 import be.rdhaese.packetdelivery.back_end.model.Packet;
 import be.rdhaese.packetdelivery.back_end.model.app_state.AppState;
 import be.rdhaese.packetdelivery.back_end.model.app_state.AppStateActivity;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.DeliveryRoundJpaRepository;
 import be.rdhaese.packetdelivery.back_end.persistence.xml_repositories.interfaces.AppStateRepository;
-import be.rdhaese.packetdelivery.back_end.persistence.xml_repositories.interfaces.CompanyContactDetailsRepository;
 import junit.framework.TestCase;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -17,16 +14,13 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAppState;
 import static org.mockito.Mockito.*;
 
 /**
- * Created on 7/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -50,7 +44,7 @@ public class AppInternalServiceImplTest extends TestCase {
         when(appStateRepository.save(any())).thenReturn(true);
 
         //Test
-        assertEquals("3", appInternalService.getNewId());
+        TestCase.assertEquals("3", appInternalService.getNewId());
 
         verify(appStateRepository, times(1)).getLatestId();
         verify(appStateRepository, times(1)).save(any());
@@ -63,7 +57,7 @@ public class AppInternalServiceImplTest extends TestCase {
         when(appStateRepository.save(any())).thenReturn(false);
 
         //Test
-        assertNull(appInternalService.getNewId());
+        TestCase.assertNull(appInternalService.getNewId());
 
         verify(appStateRepository, times(1)).getLatestId();
         verify(appStateRepository, times(1)).save(any());
@@ -90,7 +84,7 @@ public class AppInternalServiceImplTest extends TestCase {
         //Test
         verifyNoMoreInteractions(deliveryRoundJpaRepository);
 
-        assertEquals(appState, appInternalService.getAppState("2"));
+        TestCase.assertEquals(appState, appInternalService.getAppState("2"));
 
         verify(appStateRepository, times(1)).getAppState(any(String.class));
     }
@@ -104,10 +98,10 @@ public class AppInternalServiceImplTest extends TestCase {
 
         //Test
         AppState returnedAppState = appInternalService.getAppState("2");
-        assertEquals("2", returnedAppState.getAppId());
-        assertNull(returnedAppState.getRoundId());
-        assertNull(returnedAppState.getActivity());
-        assertEquals(0, returnedAppState.getCurrentPacketIndex().intValue());
+        TestCase.assertEquals("2", returnedAppState.getAppId());
+        TestCase.assertNull(returnedAppState.getRoundId());
+        TestCase.assertNull(returnedAppState.getActivity());
+        TestCase.assertEquals(0, returnedAppState.getCurrentPacketIndex().intValue());
 
         verify(appStateRepository, times(1)).getAppState(any(String.class));
         verify(deliveryRoundJpaRepository, times(1)).findOne(any());
@@ -124,10 +118,10 @@ public class AppInternalServiceImplTest extends TestCase {
 
         //Test
         AppState returnedAppState = appInternalService.getAppState("2");
-        assertEquals("2", returnedAppState.getAppId());
-        assertNull(returnedAppState.getRoundId());
-        assertNull(returnedAppState.getActivity());
-        assertEquals(0, returnedAppState.getCurrentPacketIndex().intValue());
+        TestCase.assertEquals("2", returnedAppState.getAppId());
+        TestCase.assertNull(returnedAppState.getRoundId());
+        TestCase.assertNull(returnedAppState.getActivity());
+        TestCase.assertEquals(0, returnedAppState.getCurrentPacketIndex().intValue());
 
         verify(appStateRepository, times(1)).getAppState(any(String.class));
         verify(deliveryRoundJpaRepository, times(1)).findOne(any());
@@ -139,17 +133,17 @@ public class AppInternalServiceImplTest extends TestCase {
         //Setup mocks
         AppState appState = createAppState("2", 1L, null, 0);
         when(appStateRepository.getAppState("2")).thenReturn(appState);
-        List<Packet> packets = Arrays.asList(new Packet());
+        List<Packet> packets = Collections.singletonList(new Packet());
         DeliveryRound deliveryRound = new DeliveryRound();
         deliveryRound.setPackets(packets);
         when(deliveryRoundJpaRepository.findOne(1L)).thenReturn(deliveryRound);
 
         //Test
-        assertEquals(appState, appInternalService.getAppState("2"));
-        assertEquals("2", appState.getAppId());
-        assertEquals(1L, appState.getRoundId().longValue());
-        assertNull(appState.getActivity());
-        assertEquals(0, appState.getCurrentPacketIndex().intValue());
+        TestCase.assertEquals(appState, appInternalService.getAppState("2"));
+        TestCase.assertEquals("2", appState.getAppId());
+        TestCase.assertEquals(1L, appState.getRoundId().longValue());
+        TestCase.assertNull(appState.getActivity());
+        TestCase.assertEquals(0, appState.getCurrentPacketIndex().intValue());
 
         verify(appStateRepository, times(1)).getAppState(any(String.class));
         verify(deliveryRoundJpaRepository, times(1)).findOne(any());
@@ -163,7 +157,7 @@ public class AppInternalServiceImplTest extends TestCase {
         when(appStateRepository.getAppState("2")).thenReturn(appState);
 
         //Test
-        assertEquals(appState, appInternalService.getAppState("2"));
+        TestCase.assertEquals(appState, appInternalService.getAppState("2"));
         verify(appStateRepository, times(1)).getAppState(any(String.class));
     }
 
@@ -175,9 +169,9 @@ public class AppInternalServiceImplTest extends TestCase {
         when(appStateRepository.save(any())).thenReturn(true);
 
         //Test
-        assertTrue(appInternalService.roundStarted("2", 1L));
-        assertEquals(1L, appState.getRoundId().longValue());
-        assertEquals(AppStateActivity.SEARCHING, appState.getActivity());
+        TestCase.assertTrue(appInternalService.roundStarted("2", 1L));
+        TestCase.assertEquals(1L, appState.getRoundId().longValue());
+        TestCase.assertEquals(AppStateActivity.SEARCHING, appState.getActivity());
 
         verify(appStateRepository, times(1)).getAppState(any(String.class));
         verify(appStateRepository, times(1)).save(any());
@@ -191,8 +185,8 @@ public class AppInternalServiceImplTest extends TestCase {
         when(appStateRepository.save(any())).thenReturn(true);
 
         //Test
-        assertTrue(appInternalService.loadingIn(1L));
-        assertEquals(AppStateActivity.LOADING, appState.getActivity());
+        TestCase.assertTrue(appInternalService.loadingIn(1L));
+        TestCase.assertEquals(AppStateActivity.LOADING, appState.getActivity());
 
         verify(appStateRepository, times(1)).getAppState(any(Long.class));
         verify(appStateRepository, times(1)).save(any());
@@ -206,8 +200,8 @@ public class AppInternalServiceImplTest extends TestCase {
         when(appStateRepository.save(any())).thenReturn(true);
 
         //Test
-        assertTrue(appInternalService.nextPacket(1L));
-        assertEquals(1, appState.getCurrentPacketIndex().intValue());
+        TestCase.assertTrue(appInternalService.nextPacket(1L));
+        TestCase.assertEquals(1, appState.getCurrentPacketIndex().intValue());
 
         verify(appStateRepository, times(1)).getAppState(any(Long.class));
         verify(appStateRepository, times(1)).save(any());
@@ -221,8 +215,8 @@ public class AppInternalServiceImplTest extends TestCase {
         when(appStateRepository.save(any())).thenReturn(true);
 
         //Test
-        assertTrue(appInternalService.ongoingDelivery(1L));
-        assertEquals(AppStateActivity.ONGOING, appState.getActivity());
+        TestCase.assertTrue(appInternalService.ongoingDelivery(1L));
+        TestCase.assertEquals(AppStateActivity.ONGOING, appState.getActivity());
 
         verify(appStateRepository, times(1)).getAppState(any(Long.class));
         verify(appStateRepository, times(1)).save(any());
@@ -236,10 +230,10 @@ public class AppInternalServiceImplTest extends TestCase {
         when(appStateRepository.save(any())).thenReturn(true);
 
         //Test
-        assertTrue(appInternalService.roundEnded(1L));
-        assertNull(appState.getRoundId());
-        assertNull(appState.getActivity());
-        assertEquals(0, appState.getCurrentPacketIndex().intValue());
+        TestCase.assertTrue(appInternalService.roundEnded(1L));
+        TestCase.assertNull(appState.getRoundId());
+        TestCase.assertNull(appState.getActivity());
+        TestCase.assertEquals(0, appState.getCurrentPacketIndex().intValue());
 
         verify(appStateRepository, times(1)).getAppState(any(Long.class));
         verify(appStateRepository, times(1)).save(any());

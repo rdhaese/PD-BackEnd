@@ -1,30 +1,27 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation;
 
-import be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.util.*;
-import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.CompanyContactDetailsInternalService;
-import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.DeliveryRoundInternalService;
 import be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.properties.InternalServiceProperties;
+import be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.util.*;
+import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.DeliveryRoundInternalService;
 import be.rdhaese.packetdelivery.back_end.model.*;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.DeliveryRoundJpaRepository;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.PacketJpaRepository;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.RegionJpaRepository;
 import be.rdhaese.packetdelivery.back_end.persistence.xml_repositories.interfaces.CompanyContactDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 /**
- * Created on 26/02/2016.
  *
  * @author Robin D'Haese
  */
 @Service
 public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalService {
 
-    public static final Integer MAX_PRIORITY = 3;
+    private static final Integer MAX_PRIORITY = 3;
 
     @Autowired
     private DeliveryRoundJpaRepository roundRepository;
@@ -131,7 +128,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
     @Override
     @Transactional
-    public Boolean markAsLost(Long roundId, Packet packet) throws Exception{
+    public Boolean markAsLost(Long roundId, Packet packet) throws Exception {
         DeliveryRound round = roundRepository.getOne(roundId);
         round.getPackets().remove(packet);
         packet = packetRepository.getPacket(packet.getPacketId());
@@ -160,7 +157,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
     @Override
     @Transactional
-    public Boolean startRound(Long roundId) throws Exception{
+    public Boolean startRound(Long roundId) throws Exception {
         DeliveryRound deliveryRound = roundRepository.getOne(roundId);
         deliveryRound.setRoundStatus(RoundStatus.STARTED);
         roundRepository.flush();
@@ -193,7 +190,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
     @Override
     @Transactional
-    public Boolean cannotDeliver(Long roundId, Packet packet, String reason) throws Exception{
+    public Boolean cannotDeliver(Long roundId, Packet packet, String reason) throws Exception {
         //First get email addresses from packet to use after they are deleted
         String emailClient = packet.getClientInfo().getContactDetails().getEmails().get(0);
         String emailDelivery = packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0);
@@ -228,7 +225,7 @@ public class DeliveryRoundInternalServiceImpl implements DeliveryRoundInternalSe
 
     @Override
     @Transactional
-    public Boolean deliver(Long roundId, Packet packet) throws Exception{
+    public Boolean deliver(Long roundId, Packet packet) throws Exception {
         //First get email addresses from packet to use after they are deleted
         String emailClient = packet.getClientInfo().getContactDetails().getEmails().get(0);
         String emailDelivery = packet.getDeliveryInfo().getClientInfo().getContactDetails().getEmails().get(0);

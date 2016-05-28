@@ -1,6 +1,5 @@
 package be.rdhaese.packetdelivery.back_end.web_service.rest_implementation.config;
 
-import be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.LongLatInternalServiceImpl;
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.*;
 import be.rdhaese.packetdelivery.back_end.mapper.default_implementation.AppStateMapper;
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.DeliveryAddressMapper;
@@ -18,10 +17,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import static org.mockito.Mockito.mock;
 
 /**
- * Created on 18/05/2016.
  *
  * @author Robin D'Haese
  */
+@SuppressWarnings("unchecked") //So Mapper.class can be used when creating a Mock without warnings
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "be.rdhaese.packetdelivery.back_end.web_service.rest_implementation")
@@ -79,7 +78,7 @@ public class TestConfig {
     }
 
     @Bean
-    public LongLatInternalService longLatInternalService(){
+    public LongLatInternalService longLatInternalService() {
         return mock(LongLatInternalService.class);
     }
 

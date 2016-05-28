@@ -5,7 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUti
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAppStateCollection;
 
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -24,10 +22,8 @@ public class AppStateCollectionTest extends AbstractModelTest {
 
     @Before
     public void setUp() {
-        List<AppState> appStateList = Arrays.asList(new AppState[]{
-                createAppState("appId", 1L, AppStateActivity.LOADING, 1),
-                createAppState("appId2", null, null, null)
-        });
+        List<AppState> appStateList = Arrays.asList(createAppState("appId", 1L, AppStateActivity.LOADING, 1),
+                createAppState("appId2", null, null, null));
         appStateCollection = createAppStateCollection(appStateList);
     }
 

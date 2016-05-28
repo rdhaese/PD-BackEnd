@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
- * Created on 24/11/2015.
  *
  * @author Robin D'Haese
  */
@@ -29,9 +28,7 @@ public class Remark extends AbstractEntity {
 
         Remark remark1 = (Remark) o;
 
-        if (getTimeAdded() != null ? !getTimeAdded().equals(remark1.getTimeAdded()) : remark1.getTimeAdded() != null)
-            return false;
-        return !(getRemark() != null ? !getRemark().equals(remark1.getRemark()) : remark1.getRemark() != null);
+        return !(getTimeAdded() != null ? !getTimeAdded().equals(remark1.getTimeAdded()) : remark1.getTimeAdded() != null) && !(getRemark() != null ? !getRemark().equals(remark1.getRemark()) : remark1.getRemark() != null);
 
     }
 

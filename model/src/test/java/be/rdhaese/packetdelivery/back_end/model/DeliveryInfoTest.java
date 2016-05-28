@@ -10,16 +10,16 @@ import java.util.List;
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
 
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */
+@SuppressWarnings("unchecked")//When getting result list from query, no type is known
 public class DeliveryInfoTest extends AbstractModelTest {
 
     private DeliveryInfo deliveryInfo;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         Region region = createRegion(createRegionName("nl", "fr", "de", "en"), "CODE");
         Region adjacentRegion1 = createRegion(createRegionName("nl1", "fr1", "de1", "en1"), "CODE1");
         Region adjacentRegion2 = createRegion(createRegionName("nl2", "fr2", "de2", "en2"), "CODE2");
@@ -31,8 +31,8 @@ public class DeliveryInfoTest extends AbstractModelTest {
                 createClientInfo(
                         createContactDetails(
                                 "name",
-                                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                                Arrays.asList(new String[]{"email1", "email2"})
+                                Arrays.asList("phonenumber1", "phoneNumber2"),
+                                Arrays.asList("email1", "email2")
                         ),
                         createAddress("Ezelberg", "2", "12", "9500", "Geraardsbergen")
                 ),
@@ -41,7 +41,7 @@ public class DeliveryInfoTest extends AbstractModelTest {
     }
 
     @Test
-    public void testCanPersist(){
+    public void testCanPersist() {
         //Check if id is null on creation
         assertNull(deliveryInfo.getId());
 
@@ -59,7 +59,7 @@ public class DeliveryInfoTest extends AbstractModelTest {
     }
 
     @Test
-    public void testClientInfoRemovedWithDeliveryInfo(){
+    public void testClientInfoRemovedWithDeliveryInfo() {
         //Persist
         persistFlushAndClear(deliveryInfo);
 
@@ -73,7 +73,7 @@ public class DeliveryInfoTest extends AbstractModelTest {
     }
 
     @Test
-    public void testRegionNotRemovedWithDeliveryInfo(){
+    public void testRegionNotRemovedWithDeliveryInfo() {
         //Persist
         persistFlushAndClear(deliveryInfo);
 
@@ -86,15 +86,15 @@ public class DeliveryInfoTest extends AbstractModelTest {
         assertEquals(4, regionsInDatabase.size());
     }
 
-    @Test (expected = ConstraintViolationException.class)
-    public void testClientInfoCannotBeNull(){
+    @Test(expected = ConstraintViolationException.class)
+    public void testClientInfoCannotBeNull() {
         deliveryInfo.setClientInfo(null);
 
         persistFlushAndClear(deliveryInfo);
     }
 
-    @Test (expected = ConstraintViolationException.class)
-    public void testRegionCannotBeNull(){
+    @Test(expected = ConstraintViolationException.class)
+    public void testRegionCannotBeNull() {
         deliveryInfo.setRegion(null);
 
         persistFlushAndClear(deliveryInfo);

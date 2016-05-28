@@ -5,12 +5,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createPhoneEntry;
 
 /**
- * Created on 4/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -20,18 +17,18 @@ public class PhoneEntryTest extends AbstractModelTest {
     private PhoneEntry phoneEntry;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         phoneEntry = createPhoneEntry("title", "number");
     }
 
     @After
-    public void afterTestMethod(){
+    public void afterTestMethod() {
         removeFile(FILE_NAME);
 
     }
 
     @Test
-    public void testCanPersistToXml() throws Exception{
+    public void testCanPersistToXml() throws Exception {
         //Save to file
         persistToXml(PhoneEntry.class, phoneEntry, FILE_NAME);
 

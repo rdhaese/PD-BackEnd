@@ -1,7 +1,5 @@
 package be.rdhaese.packetdelivery.back_end.model;
 
-import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,17 +7,20 @@ import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createRegion;
+import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createRegionName;
+
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */
+@SuppressWarnings("unchecked") //When getting result list from query, no type is known
 public class RegionTest extends AbstractModelTest {
 
     private Region region;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         region = createRegion(createRegionName("nl", "fr", "de", "en"), "CODE");
         Region adjacentRegion1 = createRegion(createRegionName("nl1", "fr1", "de1", "en1"), "CODE1");
         Region adjacentRegion2 = createRegion(createRegionName("nl2", "fr2", "de2", "en2"), "CODE2");
@@ -30,7 +31,7 @@ public class RegionTest extends AbstractModelTest {
     }
 
     @Test
-    public void testCanPersist(){
+    public void testCanPersist() {
         //Check if id is null on creation
         assertNull(region.getId());
 
@@ -41,13 +42,13 @@ public class RegionTest extends AbstractModelTest {
         assertNotNull(region.getId());
 
         //Check if region can be found on assigned id
-        Region newRegion =  getEntityManager().find(Region.class, region.getId());
+        Region newRegion = getEntityManager().find(Region.class, region.getId());
         assertNotNull(newRegion);
         assertEquals(region.getRegionCode(), newRegion.getRegionCode());
     }
 
     @Test
-    public void testAreAdjacentRegionsSaved(){
+    public void testAreAdjacentRegionsSaved() {
         //Persist
         persistFlushAndClear(region);
 
@@ -57,7 +58,7 @@ public class RegionTest extends AbstractModelTest {
     }
 
     @Test
-    public void testAreAdjacentRegionsNotRemoved(){
+    public void testAreAdjacentRegionsNotRemoved() {
         //Persist
         persistFlushAndClear(region);
 
@@ -72,42 +73,42 @@ public class RegionTest extends AbstractModelTest {
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testRegionNameCannotBeNull(){
+    public void testRegionNameCannotBeNull() {
         region.setName(null);
 
         persistFlushAndClear(region);
     }
 
     @Test(expected = PersistenceException.class) //See RegionName class why not ConstraintValidationException
-    public void testRegionNameNlCannotBeNull(){
+    public void testRegionNameNlCannotBeNull() {
         region.getName().setNl(null);
 
         persistFlushAndClear(region);
     }
 
     @Test(expected = PersistenceException.class) //See RegionName class why not ConstraintValidationException
-    public void testRegionNameFrCannotBeNull(){
+    public void testRegionNameFrCannotBeNull() {
         region.getName().setFr(null);
 
         persistFlushAndClear(region);
     }
 
     @Test(expected = PersistenceException.class) //See RegionName class why not ConstraintValidationException
-    public void testRegionNameDeCannotBeNull(){
+    public void testRegionNameDeCannotBeNull() {
         region.getName().setDe(null);
 
         persistFlushAndClear(region);
     }
 
     @Test(expected = PersistenceException.class) //See RegionName class why not ConstraintValidationException
-    public void testRegionNameEnCannotBeNull(){
+    public void testRegionNameEnCannotBeNull() {
         region.getName().setEn(null);
 
         persistFlushAndClear(region);
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void regionCodeCannotBeNull(){
+    public void regionCodeCannotBeNull() {
         region.setRegionCode(null);
 
         persistFlushAndClear(region);

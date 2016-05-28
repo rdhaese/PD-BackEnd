@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
- * Created on 24/11/2015.
  *
  * @author Robin D'Haese
  */
@@ -17,10 +16,10 @@ public class Packet extends AbstractEntity {
 
     @NotNull
     private String packetId;
-    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @NotNull
     private ClientInfo clientInfo;
-    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @NotNull
     private DeliveryInfo deliveryInfo;
     @Enumerated(EnumType.STRING)

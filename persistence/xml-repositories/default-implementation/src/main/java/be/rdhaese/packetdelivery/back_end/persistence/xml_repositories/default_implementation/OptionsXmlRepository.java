@@ -6,11 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.xml.bind.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * Created on 17/04/2016.
  *
  * @author Robin D'Haese
  */
@@ -20,16 +18,16 @@ public class OptionsXmlRepository implements OptionsRepository {
     public static final String FILE_NAME = "options.xml";
 
     @Override
-    public OptionsCollection getOptionsCollection() throws JAXBException, IOException {
+    public OptionsCollection getOptionsCollection() throws JAXBException {
         File file = new File(FILE_NAME);
-        if (!file.exists()){
+        if (!file.exists()) {
             return new OptionsCollection();
         }
         JAXBContext jaxbContext = JAXBContext.newInstance(OptionsCollection.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         try {
             return (OptionsCollection) jaxbUnmarshaller.unmarshal(file);
-        } catch (UnmarshalException unmarshalException){
+        } catch (UnmarshalException unmarshalException) {
             throw new JAXBException(unmarshalException);
         }
     }

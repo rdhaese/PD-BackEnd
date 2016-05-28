@@ -2,7 +2,6 @@ package be.rdhaese.packetdelivery.back_end.internal_service.default_implementati
 
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.AppInternalService;
 import be.rdhaese.packetdelivery.back_end.model.DeliveryRound;
-import be.rdhaese.packetdelivery.back_end.model.Packet;
 import be.rdhaese.packetdelivery.back_end.model.app_state.AppState;
 import be.rdhaese.packetdelivery.back_end.model.app_state.AppStateActivity;
 import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.DeliveryRoundJpaRepository;
@@ -10,10 +9,7 @@ import be.rdhaese.packetdelivery.back_end.persistence.xml_repositories.interface
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
- * Created on 21/04/2016.
  *
  * @author Robin D'Haese
  */
@@ -42,7 +38,7 @@ public class AppInternalServiceImpl implements AppInternalService {
         AppState appState = appStateRepository.getAppState(appId);
         if (appState.getRoundId() != null) {
             DeliveryRound deliveryRound = deliveryRoundJpaRepository.findOne(appState.getRoundId());
-            if ((deliveryRound != null) && (!deliveryRound.getPackets().isEmpty())) {
+            if (deliveryRound != null && !deliveryRound.getPackets().isEmpty()) {
                 return appState;
             }
             appState = new AppState();

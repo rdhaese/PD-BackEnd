@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created on 25/12/2015.
  *
  * @author Robin D'Haese
  */

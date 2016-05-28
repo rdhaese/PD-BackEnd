@@ -5,5 +5,9 @@
             <appId>1</appId>
             <currentPacketIndex>0</currentPacketIndex>
         </appState>
+        <appState>
+            <appId>2</appId>
+            <currentPacketIndex>0</currentPacketIndex>
+        </appState>
     </appStates-entries>
 </appStates>

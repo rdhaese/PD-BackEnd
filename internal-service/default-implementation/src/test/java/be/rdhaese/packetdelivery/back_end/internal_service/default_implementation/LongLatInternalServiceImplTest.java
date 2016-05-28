@@ -5,13 +5,9 @@ import be.rdhaese.packetdelivery.back_end.internal_service.default_implementatio
 import be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.util.GeoCoder;
 import be.rdhaese.packetdelivery.back_end.model.Address;
 import be.rdhaese.packetdelivery.back_end.model.LongLat;
-import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.DeliveryRoundJpaRepository;
-import be.rdhaese.packetdelivery.back_end.persistence.xml_repositories.interfaces.AppStateRepository;
-import com.google.maps.GeoApiContext;
 import com.google.maps.model.Geometry;
 import com.google.maps.model.LatLng;
 import junit.framework.TestCase;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,7 +19,6 @@ import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUti
 import static org.mockito.Mockito.*;
 
 /**
- * Created on 7/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -55,9 +50,9 @@ public class LongLatInternalServiceImplTest extends TestCase {
         //Test
         verifyNoMoreInteractions(internalServiceProperties);
         LongLat result = longLatInternalService.getForAddress(address);
-        assertNotNull(result);
-        assertEquals(2D, result.getLatitude());
-        assertEquals(3D, result.getLongitude());
+        TestCase.assertNotNull(result);
+        TestCase.assertEquals(2D, result.getLatitude());
+        TestCase.assertEquals(3D, result.getLongitude());
 
         verify(addressConverter, times(1)).convert(any());
         verify(geoCoder, times(1)).getGeometry(any());
@@ -77,9 +72,9 @@ public class LongLatInternalServiceImplTest extends TestCase {
 
         //Test
         LongLat result = longLatInternalService.getForAddress(address);
-        assertNotNull(result);
-        assertEquals(4D, result.getLatitude());
-        assertEquals(5D, result.getLongitude());
+        TestCase.assertNotNull(result);
+        TestCase.assertEquals(4D, result.getLatitude());
+        TestCase.assertEquals(5D, result.getLongitude());
 
         verify(addressConverter, times(1)).convert(any());
         verify(geoCoder, times(1)).getGeometry(any());

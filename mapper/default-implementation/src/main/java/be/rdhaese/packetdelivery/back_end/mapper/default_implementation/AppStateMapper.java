@@ -7,7 +7,6 @@ import be.rdhaese.packetdelivery.dto.AppStateDTO;
 import org.springframework.stereotype.Component;
 
 /**
- * Created on 21/04/2016.
  *
  * @author Robin D'Haese
  */

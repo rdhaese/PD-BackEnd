@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 /**
- * Created on 10/12/2015.
  *
  * @author Robin D'Haese
  */

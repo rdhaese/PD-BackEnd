@@ -11,18 +11,17 @@ import java.util.Date;
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * Created on 3/04/2016.
  *
  * @author Robin D'Haese
  */
 public class PacketOnStatusChangedComparatorTest {
-    private PacketOnStatusChangedComparator comparator = new PacketOnStatusChangedComparator();
+    private static final PacketOnStatusChangedComparator COMPARATOR = new PacketOnStatusChangedComparator();
     private Packet packet1;
     private Packet packet2;
     private Packet packet3;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         Date date = new Date();
         packet1 = new Packet();
         packet1.setId(1L);
@@ -38,9 +37,9 @@ public class PacketOnStatusChangedComparatorTest {
     }
 
     @Test
-    public void testCompare(){
-        assertTrue(comparator.compare(packet1, packet2) > 0);
-        assertTrue(comparator.compare(packet2, packet3) < 0);
-        assertTrue(comparator.compare(packet1, packet3) == 0);
+    public void testCompare() {
+        assertTrue(COMPARATOR.compare(packet1, packet2) > 0);
+        assertTrue(COMPARATOR.compare(packet2, packet3) < 0);
+        assertTrue(COMPARATOR.compare(packet1, packet3) == 0);
     }
 }

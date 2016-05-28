@@ -3,10 +3,10 @@ package be.rdhaese.packetdelivery.back_end.model.options;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
- * Created on 17/04/2016.
  *
  * @author Robin D'Haese
  */
@@ -15,7 +15,7 @@ public class OptionsCollection {
 
     private Collection<Options> options;
 
-    public OptionsCollection(){
+    public OptionsCollection() {
         options = new HashSet<>();
     }
 
@@ -26,9 +26,13 @@ public class OptionsCollection {
         return options;
     }
 
-    public Boolean addOptions(Options options){
+    public void setOptions(Collection<Options> options) {
+        this.options = options;
+    }
+
+    public void addOptions(Options options) {
         this.options.remove(options);
-        return this.options.add(options);
+        this.options.add(options);
     }
 
     @Override
@@ -38,17 +42,12 @@ public class OptionsCollection {
 
         OptionsCollection that = (OptionsCollection) o;
 
-        if (getOptions() != null ? !getOptions().equals(that.getOptions()) : that.getOptions() != null) return false;
+        return !(getOptions() != null ? !getOptions().equals(that.getOptions()) : that.getOptions() != null);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         return getOptions() != null ? getOptions().hashCode() : 0;
-    }
-
-    public void setOptions(Collection<Options> options) {
-        this.options = options;
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 /**
- * Created on 15/01/2016.
  *
  * @author Robin D'Haese
  */
@@ -31,13 +30,13 @@ public class LostPacketsRestWebService implements LostPacketsWebService {
     @Override
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public Collection<PacketDTO> getLostPackets() {
-            return packetMapper.mapToDto(lostPacketsInternalService.getLostPackets());
+        return packetMapper.mapToDto(lostPacketsInternalService.getLostPackets());
     }
 
     @Override
     @RequestMapping(value = "/mark-as-found", method = RequestMethod.POST)
     public Boolean markAsFound(@RequestBody Collection<String> packetIds) {
-        for (String packetId : packetIds){
+        for (String packetId : packetIds) {
             lostPacketsInternalService.markAsFound(packetId);
         }
         return true;
@@ -46,7 +45,7 @@ public class LostPacketsRestWebService implements LostPacketsWebService {
     @Override
     @RequestMapping(value = "/remove-from-system", method = RequestMethod.POST)
     public Boolean removeFromSystem(@RequestBody Collection<String> packetIds) {
-        for (String packetId : packetIds){
+        for (String packetId : packetIds) {
             lostPacketsInternalService.removeFromSystem(packetId);
         }
         return true;

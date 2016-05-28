@@ -1,25 +1,23 @@
-package be.rdhaese.packetdelivery.ack_end.persistence.jpa_repositories;
+package be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories;
 
 import be.rdhaese.packetdelivery.back_end.model.DeliveryRound;
 import be.rdhaese.packetdelivery.back_end.model.RoundStatus;
-import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.DeliveryRoundJpaRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Created on 4/05/2016.
  *
  * @author Robin D'Haese
  */
-public class DeliveryRoundJpaRepositoryTest extends AbstractJpaRepositoryTest{
+public class DeliveryRoundJpaRepositoryTest extends AbstractJpaRepositoryTest {
 
     @Autowired
     private DeliveryRoundJpaRepository deliveryRoundJpaRepository;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         DeliveryRound deliveryRound = new DeliveryRound();
         deliveryRound.setRoundStatus(RoundStatus.NOT_STARTED);
         deliveryRoundJpaRepository.save(deliveryRound);
@@ -36,12 +34,12 @@ public class DeliveryRoundJpaRepositoryTest extends AbstractJpaRepositoryTest{
     }
 
     @After
-    public void afterTestMethod(){
-       deliveryRoundJpaRepository.deleteAll();
+    public void afterTestMethod() {
+        deliveryRoundJpaRepository.deleteAll();
     }
 
     @Test
-    public void testOngoingRound(){
+    public void testOngoingRound() {
         assertEquals(3, deliveryRoundJpaRepository.getOngoingRounds().size());
     }
 }

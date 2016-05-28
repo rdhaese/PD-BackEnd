@@ -7,12 +7,11 @@ import java.time.ZoneId;
 import java.util.Date;
 
 /**
- * Created on 9/05/2016.
  *
  * @author Robin D'Haese
  */
 @Component
-public class PacketIdDateKeeper {
+class PacketIdDateKeeper {
 
     private LocalDate lastDateChecked = LocalDate.now();
 

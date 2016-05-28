@@ -1,7 +1,6 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.comparator;
 
 /**
- * Created on 3/04/2016.
  *
  * @author Robin D'Haese
  */
@@ -16,6 +15,6 @@ import org.junit.runners.Suite;
         RegionWithPriorityOnPriorityComparatorTest.class,
         RegionWithPriorityOnPacketCountComparatorTest.class,
         RegionWithPriorityOnRegionCodeComparatorTest.class
-        })
+})
 public class ComparatorTestSuite {
 }

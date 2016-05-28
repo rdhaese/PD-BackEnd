@@ -1,4 +1,5 @@
 <!--Logback configuration, loaded by Spring-->
+<!--suppress XmlUnboundNsPrefix -->
 <configuration>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

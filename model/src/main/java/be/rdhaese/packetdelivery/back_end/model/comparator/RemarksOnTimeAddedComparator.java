@@ -5,7 +5,6 @@ import be.rdhaese.packetdelivery.back_end.model.Remark;
 import java.util.Comparator;
 
 /**
- * Created on 23/04/2016.
  *
  * @author Robin D'Haese
  */

@@ -5,12 +5,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAppState;
 
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -21,17 +18,17 @@ public class AppStateTest extends AbstractModelTest {
     private AppState appState;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         appState = createAppState("appId", 1L, AppStateActivity.LOADING, 1);
     }
 
     @After
-    public void afterTestMethod(){
+    public void afterTestMethod() {
         removeFile(FILE_NAME);
     }
 
     @Test
-    public void testCanPersistToXml() throws Exception{
+    public void testCanPersistToXml() throws Exception {
         //Save to file
         persistToXml(AppState.class, appState, FILE_NAME);
 

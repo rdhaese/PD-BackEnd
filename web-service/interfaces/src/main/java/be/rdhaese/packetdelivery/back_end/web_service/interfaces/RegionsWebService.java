@@ -5,7 +5,6 @@ import be.rdhaese.packetdelivery.dto.RegionDTO;
 import java.util.Collection;
 
 /**
- * Created on 4/01/2016.
  *
  * @author Robin D'Haese
  */

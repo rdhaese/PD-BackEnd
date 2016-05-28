@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created on 22/11/2015.
  *
  * @author Robin D'Haese
  */
@@ -20,6 +19,7 @@ public abstract class AbstractEntity implements Serializable {
 
     @Override
     public abstract boolean equals(Object o);
+
     @Override
     public abstract int hashCode();
 
@@ -34,7 +34,7 @@ public abstract class AbstractEntity implements Serializable {
         this.id = id;
     }
 
-    public Long getVersion() {
+    Long getVersion() {
         return version;
     }
 

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Created on 17/04/2016.
  *
  * @author Robin D'Haese
  */
@@ -33,7 +32,7 @@ public class OptionsInternalServiceImpl implements OptionsInternalService {
 
     @Override
     public Boolean save(Options options) throws Exception {
-        if (options == null){
+        if (options == null) {
             return false;
         }
         OptionsCollection optionsCollection = optionsRepository.getOptionsCollection();

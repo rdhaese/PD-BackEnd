@@ -1,9 +1,9 @@
 package be.rdhaese.packetdelivery.back_end.web_service.rest_implementation;
 
-import be.rdhaese.packetdelivery.back_end.model.LongLat;
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.TrackerInternalService;
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.LocationUpdate;
+import be.rdhaese.packetdelivery.back_end.model.LongLat;
 import be.rdhaese.packetdelivery.back_end.model.Remark;
 import be.rdhaese.packetdelivery.back_end.web_service.interfaces.TrackerWebService;
 import be.rdhaese.packetdelivery.dto.LocationUpdateDTO;
@@ -15,13 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 /**
- * Created on 19/04/2016.
- *
  * @author Robin D'Haese
  */
 @RestController
 @RequestMapping("/tracker")
-public class TrackerRestWebService implements TrackerWebService{
+public class TrackerRestWebService implements TrackerWebService {
 
     @Autowired
     private TrackerInternalService trackerService;
@@ -33,33 +31,38 @@ public class TrackerRestWebService implements TrackerWebService{
     @Autowired
     private Mapper<Remark, RemarkDTO> remarkMapper;
 
-    @Override
+    @ResponseBody
     @RequestMapping(value = "/company-address", method = RequestMethod.GET)
-    public @ResponseBody LongLatDTO getCompanyAddress() throws Exception {
-       return longLatMapper.mapToDto(trackerService.getCompanyAddress());
+    @Override
+    public LongLatDTO getCompanyAddress() throws Exception {
+        return longLatMapper.mapToDto(trackerService.getCompanyAddress());
     }
 
-    @Override
+    @ResponseBody
     @RequestMapping(value = "/packet-address/{packetId}", method = RequestMethod.GET)
-    public @ResponseBody LongLatDTO getPacketAddress(@PathVariable String packetId) throws Exception {
+    @Override
+    public LongLatDTO getPacketAddress(@PathVariable String packetId) throws Exception {
         return longLatMapper.mapToDto(trackerService.getPacketAddress(packetId));
     }
 
-    @Override
+    @ResponseBody
     @RequestMapping(value = "/location-updates/{packetId}", method = RequestMethod.GET)
-    public @ResponseBody Collection<LocationUpdateDTO> getLocationUpdates(@PathVariable String packetId) {
+    @Override
+    public Collection<LocationUpdateDTO> getLocationUpdates(@PathVariable String packetId) {
         return locationUpdateMapper.mapToDto(trackerService.getLocationsUpdates(packetId));
     }
 
-    @Override
+    @ResponseBody
     @RequestMapping(value = "/remarks/{packetId}", method = RequestMethod.GET)
-    public @ResponseBody Collection<RemarkDTO> getRemarks(@PathVariable String packetId) {
+    @Override
+    public Collection<RemarkDTO> getRemarks(@PathVariable String packetId) {
         return remarkMapper.mapToDto(trackerService.getRemarks(packetId));
     }
 
-    @Override
+    @ResponseBody
     @RequestMapping(value = "/packets-left-before/{packetId}", method = RequestMethod.GET)
-    public @ResponseBody Integer getAmountOfPacketsLeftBefore(@PathVariable String packetId) throws Exception {
+    @Override
+    public Integer getAmountOfPacketsLeftBefore(@PathVariable String packetId) throws Exception {
         return trackerService.getAmountOfPacketsLeftBefore(packetId);
     }
 }

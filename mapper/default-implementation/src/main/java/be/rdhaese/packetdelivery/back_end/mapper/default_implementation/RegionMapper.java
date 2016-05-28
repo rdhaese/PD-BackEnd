@@ -1,15 +1,14 @@
 package be.rdhaese.packetdelivery.back_end.mapper.default_implementation;
 
 
+import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.RegionsInternalService;
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.AbstractMapper;
 import be.rdhaese.packetdelivery.back_end.model.Region;
-import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.RegionsInternalService;
 import be.rdhaese.packetdelivery.dto.RegionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Created on 25/12/2015.
  *
  * @author Robin D'Haese
  */

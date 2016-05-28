@@ -2,13 +2,11 @@ package be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories;
 
 
 import be.rdhaese.packetdelivery.back_end.model.Region;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created on 25/12/2015.
  *
  * @author Robin D'Haese
  */

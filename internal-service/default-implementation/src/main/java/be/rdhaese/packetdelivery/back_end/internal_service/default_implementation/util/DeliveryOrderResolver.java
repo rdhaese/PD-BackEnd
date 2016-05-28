@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created on 27/04/2016.
  *
  * @author Robin D'Haese
  */
@@ -26,7 +25,7 @@ public class DeliveryOrderResolver {
     @Autowired
     private GeoApiContext geoApiContext;
 
-    public List<Packet> sort(Address companyAddress, List<Packet> packets) throws Exception{
+    public List<Packet> sort(Address companyAddress, List<Packet> packets) throws Exception {
         //let google determine the best order to deliver
         //Convert company address to string that google API can handle
         String companyAddressAsString = addressConverter.convert(companyAddress);

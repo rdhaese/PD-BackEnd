@@ -5,7 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUti
 
 
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -25,10 +23,8 @@ public class OptionsCollectionTest extends AbstractModelTest {
 
     @Before
     public void setUp() {
-        List<Options> optionsList = Arrays.asList(new Options[]{
-                createOptions("username", "english", 1, true),
-                createOptions("username1", "nederlands", 0, false)
-        });
+        List<Options> optionsList = Arrays.asList(createOptions("username", "english", 1, true),
+                createOptions("username1", "nederlands", 0, false));
         optionsCollection = createOptionsCollection(optionsList);
     }
 

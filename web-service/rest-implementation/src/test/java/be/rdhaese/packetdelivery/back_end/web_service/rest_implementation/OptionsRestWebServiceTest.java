@@ -5,7 +5,6 @@ import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.options.Options;
 import be.rdhaese.packetdelivery.dto.OptionsDTO;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,7 +16,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created on 13/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -30,7 +28,7 @@ public class OptionsRestWebServiceTest extends AbstractRestWebServiceTest {
     private Mapper<Options, OptionsDTO> optionsMapper;
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         reset(optionsInternalService, optionsMapper);
     }
 
@@ -45,7 +43,7 @@ public class OptionsRestWebServiceTest extends AbstractRestWebServiceTest {
         mockMvc.perform(get("/options/username"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(content().bytes(convertObjectToJsonBytes(optionsDTO)));
+                .andExpect(content().bytes(AbstractRestWebServiceTest.convertObjectToJsonBytes(optionsDTO)));
 
         verify(optionsInternalService, times(1)).getFor("username");
         verify(optionsMapper, times(1)).mapToDto(options);
@@ -61,7 +59,7 @@ public class OptionsRestWebServiceTest extends AbstractRestWebServiceTest {
 
         mockMvc.perform(post("/options/save")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(convertObjectToJsonBytes(optionsDTO)))
+                .content(AbstractRestWebServiceTest.convertObjectToJsonBytes(optionsDTO)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
 

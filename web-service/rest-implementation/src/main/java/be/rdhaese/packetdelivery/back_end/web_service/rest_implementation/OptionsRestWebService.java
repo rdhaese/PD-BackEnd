@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Created on 17/04/2016.
  *
  * @author Robin D'Haese
  */
@@ -23,15 +22,19 @@ public class OptionsRestWebService implements OptionsWebService {
     @Autowired
     private Mapper<Options, OptionsDTO> optionsMapper;
 
-    @Override
+    @ResponseBody
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
-    public @ResponseBody OptionsDTO getFor(@PathVariable String username) throws Exception {
+    @Override
+    public
+    OptionsDTO getFor(@PathVariable String username) throws Exception {
         return optionsMapper.mapToDto(optionsService.getFor(username));
     }
 
-    @Override
+    @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public @ResponseBody Boolean save(@RequestBody OptionsDTO optionsDTO) throws Exception {
-        return  optionsService.save(optionsMapper.mapToBus(optionsDTO));
+    @Override
+    public
+    Boolean save(@RequestBody OptionsDTO optionsDTO) throws Exception {
+        return optionsService.save(optionsMapper.mapToBus(optionsDTO));
     }
 }

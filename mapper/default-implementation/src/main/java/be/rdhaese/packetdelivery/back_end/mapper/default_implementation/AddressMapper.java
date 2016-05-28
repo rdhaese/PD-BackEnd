@@ -7,7 +7,6 @@ import be.rdhaese.packetdelivery.dto.AddressDTO;
 import org.springframework.stereotype.Component;
 
 /**
- * Created on 21/02/2016.
  *
  * @author Robin D'Haese
  */
@@ -26,7 +25,7 @@ public class AddressMapper extends AbstractMapper<Address, AddressDTO> {
 
     @Override
     public AddressDTO mapToDto(Address busObj) {
-       AddressDTO dto = new AddressDTO();
+        AddressDTO dto = new AddressDTO();
         dto.setStreet(busObj.getStreet());
         dto.setNumber(busObj.getNumber());
         dto.setMailbox(busObj.getMailbox());

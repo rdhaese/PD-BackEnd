@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created on 17/04/2016.
  *
  * @author Robin D'Haese
  */
@@ -21,6 +20,7 @@ public class Options {
     public Options() {
     }
 
+    @SuppressWarnings("SameParameterValue")
     public Options(String user, String language, Integer print, Boolean imageViewer) {
         this.user = user;
         this.language = language;
@@ -53,7 +53,7 @@ public class Options {
         this.user = user;
     }
 
-    @XmlElement (name = "language")
+    @XmlElement(name = "language")
     public String getLanguage() {
         return language;
     }
@@ -62,7 +62,7 @@ public class Options {
         this.language = language;
     }
 
-    @XmlElement (name = "print")
+    @XmlElement(name = "print")
     public Integer getPrint() {
         return print;
     }
@@ -71,7 +71,7 @@ public class Options {
         this.print = print;
     }
 
-    @XmlElement (name = "image-viewer")
+    @XmlElement(name = "image-viewer")
     public Boolean getImageViewer() {
         return imageViewer;
     }

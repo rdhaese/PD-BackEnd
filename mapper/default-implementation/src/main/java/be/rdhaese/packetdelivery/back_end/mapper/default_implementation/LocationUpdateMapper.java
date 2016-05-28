@@ -7,7 +7,6 @@ import be.rdhaese.packetdelivery.dto.LocationUpdateDTO;
 import org.springframework.stereotype.Component;
 
 /**
- * Created on 19/04/2016.
  *
  * @author Robin D'Haese
  */
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class LocationUpdateMapper extends AbstractMapper<LocationUpdate, LocationUpdateDTO> {
     @Override
     public LocationUpdate mapToBus(LocationUpdateDTO dto) {
-        LongLat longLat= new LongLat();
+        LongLat longLat = new LongLat();
         longLat.setLatitude(dto.getLatitude());
         longLat.setLongitude(dto.getLongitude());
         LocationUpdate locationUpdate = new LocationUpdate();

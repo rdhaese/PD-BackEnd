@@ -9,17 +9,16 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
- * Created on 24/11/2015.
  *
  * @author Robin D'Haese
  */
 @Entity
 public class ClientInfo extends AbstractEntity {
 
-    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @NotNull
     private ContactDetails contactDetails;
-    @OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @NotNull
     private Address address;
 
@@ -30,9 +29,7 @@ public class ClientInfo extends AbstractEntity {
 
         ClientInfo that = (ClientInfo) o;
 
-        if (getContactDetails() != null ? !getContactDetails().equals(that.getContactDetails()) : that.getContactDetails() != null)
-            return false;
-        return !(getAddress() != null ? !getAddress().equals(that.getAddress()) : that.getAddress() != null);
+        return !(getContactDetails() != null ? !getContactDetails().equals(that.getContactDetails()) : that.getContactDetails() != null) && !(getAddress() != null ? !getAddress().equals(that.getAddress()) : that.getAddress() != null);
 
     }
 

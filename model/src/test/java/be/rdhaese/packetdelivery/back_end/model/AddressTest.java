@@ -6,12 +6,9 @@ import org.junit.Test;
 
 import javax.validation.ConstraintViolationException;
 
-import java.io.File;
-
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAddress;
 
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -26,7 +23,7 @@ public class AddressTest extends AbstractModelTest {
     }
 
     @After
-    public void afterTestMethod(){
+    public void afterTestMethod() {
         removeFile(FILE_NAME);
     }
 
@@ -83,7 +80,7 @@ public class AddressTest extends AbstractModelTest {
     }
 
     @Test
-    public void testCanPersistToXml() throws Exception{
+    public void testCanPersistToXml() throws Exception {
         //Save to file
         persistToXml(Address.class, address, FILE_NAME);
 

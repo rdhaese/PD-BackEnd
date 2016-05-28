@@ -3,7 +3,6 @@ package be.rdhaese.packetdelivery.back_end.web_service.interfaces;
 import be.rdhaese.packetdelivery.dto.OptionsDTO;
 
 /**
- * Created on 17/04/2016.
  *
  * @author Robin D'Haese
  */
@@ -17,10 +16,11 @@ public interface OptionsWebService {
     String DE = "Deutsch";
     String EN = "English";
 
-    String[] SUPPORTED_LANGUAGES = new String[]{NL, FR, DE, EN};
+    String[] SUPPORTED_LANGUAGES = {NL, FR, DE, EN};
 
     String TAG_NL = "nl";
 
     OptionsDTO getFor(String username) throws Exception;
+
     Boolean save(OptionsDTO optionsDTO) throws Exception;
 }

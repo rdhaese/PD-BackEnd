@@ -6,7 +6,6 @@ import be.rdhaese.packetdelivery.dto.LongLatDTO;
 import org.springframework.stereotype.Component;
 
 /**
- * Created on 21/02/2016.
  *
  * @author Robin D'Haese
  */
@@ -23,7 +22,7 @@ public class LongLatMapper extends AbstractMapper<LongLat, LongLatDTO> {
 
     @Override
     public LongLatDTO mapToDto(LongLat busObj) {
-      LongLatDTO dto = new LongLatDTO();
+        LongLatDTO dto = new LongLatDTO();
         dto.setLatitude(busObj.getLatitude());
         dto.setLongitude(busObj.getLongitude());
         return dto;

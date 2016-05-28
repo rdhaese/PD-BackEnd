@@ -9,7 +9,6 @@ import java.util.Arrays;
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createContactDetails;
 
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -18,12 +17,12 @@ public class ContactDetailsTest extends AbstractModelTest {
     private ContactDetails contactDetails;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         contactDetails = createContactDetails(
                 "name",
-                Arrays.asList(new String[]{"phonenumber1", "phoneNumber2"}),
-                Arrays.asList(new String[]{"email1", "email2"})
-                );
+                Arrays.asList("phonenumber1", "phoneNumber2"),
+                Arrays.asList("email1", "email2")
+        );
     }
 
     @Test
@@ -46,7 +45,7 @@ public class ContactDetailsTest extends AbstractModelTest {
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testNameCannotBeNull(){
+    public void testNameCannotBeNull() {
         contactDetails.setName(null);
 
         persistFlushAndClear(contactDetails);

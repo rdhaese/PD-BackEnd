@@ -5,7 +5,6 @@ import be.rdhaese.packetdelivery.back_end.model.Packet;
 import java.util.Collection;
 
 /**
- * Created on 15/01/2016.
  *
  * @author Robin D'Haese
  */

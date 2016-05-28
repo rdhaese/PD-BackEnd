@@ -2,11 +2,11 @@ package be.rdhaese.packetdelivery.back_end.mapper.default_implementation;
 
 
 import be.rdhaese.packetdelivery.back_end.mapper.interfaces.AbstractMapper;
-import be.rdhaese.packetdelivery.back_end.model.company_details.PhoneEntry;
-import be.rdhaese.packetdelivery.back_end.model.company_details.EmailEntry;
 import be.rdhaese.packetdelivery.back_end.model.Address;
 import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDetails;
+import be.rdhaese.packetdelivery.back_end.model.company_details.EmailEntry;
 import be.rdhaese.packetdelivery.back_end.model.company_details.FaxEntry;
+import be.rdhaese.packetdelivery.back_end.model.company_details.PhoneEntry;
 import be.rdhaese.packetdelivery.dto.ContactDetailsDTO;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created on 27/12/2015.
  *
  * @author Robin D'Haese
  */
@@ -46,7 +45,7 @@ public class CompanyContactDetailsMapper extends AbstractMapper<CompanyContactDe
 
     private List<PhoneEntry> mapPhoneNumbers(ContactDetailsDTO dto) {
         List<PhoneEntry> phoneEntries = new ArrayList<>();
-        for (Map.Entry<String,String> entry : dto.getPhoneNumbers().entrySet()){
+        for (Map.Entry<String, String> entry : dto.getPhoneNumbers().entrySet()) {
             PhoneEntry phoneEntry = new PhoneEntry();
             phoneEntry.setTitle(entry.getKey());
             phoneEntry.setNumber(entry.getValue());
@@ -58,7 +57,7 @@ public class CompanyContactDetailsMapper extends AbstractMapper<CompanyContactDe
     private List<FaxEntry> mapFaxNumbers(ContactDetailsDTO dto) {
         List<FaxEntry> faxNumbers = new ArrayList<>();
         for (Map.Entry<String, String> entry : dto.getFaxNumbers().entrySet()) {
-               FaxEntry faxEntry = new FaxEntry();
+            FaxEntry faxEntry = new FaxEntry();
             faxEntry.setTitle(entry.getKey());
             faxEntry.setNumber(entry.getValue());
             faxNumbers.add(faxEntry);
@@ -100,22 +99,22 @@ public class CompanyContactDetailsMapper extends AbstractMapper<CompanyContactDe
 
     private void mapPhoneNumbers(ContactDetailsDTO contactDetailsDTO, CompanyContactDetails busObj) {
         if (busObj.getPhoneNumbers() == null) return;
-        for (PhoneEntry phoneEntry : busObj.getPhoneNumbers()){
+        for (PhoneEntry phoneEntry : busObj.getPhoneNumbers()) {
             contactDetailsDTO.getPhoneNumbers().put(phoneEntry.getTitle(), phoneEntry.getNumber());
         }
     }
 
     private void mapFaxNumbers(ContactDetailsDTO contactDetailsDTO, CompanyContactDetails busObj) {
         if (busObj.getFaxNumbers() == null) return;
-        for (FaxEntry faxEntry : busObj.getFaxNumbers()){
+        for (FaxEntry faxEntry : busObj.getFaxNumbers()) {
             contactDetailsDTO.getFaxNumbers().put(faxEntry.getTitle(), faxEntry.getNumber());
         }
     }
 
     private void mapEmailAddresses(ContactDetailsDTO contactDetailsDTO, CompanyContactDetails busObj) {
         if (busObj.getEmailAddresses() == null) return;
-        for (EmailEntry emailEntry : busObj.getEmailAddresses()){
-            contactDetailsDTO.getEmailAddresses().put(emailEntry.getTitle(),emailEntry.getAddress());
+        for (EmailEntry emailEntry : busObj.getEmailAddresses()) {
+            contactDetailsDTO.getEmailAddresses().put(emailEntry.getTitle(), emailEntry.getAddress());
         }
     }
 }

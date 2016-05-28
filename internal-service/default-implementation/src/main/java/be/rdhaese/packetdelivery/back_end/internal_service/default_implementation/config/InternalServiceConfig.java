@@ -21,33 +21,31 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 /**
- * Created on 10/04/2016.
  *
  * @author Robin D'Haese
  */
 @Configuration
 @EnableTransactionManagement
-public class InternalServiceConfig {
-
-    @Autowired
-    private InternalServiceProperties internalServiceProperties;
+class InternalServiceConfig {
 
     @Autowired
     public DataSource dataSource;
+    @Autowired
+    private InternalServiceProperties internalServiceProperties;
 
     @Bean
-    public PlatformTransactionManager transactionManager(){
+    public PlatformTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean
-    public GeoApiContext geoApiContext(){
+    public GeoApiContext geoApiContext() {
         return new GeoApiContext().setApiKey(internalServiceProperties.getApiKey());
     }
 
     @Bean
-    @ConfigurationProperties(prefix="ldap.contextSource")
-    public LdapContextSource ldapContext(){
+    @ConfigurationProperties(prefix = "ldap.contextSource")
+    public LdapContextSource ldapContext() {
         return new LdapContextSource();
     }
 
@@ -56,13 +54,8 @@ public class InternalServiceConfig {
         return new LdapTemplate(contextSource);
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder(11);
-    }
-
     @Bean(name = "internalServiceLogger")
-    public Logger internalServiceLogger(){
+    public Logger internalServiceLogger() {
         return LoggerFactory.getLogger(InternalServiceLogger.class);
     }
 }

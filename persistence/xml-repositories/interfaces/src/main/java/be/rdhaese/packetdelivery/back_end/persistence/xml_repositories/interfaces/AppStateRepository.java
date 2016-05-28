@@ -6,17 +6,17 @@ import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
 /**
- * Created on 21/04/2016.
  *
  * @author Robin D'Haese
  */
 public interface AppStateRepository {
-    Boolean save(AppState newAppState) throws JAXBException, IOException;
+    @SuppressWarnings("SameReturnValue")
+    Boolean save(AppState newAppState) throws JAXBException;
 
-    AppState getAppState(String appId) throws JAXBException, IOException;
+    AppState getAppState(String appId) throws JAXBException;
 
-    AppState getAppState(Long roundId) throws JAXBException, IOException;
+    AppState getAppState(Long roundId) throws JAXBException;
 
-    String getLatestId() throws JAXBException, IOException;
+    String getLatestId() throws JAXBException;
 
 }

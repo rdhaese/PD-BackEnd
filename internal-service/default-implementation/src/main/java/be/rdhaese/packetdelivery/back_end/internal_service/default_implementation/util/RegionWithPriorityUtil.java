@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 /**
- * Created on 9/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -33,7 +32,7 @@ public class RegionWithPriorityUtil {
     private Comparator<RegionWithPriority> regionWithPriorityOnRegionCodeComparator;
 
     public Region getRegionWithHighestTotalPriority(Collection<Region> regions) {
-        if ((regions == null) || (regions.isEmpty())){
+        if (regions == null || regions.isEmpty()) {
             return null;
         }
 
@@ -62,7 +61,7 @@ public class RegionWithPriorityUtil {
             }
         }
 
-        if ((regionsWithPriority.isEmpty()) || (allPrioritiesAreZero(regionsWithPriority))) {
+        if (regionsWithPriority.isEmpty() || allPrioritiesAreZero(regionsWithPriority)) {
             //If there are no regions or all priorities are zero (= no packets to deliver):
             return null;
         }

@@ -10,12 +10,11 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created on 27/12/2015.
  *
  * @author Robin D'Haese
  */
-@XmlRootElement (name = "contact-details")
-public class CompanyContactDetails implements Serializable{
+@XmlRootElement(name = "contact-details")
+public class CompanyContactDetails implements Serializable {
     private String companyName;
     private String aboutText;
     private Address address;
@@ -42,11 +41,7 @@ public class CompanyContactDetails implements Serializable{
 
         CompanyContactDetails that = (CompanyContactDetails) o;
 
-        if (getCompanyName() != null ? !getCompanyName().equals(that.getCompanyName()) : that.getCompanyName() != null)
-            return false;
-        if (getAboutText() != null ? !getAboutText().equals(that.getAboutText()) : that.getAboutText() != null)
-            return false;
-        return !(getAddress() != null ? !getAddress().equals(that.getAddress()) : that.getAddress() != null);
+        return !(getCompanyName() != null ? !getCompanyName().equals(that.getCompanyName()) : that.getCompanyName() != null) && !(getAboutText() != null ? !getAboutText().equals(that.getAboutText()) : that.getAboutText() != null) && !(getAddress() != null ? !getAddress().equals(that.getAddress()) : that.getAddress() != null);
 
     }
 
@@ -58,7 +53,7 @@ public class CompanyContactDetails implements Serializable{
         return result;
     }
 
-    @XmlElement (name="company-name")
+    @XmlElement(name = "company-name")
     public String getCompanyName() {
         return companyName;
     }
@@ -67,7 +62,7 @@ public class CompanyContactDetails implements Serializable{
         this.companyName = companyName;
     }
 
-    @XmlElement (name = "about-text")
+    @XmlElement(name = "about-text")
     public String getAboutText() {
         return aboutText;
     }

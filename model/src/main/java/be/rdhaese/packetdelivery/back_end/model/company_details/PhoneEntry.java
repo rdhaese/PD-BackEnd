@@ -7,12 +7,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
- * Created on 27/12/2015.
  *
  * @author Robin D'Haese
  */
-@XmlRootElement (name = "phone")
-public class PhoneEntry implements Serializable{
+@XmlRootElement(name = "phone")
+public class PhoneEntry implements Serializable {
     private String title;
     private String number;
 
@@ -40,7 +39,7 @@ public class PhoneEntry implements Serializable{
         return getTitle() != null ? getTitle().hashCode() : 0;
     }
 
-    @XmlElement (name = "phone-title")
+    @XmlElement(name = "phone-title")
     public String getTitle() {
         return title;
     }
@@ -49,7 +48,7 @@ public class PhoneEntry implements Serializable{
         this.title = title;
     }
 
-    @XmlElement (name = "phone-number")
+    @XmlElement(name = "phone-number")
     public String getNumber() {
         return number;
     }

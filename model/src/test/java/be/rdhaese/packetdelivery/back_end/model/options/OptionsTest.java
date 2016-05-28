@@ -5,11 +5,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createOptions;
+
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -19,17 +17,17 @@ public class OptionsTest extends AbstractModelTest {
     private Options options;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         options = createOptions("username", "english", 1, true);
     }
 
     @After
-    public void afterTestMethod(){
+    public void afterTestMethod() {
         removeFile(FILE_NAME);
     }
 
     @Test
-    public void testCanPersistToXml() throws Exception{
+    public void testCanPersistToXml() throws Exception {
         //Save to file
         persistToXml(Options.class, options, FILE_NAME);
 

@@ -4,10 +4,8 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
 
 /**
- * Created on 21/02/2016.
  *
  * @author Robin D'Haese
  */
@@ -34,8 +32,7 @@ public class LongLat {
 
         LongLat longLat = (LongLat) o;
 
-        if (longitude != null ? !longitude.equals(longLat.longitude) : longLat.longitude != null) return false;
-        return !(latitude != null ? !latitude.equals(longLat.latitude) : longLat.latitude != null);
+        return !(longitude != null ? !longitude.equals(longLat.longitude) : longLat.longitude != null) && !(latitude != null ? !latitude.equals(longLat.latitude) : longLat.latitude != null);
 
     }
 

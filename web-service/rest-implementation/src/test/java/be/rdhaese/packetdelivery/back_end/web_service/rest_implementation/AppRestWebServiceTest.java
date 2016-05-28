@@ -5,7 +5,6 @@ import be.rdhaese.packetdelivery.back_end.mapper.interfaces.Mapper;
 import be.rdhaese.packetdelivery.back_end.model.app_state.AppState;
 import be.rdhaese.packetdelivery.dto.AppStateDTO;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,7 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created on 13/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -29,7 +27,7 @@ public class AppRestWebServiceTest extends AbstractRestWebServiceTest {
     private Mapper<AppState, AppStateDTO> appStateMapper;
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         reset(appInternalService, appStateMapper);
     }
 
@@ -57,7 +55,7 @@ public class AppRestWebServiceTest extends AbstractRestWebServiceTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(content().bytes(convertObjectToJsonBytes(appStateDto)));
+                .andExpect(content().bytes(AbstractRestWebServiceTest.convertObjectToJsonBytes(appStateDto)));
 
         verify(appInternalService, times(1)).getAppState("1");
         verify(appStateMapper, times(1)).mapToDto(appState);

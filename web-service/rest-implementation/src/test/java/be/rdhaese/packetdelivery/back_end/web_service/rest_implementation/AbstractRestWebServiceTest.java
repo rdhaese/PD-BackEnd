@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
- * Created on 18/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -24,21 +23,21 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 public abstract class AbstractRestWebServiceTest {
 
+    MockMvc mockMvc;
+
     @Autowired
     private WebApplicationContext ctx;
 
-    protected MockMvc mockMvc;
-
-    @Before
-    public void setUp(){
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-    }
-
-    protected static byte[] convertObjectToJsonBytes(Object object) throws Exception {
+    static byte[] convertObjectToJsonBytes(Object object) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         return mapper.writeValueAsBytes(object);
+    }
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
     }
 
 }

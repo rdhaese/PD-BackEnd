@@ -1,21 +1,14 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation;
 
 import be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.util.PacketIdGenerator;
-import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.PacketJpaRepository;
 import be.rdhaese.packetdelivery.back_end.internal_service.interfaces.AddPacketInternalService;
 import be.rdhaese.packetdelivery.back_end.model.Packet;
-
+import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.PacketJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-
 /**
- * Created on 10/12/2015.
  *
  * @author Robin D'Haese
  */

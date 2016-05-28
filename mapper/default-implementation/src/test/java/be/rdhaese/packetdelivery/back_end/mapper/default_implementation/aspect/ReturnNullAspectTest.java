@@ -8,18 +8,13 @@ import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.transaction.Transactional;
-
 /**
- * Created on 13/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -27,34 +22,36 @@ import javax.transaction.Transactional;
 @ContextConfiguration(classes = ReturnNullAspectTest.Config.class)
 public class ReturnNullAspectTest extends TestCase {
 
+    @Autowired
+    private Mapper<Address, AddressDTO> mapper;
+
+    @Test
+    public void testReturnNullMapToBus() {
+        AddressDTO addressDTO = null;
+        //noinspection ConstantConditions
+        TestCase.assertNull(mapper.mapToBus(addressDTO));
+    }
+
+    @Test
+    public void testReturnNullMapToDto() {
+        Address address = null;
+        //noinspection ConstantConditions
+        TestCase.assertNull(mapper.mapToDto(address));
+    }
+
     @Configuration
     @EnableAspectJAutoProxy
     static class Config {
 
         @Bean
-        public ReturnNullAspect returnNullAspect(){
+        public ReturnNullAspect returnNullAspect() {
             return new ReturnNullAspect();
         }
 
         @Bean
-        public Mapper<Address, AddressDTO> addressMapper(){
+        public Mapper<Address, AddressDTO> addressMapper() {
             return new AddressMapper();
         }
-    }
-
-    @Autowired
-    private Mapper<Address, AddressDTO> mapper;
-
-    @Test
-    public void testReturnNullMapToBus(){
-        AddressDTO addressDTO = null;
-        assertNull(mapper.mapToBus(addressDTO));
-    }
-
-    @Test
-    public void testReturnNullMapToDto(){
-        Address address = null;
-        assertNull(mapper.mapToDto(address));
     }
 
 }

@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Created on 21/04/2016.
- *
  * @author Robin D'Haese
  */
 @RestController
@@ -22,15 +20,17 @@ public class AppRestWebService implements AppWebService {
     @Autowired
     private Mapper<AppState, AppStateDTO> appStateMapper;
 
-    @Override
+    @ResponseBody
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public @ResponseBody String getNewId() throws Exception {
+    @Override
+    public String getNewId() throws Exception {
         return appService.getNewId();
     }
 
-    @Override
+    @ResponseBody
     @RequestMapping(value = "/get/{appId}", method = RequestMethod.GET)
-    public @ResponseBody AppStateDTO getAppState(@PathVariable String appId) throws Exception {
+    @Override
+    public AppStateDTO getAppState(@PathVariable String appId) throws Exception {
         return appStateMapper.mapToDto(appService.getAppState(appId));
     }
 

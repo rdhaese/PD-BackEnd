@@ -13,7 +13,6 @@ import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
 /**
- * Created on 4/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -33,7 +32,7 @@ public class AppStateXmlRepositoryTest extends AbstractXmlRepositoryTest {
     }
 
     @After
-    public void afterTestMethod(){
+    public void afterTestMethod() {
         removeFile(AppStateXmlRepository.FILE_NAME);
     }
 

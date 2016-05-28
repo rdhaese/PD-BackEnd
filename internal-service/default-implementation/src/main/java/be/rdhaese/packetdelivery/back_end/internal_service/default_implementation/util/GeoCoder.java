@@ -19,9 +19,9 @@ public class GeoCoder {
     private GeoApiContext geoApiContext;
 
     public Geometry getGeometry(String addressString) throws Exception {
-        GeocodingResult[] results =  GeocodingApi.geocode(geoApiContext,
+        GeocodingResult[] results = GeocodingApi.geocode(geoApiContext,
                 addressString).await();
-        if (results.length > 0){
+        if (results.length > 0) {
             return results[0].geometry;
         }
         return null;

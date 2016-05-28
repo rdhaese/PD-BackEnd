@@ -2,13 +2,11 @@ package be.rdhaese.packetdelivery.back_end.persistence.xml_repositories.default_
 
 import be.rdhaese.packetdelivery.back_end.model.app_state.AppState;
 import be.rdhaese.packetdelivery.back_end.model.app_state.AppStateCollection;
-import be.rdhaese.packetdelivery.back_end.model.options.OptionsCollection;
 import be.rdhaese.packetdelivery.back_end.persistence.xml_repositories.interfaces.AppStateRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.xml.bind.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,17 +14,16 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created on 21/04/2016.
  *
  * @author Robin D'Haese
  */
 @Repository
-public class AppStateXmlRepository implements AppStateRepository{
+public class AppStateXmlRepository implements AppStateRepository {
 
     public static final String FILE_NAME = "app-states.xml";
 
     @Override
-    public Boolean save(AppState newAppState) throws JAXBException, IOException {
+    public Boolean save(AppState newAppState) throws JAXBException {
         AppStateCollection appStateCollection = getAppStateCollection();
         appStateCollection.addAppState(newAppState);
 
@@ -40,12 +37,12 @@ public class AppStateXmlRepository implements AppStateRepository{
     }
 
     @Override
-    public AppState getAppState(String appId) throws JAXBException, IOException {
-        if (appId == null){
+    public AppState getAppState(String appId) throws JAXBException {
+        if (appId == null) {
             return null;
         }
-        for (AppState appState : getAppStateCollection().getAppStates()){
-            if (appId.equals(appState.getAppId())){
+        for (AppState appState : getAppStateCollection().getAppStates()) {
+            if (appId.equals(appState.getAppId())) {
                 return appState;
             }
         }
@@ -53,12 +50,12 @@ public class AppStateXmlRepository implements AppStateRepository{
     }
 
     @Override
-    public AppState getAppState(Long roundId) throws JAXBException, IOException {
-        if (roundId == null){
+    public AppState getAppState(Long roundId) throws JAXBException {
+        if (roundId == null) {
             return null;
         }
-        for (AppState appState : getAppStateCollection().getAppStates()){
-            if (roundId.equals(appState.getRoundId())){
+        for (AppState appState : getAppStateCollection().getAppStates()) {
+            if (roundId.equals(appState.getRoundId())) {
                 return appState;
             }
         }
@@ -66,30 +63,30 @@ public class AppStateXmlRepository implements AppStateRepository{
     }
 
     @Override
-    public String getLatestId() throws JAXBException, IOException {
+    public String getLatestId() throws JAXBException {
         List<AppState> appStates = new ArrayList<>(getAppStateCollection().getAppStates());
-        if (appStates.isEmpty()){
+        if (appStates.isEmpty()) {
             return "0";
         }
         Collections.sort(appStates, new Comparator<AppState>() {
             @Override
             public int compare(AppState o1, AppState o2) {
-                return Integer.compare(Integer.parseInt(o1.getAppId()),Integer.parseInt(o2.getAppId()));
+                return Integer.compare(Integer.parseInt(o1.getAppId()), Integer.parseInt(o2.getAppId()));
             }
         });
-        return appStates.get(appStates.size() -1).getAppId();
+        return appStates.get(appStates.size() - 1).getAppId();
     }
 
-    private AppStateCollection getAppStateCollection() throws JAXBException, IOException {
+    private AppStateCollection getAppStateCollection() throws JAXBException {
         File file = new File(FILE_NAME);
-        if (!file.exists()){
+        if (!file.exists()) {
             return new AppStateCollection();
         }
         JAXBContext jaxbContext = JAXBContext.newInstance(AppStateCollection.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         try {
             return (AppStateCollection) jaxbUnmarshaller.unmarshal(file);
-        } catch (UnmarshalException unmarshalException){
+        } catch (UnmarshalException unmarshalException) {
             throw new JAXBException(unmarshalException);
         }
     }

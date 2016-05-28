@@ -6,14 +6,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
 
 /**
- * Created on 4/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -23,26 +22,20 @@ public class CompanyContactDetailsTest extends AbstractModelTest {
     private CompanyContactDetails companyContactDetails;
 
     @Before
-    public void setUp(){
-        
+    public void setUp() {
+
         Address address = createAddress(
                 "Ezelberg",
                 "2",
                 "12",
                 "9500",
                 "Geraardsbergen");
-        
-        List<PhoneEntry> phoneEntries = Arrays.asList(new PhoneEntry[]{
-                createPhoneEntry("title1", "number1"),
-                createPhoneEntry("title2", "number2")
-        });
-        List<FaxEntry> faxEntries = Arrays.asList(new FaxEntry[]{
-                createFaxEntry("title", "number")
-        });
-        List<EmailEntry> emailEntries = Arrays.asList(new EmailEntry[]{
-                createEmailEntry("title1", "address1"),
-                createEmailEntry("title2", "address2")
-        });
+
+        List<PhoneEntry> phoneEntries = Arrays.asList(createPhoneEntry("title1", "number1"),
+                createPhoneEntry("title2", "number2"));
+        List<FaxEntry> faxEntries = Collections.singletonList(createFaxEntry("title", "number"));
+        List<EmailEntry> emailEntries = Arrays.asList(createEmailEntry("title1", "address1"),
+                createEmailEntry("title2", "address2"));
 
         companyContactDetails = createCompanyContactDetails(
                 "bedrijfnaam",
@@ -55,12 +48,12 @@ public class CompanyContactDetailsTest extends AbstractModelTest {
     }
 
     @After
-    public void afterTestMethod(){
+    public void afterTestMethod() {
         removeFile(FILE_NAME);
     }
 
     @Test
-    public void testCanPersistToXml() throws Exception{
+    public void testCanPersistToXml() throws Exception {
         //Save to file
         persistToXml(CompanyContactDetails.class, companyContactDetails, FILE_NAME);
 
