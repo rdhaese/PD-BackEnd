@@ -5,7 +5,6 @@ import be.rdhaese.packetdelivery.dto.PacketDTO;
 import java.util.Collection;
 
 /**
- * Created on 15/01/2016.
  *
  * @author Robin D'Haese
  */

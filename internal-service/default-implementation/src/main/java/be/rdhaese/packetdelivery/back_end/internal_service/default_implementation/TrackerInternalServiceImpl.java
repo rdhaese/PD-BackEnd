@@ -16,7 +16,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Created on 19/04/2016.
  *
  * @author Robin D'Haese
  */

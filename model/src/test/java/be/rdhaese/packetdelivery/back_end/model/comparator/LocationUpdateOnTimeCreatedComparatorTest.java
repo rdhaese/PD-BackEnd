@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -27,13 +26,13 @@ public class LocationUpdateOnTimeCreatedComparatorTest {
     @Before
     public void setUp() throws ParseException {
         locationUpdate1 = new LocationUpdate();
-        locationUpdate1.setTimeCreated(DATE_FORMAT.parse("19/02/2016"));
+        locationUpdate1.setTimeCreated(DATE_FORMAT.parse("20/02/2016"));
 
         locationUpdate2 = new LocationUpdate();
-        locationUpdate2.setTimeCreated(DATE_FORMAT.parse("20/02/2016"));
+        locationUpdate2.setTimeCreated(DATE_FORMAT.parse("19/02/2016"));
 
         locationUpdate3 = new LocationUpdate();
-        locationUpdate3.setTimeCreated(DATE_FORMAT.parse("19/02/2016"));
+        locationUpdate3.setTimeCreated(DATE_FORMAT.parse("20/02/2016"));
     }
 
     @Test

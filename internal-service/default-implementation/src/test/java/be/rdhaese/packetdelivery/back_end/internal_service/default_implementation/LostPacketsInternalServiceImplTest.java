@@ -25,8 +25,6 @@ import static org.hamcrest.core.IsNot.not;
 import static org.mockito.Mockito.*;
 
 /**
- * Created on 6/05/2016.
- *
  * @author Robin D'Haese
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -70,15 +68,69 @@ public class LostPacketsInternalServiceImplTest extends TestCase {
     }
 
     @Test
-    public void removeFromSystemForPacketId() {
+    public void testMarkAsFoundForPacketIdDoesNotExists() {
+        //Setup mocks
+        when(packetJpaRepository.getPacket("packetId")).thenReturn(null);
+
+        //Test
+        lostPacketsInternalService.markAsFound("packetId");
+
+        verify(packetJpaRepository, times(1)).getPacket(any());
+        verify(packetJpaRepository, times(0)).save(any(Packet.class));
+    }
+
+    @Test
+    public void testMarkAsFoundForPacketIdOtherStatus() throws ParseException {
+        //Setup mocks
+        Date date = DATE_FORMAT.parse("27/04/2016");
+        Packet packet = createPacket("packetId", null, null,
+                PacketStatus.PROBLEMATIC, date, 0);
+        when(packetJpaRepository.getPacket("packetId")).thenReturn(packet);
+
+        //Test
+        lostPacketsInternalService.markAsFound("packetId");
+        TestCase.assertEquals(PacketStatus.PROBLEMATIC, packet.getPacketStatus());
+        assertThat(packet.getStatusChangedOn(), is(date));
+
+        verify(packetJpaRepository, times(1)).getPacket(any());
+        verify(packetJpaRepository, times(0)).save(any(Packet.class));
+    }
+
+    @Test
+    public void testRemoveFromSystemForPacketId() {
         //Setup mocks
         Packet packet = new Packet();
         packet.setPacketId("packetId");
+        packet.setPacketStatus(PacketStatus.NOT_FOUND);
         when(packetJpaRepository.getPacket("packetId")).thenReturn(packet);
 
         //Test
         lostPacketsInternalService.removeFromSystem("packetId");
         verify(packetJpaRepository, times(1)).getPacket(any());
         verify(packetJpaRepository, times(1)).delete(packet);
+    }
+
+    @Test
+    public void testRemoveFromSystemForPacketIdNotFound(){
+
+        when(packetJpaRepository.getPacket("packetId")).thenReturn(null);
+
+        lostPacketsInternalService.removeFromSystem("packetId");
+        verify(packetJpaRepository, times(1)).getPacket(any());
+        verify(packetJpaRepository, times(0)).delete(any(Packet.class));
+    }
+
+    @Test
+    public void testRemoveFromSystemForPacketIdOtherStatus(){
+        //Setup mocks
+        Packet packet = new Packet();
+        packet.setPacketId("packetId");
+        packet.setPacketStatus(PacketStatus.NORMAL);
+        when(packetJpaRepository.getPacket("packetId")).thenReturn(packet);
+
+        //Test
+        lostPacketsInternalService.removeFromSystem("packetId");
+        verify(packetJpaRepository, times(1)).getPacket(any());
+        verify(packetJpaRepository, times(0)).delete(packet);
     }
 }

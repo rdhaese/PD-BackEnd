@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 /**
- * Created on 19/04/2016.
- *
  * @author Robin D'Haese
  */
 @RestController
@@ -36,40 +34,35 @@ public class TrackerRestWebService implements TrackerWebService {
     @ResponseBody
     @RequestMapping(value = "/company-address", method = RequestMethod.GET)
     @Override
-    public
-    LongLatDTO getCompanyAddress() throws Exception {
+    public LongLatDTO getCompanyAddress() throws Exception {
         return longLatMapper.mapToDto(trackerService.getCompanyAddress());
     }
 
     @ResponseBody
     @RequestMapping(value = "/packet-address/{packetId}", method = RequestMethod.GET)
     @Override
-    public
-    LongLatDTO getPacketAddress(@PathVariable String packetId) throws Exception {
+    public LongLatDTO getPacketAddress(@PathVariable String packetId) throws Exception {
         return longLatMapper.mapToDto(trackerService.getPacketAddress(packetId));
     }
 
     @ResponseBody
     @RequestMapping(value = "/location-updates/{packetId}", method = RequestMethod.GET)
     @Override
-    public
-    Collection<LocationUpdateDTO> getLocationUpdates(@PathVariable String packetId) {
+    public Collection<LocationUpdateDTO> getLocationUpdates(@PathVariable String packetId) {
         return locationUpdateMapper.mapToDto(trackerService.getLocationsUpdates(packetId));
     }
 
     @ResponseBody
     @RequestMapping(value = "/remarks/{packetId}", method = RequestMethod.GET)
     @Override
-    public
-    Collection<RemarkDTO> getRemarks(@PathVariable String packetId) {
+    public Collection<RemarkDTO> getRemarks(@PathVariable String packetId) {
         return remarkMapper.mapToDto(trackerService.getRemarks(packetId));
     }
 
     @ResponseBody
     @RequestMapping(value = "/packets-left-before/{packetId}", method = RequestMethod.GET)
     @Override
-    public
-    Integer getAmountOfPacketsLeftBefore(@PathVariable String packetId) throws Exception {
+    public Integer getAmountOfPacketsLeftBefore(@PathVariable String packetId) throws Exception {
         return trackerService.getAmountOfPacketsLeftBefore(packetId);
     }
 }

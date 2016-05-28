@@ -1,7 +1,6 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.interfaces.enums;
 
 /**
- * Created on 28/03/2016.
  *
  * @author Robin D'Haese
  */

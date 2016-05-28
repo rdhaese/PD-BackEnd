@@ -7,7 +7,6 @@ import be.rdhaese.packetdelivery.dto.LocationUpdateDTO;
 import org.springframework.stereotype.Component;
 
 /**
- * Created on 19/04/2016.
  *
  * @author Robin D'Haese
  */

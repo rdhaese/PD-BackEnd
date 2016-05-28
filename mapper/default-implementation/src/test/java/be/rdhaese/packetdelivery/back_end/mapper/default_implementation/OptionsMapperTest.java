@@ -10,7 +10,6 @@ import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUti
 import static junit.framework.TestCase.assertEquals;
 
 /**
- * Created on 13/05/2016.
  *
  * @author Robin D'Haese
  */

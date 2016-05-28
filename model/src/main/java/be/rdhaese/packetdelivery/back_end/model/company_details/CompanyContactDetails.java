@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created on 27/12/2015.
  *
  * @author Robin D'Haese
  */

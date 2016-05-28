@@ -7,7 +7,6 @@ import be.rdhaese.packetdelivery.dto.PacketDTO;
 import java.util.List;
 
 /**
- * Created on 4/01/2016.
  *
  * @author Robin D'Haese
  */

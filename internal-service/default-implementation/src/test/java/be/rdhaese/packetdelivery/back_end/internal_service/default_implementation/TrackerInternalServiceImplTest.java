@@ -26,7 +26,6 @@ import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUti
 import static org.mockito.Mockito.*;
 
 /**
- * Created on 6/05/2016.
  *
  * @author Robin D'Haese
  */

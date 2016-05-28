@@ -1,7 +1,6 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.util;
 
 /**
- * Created on 13/04/2016.
  *
  * @author Robin D'Haese
  */

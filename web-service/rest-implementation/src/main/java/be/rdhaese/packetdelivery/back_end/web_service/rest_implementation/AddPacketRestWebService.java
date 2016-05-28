@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created on 10/12/2015.
  *
  * @author Robin D'Haese
  */
@@ -26,6 +25,7 @@ public class AddPacketRestWebService implements AddPacketWebService {
     @Autowired
     private Mapper<Packet, PacketDTO> packetMapper;
 
+    @Override
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addPacket(@RequestBody PacketDTO packetDTO) throws Exception {
         return addPacketInternalService.savePacket(packetMapper.mapToBus(packetDTO));

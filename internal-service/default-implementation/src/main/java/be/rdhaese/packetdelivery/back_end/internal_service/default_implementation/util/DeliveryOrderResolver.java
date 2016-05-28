@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created on 27/04/2016.
  *
  * @author Robin D'Haese
  */

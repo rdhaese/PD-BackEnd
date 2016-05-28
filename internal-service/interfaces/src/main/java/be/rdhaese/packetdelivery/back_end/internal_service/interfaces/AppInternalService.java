@@ -3,7 +3,6 @@ package be.rdhaese.packetdelivery.back_end.internal_service.interfaces;
 import be.rdhaese.packetdelivery.back_end.model.app_state.AppState;
 
 /**
- * Created on 21/04/2016.
  *
  * @author Robin D'Haese
  */

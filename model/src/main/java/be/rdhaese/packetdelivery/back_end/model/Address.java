@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.beans.Transient;
 
 /**
- * Created on 24/11/2015.
  *
  * @author Robin D'Haese
  */

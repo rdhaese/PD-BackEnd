@@ -8,7 +8,6 @@ import org.junit.Test;
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAppState;
 
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */

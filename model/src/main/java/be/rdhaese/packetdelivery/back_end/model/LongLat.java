@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
- * Created on 21/02/2016.
  *
  * @author Robin D'Haese
  */

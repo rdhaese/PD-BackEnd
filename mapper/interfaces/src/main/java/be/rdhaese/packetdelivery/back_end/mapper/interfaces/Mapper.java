@@ -3,7 +3,6 @@ package be.rdhaese.packetdelivery.back_end.mapper.interfaces;
 import java.util.Collection;
 
 /**
- * Created on 24/12/2015.
  *
  * @author Robin D'Haese
  */

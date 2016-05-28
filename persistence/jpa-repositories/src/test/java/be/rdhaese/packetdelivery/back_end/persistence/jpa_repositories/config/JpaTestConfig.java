@@ -1,4 +1,4 @@
-package be.rdhaese.packetdelivery.ack_end.persistence.jpa_repositories.config;
+package be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,7 +17,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 /**
- * Created on 4/05/2016.
  *
  * @author Robin D'Haese
  */

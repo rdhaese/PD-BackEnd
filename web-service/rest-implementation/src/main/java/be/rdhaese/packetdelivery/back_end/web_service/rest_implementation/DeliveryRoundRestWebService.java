@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Created on 28/12/2015.
  *
  * @author Robin D'Haese
  */

@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created on 17/04/2016.
  *
  * @author Robin D'Haese
  */

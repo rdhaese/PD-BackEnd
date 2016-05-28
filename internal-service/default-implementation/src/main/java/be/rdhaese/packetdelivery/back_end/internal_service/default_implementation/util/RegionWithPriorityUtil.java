@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 /**
- * Created on 9/05/2016.
  *
  * @author Robin D'Haese
  */

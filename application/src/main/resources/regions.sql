@@ -28,21 +28,6 @@ ON DUPLICATE KEY UPDATE id = id;
 INSERT INTO packet_delivery.region (id, version, nl, fr, de, en, region_code)
 VALUES (10, 0, 'Brussel', 'Bruxelles ', 'Brüssel', 'Brussels', 'BR1')
 ON DUPLICATE KEY UPDATE id = id;
-INSERT INTO packet_delivery.region (id, version, nl, fr, de, en, region_code)
-VALUES (11, 0, 'Waals-Brabant', 'Brabant Wallon', 'Wallonisch-Brabant', 'Walloon Brabant', 'WB1')
-ON DUPLICATE KEY UPDATE id = id;
-INSERT INTO packet_delivery.region (id, version, nl, fr, de, en, region_code)
-VALUES (12, 0, 'Henegouwen', 'Hainaut', 'Hainaut', 'Hainaut', 'HE1')
-ON DUPLICATE KEY UPDATE id = id;
-INSERT INTO packet_delivery.region (id, version, nl, fr, de, en, region_code)
-VALUES (13, 0, 'Namen', 'Namur', 'Namur', 'Namur', 'NA1')
-ON DUPLICATE KEY UPDATE id = id;
-INSERT INTO packet_delivery.region (id, version, nl, fr, de, en, region_code)
-VALUES (14, 0, 'Luik', 'Liege', 'Kork', 'Liege', 'LU1')
-ON DUPLICATE KEY UPDATE id = id;
-INSERT INTO packet_delivery.region (id, version, nl, fr, de, en, region_code)
-VALUES (15, 0, 'Luxemburg', 'Luxembourg', 'luxemburg', 'Luxembourg', 'LX1')
-ON DUPLICATE KEY UPDATE id = id;
 
 /* Adjacent regions for OV1 */
 INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (1, 2)
@@ -67,9 +52,6 @@ ON DUPLICATE KEY UPDATE region_id = region_id;
 INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (2, 9)
 ON DUPLICATE KEY UPDATE region_id = region_id;
 /*VB1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (2, 12)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*HE1*/
 /* Adjacent regions for AN1 */
 INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (3, 4)
 ON DUPLICATE KEY UPDATE region_id = region_id;
@@ -107,9 +89,6 @@ ON DUPLICATE KEY UPDATE region_id = region_id;
 INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (6, 2)
 ON DUPLICATE KEY UPDATE region_id = region_id;
 /*OV2*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (6, 12)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*HE1*/
 /* Adjacent regions for LI1 */
 INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (7, 8)
 ON DUPLICATE KEY UPDATE region_id = region_id;
@@ -140,83 +119,7 @@ ON DUPLICATE KEY UPDATE region_id = region_id;
 INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (9, 10)
 ON DUPLICATE KEY UPDATE region_id = region_id;
 /*BR1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (9, 11)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*WB1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (9, 12)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*HE1*/
 /* Adjacent regions for BR1 */
 INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (10, 9)
 ON DUPLICATE KEY UPDATE region_id = region_id;
 /*VB1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (10, 11)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*WB1*/
-/* Adjacent regions for  WB1 */
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (11, 9)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*VB1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (11, 10)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*BX1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (11, 12)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*HE1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (11, 13)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*NA1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (11, 14)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*LU1*/
-/* Adjacent regions for  HE1 */
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (12, 6)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*WV2*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (12, 2)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*OV2*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (12, 9)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*VB1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (12, 11)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*WB1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (12, 13)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*NA1*/
-
-/* Adjacent regions for  NA1 */
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (13, 12)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*HE1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (13, 11)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*WB1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (13, 14)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*LU1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (13, 15)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*LX1*/
-/* Adjacent regions for  LU1 */
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (14, 8)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*LI2*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (14, 11)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*WB1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (14, 13)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*NA1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (14, 15)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*LX1*/
-
-/* Adjacent regions for  LX1 */
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (15, 13)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*NA1*/
-INSERT INTO packet_delivery.region_adjacent_regions (region_id, adjacent_regions_id) VALUES (15, 14)
-ON DUPLICATE KEY UPDATE region_id = region_id;
-/*LU1*/

@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 /**
- * Created on 10/04/2016.
  *
  * @author Robin D'Haese
  */
@@ -53,11 +52,6 @@ class InternalServiceConfig {
     @Bean
     public LdapTemplate ldapTemplate(ContextSource contextSource) {
         return new LdapTemplate(contextSource);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(11);
     }
 
     @Bean(name = "internalServiceLogger")

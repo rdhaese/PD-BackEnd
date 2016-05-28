@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created on 24/11/2015.
  *
  * @author Robin D'Haese
  */

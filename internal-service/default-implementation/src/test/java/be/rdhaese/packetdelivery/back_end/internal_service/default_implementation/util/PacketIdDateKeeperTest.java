@@ -15,7 +15,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created on 9/05/2016.
  *
  * @author Robin D'Haese
  */

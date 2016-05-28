@@ -9,7 +9,6 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
- * Created on 24/11/2015.
  *
  * @author Robin D'Haese
  */

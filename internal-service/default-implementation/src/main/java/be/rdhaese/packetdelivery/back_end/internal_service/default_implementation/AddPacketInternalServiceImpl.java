@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created on 10/12/2015.
  *
  * @author Robin D'Haese
  */

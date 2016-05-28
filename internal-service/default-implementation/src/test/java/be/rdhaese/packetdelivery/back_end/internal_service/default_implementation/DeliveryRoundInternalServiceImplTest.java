@@ -27,7 +27,6 @@ import static org.hamcrest.core.IsNot.not;
 import static org.mockito.Mockito.*;
 
 /**
- * Created on 6/05/2016.
  *
  * @author Robin D'Haese
  */

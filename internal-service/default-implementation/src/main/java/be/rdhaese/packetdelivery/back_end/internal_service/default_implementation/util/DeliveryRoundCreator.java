@@ -13,7 +13,6 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created on 9/05/2016.
  *
  * @author Robin D'Haese
  */

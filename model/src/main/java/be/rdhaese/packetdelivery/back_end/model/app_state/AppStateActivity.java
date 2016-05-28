@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * Created on 21/04/2016.
  *
  * @author Robin D'Haese
  */

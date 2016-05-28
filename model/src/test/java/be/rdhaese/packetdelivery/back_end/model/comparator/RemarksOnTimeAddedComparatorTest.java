@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */

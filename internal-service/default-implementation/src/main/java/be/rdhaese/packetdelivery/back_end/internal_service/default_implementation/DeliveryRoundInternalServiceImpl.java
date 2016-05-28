@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 /**
- * Created on 26/02/2016.
  *
  * @author Robin D'Haese
  */

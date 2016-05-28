@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
- * Created on 21/04/2016.
  *
  * @author Robin D'Haese
  */

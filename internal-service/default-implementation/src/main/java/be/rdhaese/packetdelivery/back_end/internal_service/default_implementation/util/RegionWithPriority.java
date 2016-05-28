@@ -3,7 +3,6 @@ package be.rdhaese.packetdelivery.back_end.internal_service.default_implementati
 import be.rdhaese.packetdelivery.back_end.model.Region;
 
 /**
- * Created on 3/04/2016.
  *
  * @author Robin D'Haese
  */

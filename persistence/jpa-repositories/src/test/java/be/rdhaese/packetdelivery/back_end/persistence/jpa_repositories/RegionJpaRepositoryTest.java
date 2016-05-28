@@ -1,7 +1,6 @@
-package be.rdhaese.packetdelivery.ack_end.persistence.jpa_repositories;
+package be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories;
 
 import be.rdhaese.packetdelivery.back_end.model.Region;
-import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.RegionJpaRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +10,6 @@ import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUti
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createRegionName;
 
 /**
- * Created on 4/05/2016.
  *
  * @author Robin D'Haese
  */

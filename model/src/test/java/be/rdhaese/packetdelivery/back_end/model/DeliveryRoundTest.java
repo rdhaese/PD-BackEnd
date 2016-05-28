@@ -15,7 +15,6 @@ import java.util.TreeSet;
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
 
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */
@@ -95,8 +94,9 @@ public class DeliveryRoundTest extends AbstractModelTest {
             getEntityManager().persist(packet);
         }
 
-        List<LocationUpdate> locationUpdates = Arrays.asList(lastLocationUpdate = createLocationUpdate(DATE_FORMAT.parse("14/02/2016"), createLongLat(13.345, 7d)),
-                firstLocationUpdate = createLocationUpdate(DATE_FORMAT.parse("19/02/2016"), createLongLat(12.345, 6d)),
+        List<LocationUpdate> locationUpdates = Arrays.asList(
+                firstLocationUpdate = createLocationUpdate(DATE_FORMAT.parse("14/02/2016"), createLongLat(13.345, 7d)),
+                lastLocationUpdate = createLocationUpdate(DATE_FORMAT.parse("19/02/2016"), createLongLat(12.345, 6d)),
                 createLocationUpdate(DATE_FORMAT.parse("17/02/2016"), createLongLat(11.345, 5d)));
 
         List<Remark> remarks = Arrays.asList(lastRemark = createRemark(DATE_FORMAT.parse("14/02/2016"), "test remark text 1"),

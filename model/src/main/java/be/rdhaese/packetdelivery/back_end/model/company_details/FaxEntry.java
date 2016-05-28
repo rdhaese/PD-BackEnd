@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
- * Created on 27/12/2015.
  *
  * @author Robin D'Haese
  */

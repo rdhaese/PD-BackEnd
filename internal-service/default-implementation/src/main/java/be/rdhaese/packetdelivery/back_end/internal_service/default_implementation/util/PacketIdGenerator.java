@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created on 9/05/2016.
  *
  * @author Robin D'Haese
  */

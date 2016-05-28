@@ -7,7 +7,6 @@ import be.rdhaese.packetdelivery.back_end.model.Region;
 import java.util.Collection;
 
 /**
- * Created on 16/01/2016.
  *
  * @author Robin D'Haese
  */

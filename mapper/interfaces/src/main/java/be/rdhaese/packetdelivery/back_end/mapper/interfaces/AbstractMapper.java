@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created on 24/12/2015.
  *
  * @author Robin D'Haese
  */

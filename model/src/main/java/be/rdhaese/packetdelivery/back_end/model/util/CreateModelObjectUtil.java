@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created on 2/05/2016.
  *
  * @author Robin D'Haese
  */

@@ -5,7 +5,6 @@ import be.rdhaese.packetdelivery.back_end.model.Region;
 import be.rdhaese.packetdelivery.dto.DeliveryAddressDTO;
 
 /**
- * Created on 16/01/2016.
  *
  * @author Robin D'Haese
  */

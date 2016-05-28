@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 /**
- * Created on 25/12/2015.
  *
  * @author Robin D'Haese
  */
@@ -28,6 +27,7 @@ public class RegionsRestWebService implements RegionsWebService {
     private Mapper<Region, RegionDTO> regionMapper;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @Override
     public Collection<RegionDTO> regions() {
         return regionMapper.mapToDto(regionsInternalService.getRegions());
     }

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Created on 27/12/2015.
  *
  * @author Robin D'Haese
  */
@@ -23,6 +22,7 @@ public class ContactInformationRestWebService implements ContactInformationWebSe
     @Autowired
     private Mapper<CompanyContactDetails, ContactDetailsDTO> companyContactDetailsMapper;
 
+    @Override
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public
@@ -30,6 +30,7 @@ public class ContactInformationRestWebService implements ContactInformationWebSe
         return companyContactDetailsMapper.mapToDto(companyContactDetailsInternalService.get());
     }
 
+    @Override
     @RequestMapping(value = "/post", method = RequestMethod.POST)
     public boolean post(@RequestBody ContactDetailsDTO contactDetailsDTO) throws Exception {
         return companyContactDetailsInternalService.save(companyContactDetailsMapper.mapToBus(contactDetailsDTO));

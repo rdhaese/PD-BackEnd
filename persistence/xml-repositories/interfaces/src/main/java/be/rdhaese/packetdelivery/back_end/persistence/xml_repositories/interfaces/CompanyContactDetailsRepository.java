@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import javax.xml.bind.JAXBException;
 
 /**
- * Created on 27/12/2015.
  *
  * @author Robin D'Haese
  */

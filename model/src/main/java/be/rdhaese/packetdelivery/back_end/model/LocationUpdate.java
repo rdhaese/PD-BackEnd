@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
- * Created on 24/11/2015.
  *
  * @author Robin D'Haese
  */

@@ -4,7 +4,6 @@ import be.rdhaese.packetdelivery.back_end.model.Address;
 import org.springframework.stereotype.Component;
 
 /**
- * Created on 10/04/2016.
  *
  * @author Robin D'Haese
  */

@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.HashSet;
 
 /**
- * Created on 17/04/2016.
  *
  * @author Robin D'Haese
  */

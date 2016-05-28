@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 /**
- * Created on 25/04/2016.
  *
  * @author Robin D'Haese
  */

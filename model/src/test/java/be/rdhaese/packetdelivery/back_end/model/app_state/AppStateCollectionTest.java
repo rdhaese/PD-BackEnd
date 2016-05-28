@@ -12,7 +12,6 @@ import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUti
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createAppStateCollection;
 
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */

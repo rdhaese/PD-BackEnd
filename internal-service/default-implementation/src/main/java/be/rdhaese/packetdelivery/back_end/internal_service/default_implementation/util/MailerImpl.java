@@ -12,7 +12,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 /**
- * Created on 13/04/2016.
  *
  * @author Robin D'Haese
  */

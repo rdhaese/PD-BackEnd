@@ -14,7 +14,6 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import static org.mockito.Mockito.*;
 
 /**
- * Created on 7/05/2016.
  *
  * @author Robin D'Haese
  */

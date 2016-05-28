@@ -13,7 +13,6 @@ import java.util.List;
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.*;
 
 /**
- * Created on 4/05/2016.
  *
  * @author Robin D'Haese
  */

@@ -9,7 +9,6 @@ import java.util.Calendar;
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createRemark;
 
 /**
- * Created on 2/05/2016.
  *
  * @author Robin D'Haese
  */

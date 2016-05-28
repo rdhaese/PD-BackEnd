@@ -9,7 +9,6 @@ import java.util.Arrays;
 import static be.rdhaese.packetdelivery.back_end.model.util.CreateModelObjectUtil.createContactDetails;
 
 /**
- * Created on 3/05/2016.
  *
  * @author Robin D'Haese
  */

@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * Created on 13/05/2016.
  *
  * @author Robin D'Haese
  */

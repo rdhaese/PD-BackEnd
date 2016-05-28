@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created on 22/11/2015.
  *
  * @author Robin D'Haese
  */

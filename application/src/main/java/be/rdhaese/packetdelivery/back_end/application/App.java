@@ -8,13 +8,12 @@ import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 
 /**
- * Created on 10/12/2015.
  *
  * @author Robin D'Haese
  */
 @SpringBootApplication(scanBasePackages = "be.rdhaese.packetdelivery.back_end")
 @EnableCaching
-class App {
+public class App {
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(App.class)

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Created on 17/04/2016.
  *
  * @author Robin D'Haese
  */

@@ -7,7 +7,6 @@ import be.rdhaese.packetdelivery.dto.RemarkDTO;
 import java.util.Collection;
 
 /**
- * Created on 19/04/2016.
  *
  * @author Robin D'Haese
  */

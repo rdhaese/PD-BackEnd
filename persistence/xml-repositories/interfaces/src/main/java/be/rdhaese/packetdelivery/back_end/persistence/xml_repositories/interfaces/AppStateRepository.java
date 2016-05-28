@@ -6,7 +6,6 @@ import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
 /**
- * Created on 21/04/2016.
  *
  * @author Robin D'Haese
  */

@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Created on 21/04/2016.
- *
  * @author Robin D'Haese
  */
 @RestController
@@ -25,16 +23,14 @@ public class AppRestWebService implements AppWebService {
     @ResponseBody
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     @Override
-    public
-    String getNewId() throws Exception {
+    public String getNewId() throws Exception {
         return appService.getNewId();
     }
 
     @ResponseBody
     @RequestMapping(value = "/get/{appId}", method = RequestMethod.GET)
     @Override
-    public
-    AppStateDTO getAppState(@PathVariable String appId) throws Exception {
+    public AppStateDTO getAppState(@PathVariable String appId) throws Exception {
         return appStateMapper.mapToDto(appService.getAppState(appId));
     }
 

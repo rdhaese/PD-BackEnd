@@ -17,7 +17,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 /**
- * Created on 2/05/2016.
  *
  * @author Robin D'Haese
  */

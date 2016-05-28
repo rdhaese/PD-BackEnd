@@ -17,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import static org.mockito.Mockito.mock;
 
 /**
- * Created on 18/05/2016.
  *
  * @author Robin D'Haese
  */

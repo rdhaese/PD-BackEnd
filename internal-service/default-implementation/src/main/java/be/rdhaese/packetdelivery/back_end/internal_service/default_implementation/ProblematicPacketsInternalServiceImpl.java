@@ -14,7 +14,6 @@ import java.util.Collection;
 import java.util.Date;
 
 /**
- * Created on 16/01/2016.
  *
  * @author Robin D'Haese
  */
@@ -41,7 +40,7 @@ public class ProblematicPacketsInternalServiceImpl implements ProblematicPackets
     @Transactional
     public void reSend(String packetId) {
         Packet packet = packetJpaRepository.getPacket(packetId);
-        if (packet != null) {
+        if ((packet != null) && (PacketStatus.PROBLEMATIC.equals(packet.getPacketStatus()))) {
             packet.setPacketStatus(PacketStatus.NORMAL);
             packet.setStatusChangedOn(new Date());
             packetJpaRepository.save(packet);
@@ -52,8 +51,17 @@ public class ProblematicPacketsInternalServiceImpl implements ProblematicPackets
     @Transactional
     public void returnToSender(String packetId, Region region) {
         Packet packet = packetJpaRepository.getPacket(packetId);
-        region = regionJpaRepository.getRegionFor(region.getRegionCode());
-        packet.getDeliveryInfo().setRegion(region);
+        if ((region != null) && (packet != null) && (PacketStatus.PROBLEMATIC.equals(packet.getPacketStatus()))) {
+            region = regionJpaRepository.getRegionFor(region.getRegionCode());
+            packet.getDeliveryInfo().setRegion(region);
+            setClientInfoAsDeliveryInfo(packet);
+            packet.setPacketStatus(PacketStatus.NORMAL);
+            packet.setStatusChangedOn(new Date());
+            packetJpaRepository.save(packet);
+        }
+    }
+
+    private void setClientInfoAsDeliveryInfo(Packet packet) {
         ClientInfo newDeliveryInfo = packet.getClientInfo();
         ClientInfo oldDeliveryInfo = packet.getDeliveryInfo().getClientInfo();
         oldDeliveryInfo.getContactDetails().setName(newDeliveryInfo.getContactDetails().getName());
@@ -66,32 +74,39 @@ public class ProblematicPacketsInternalServiceImpl implements ProblematicPackets
         oldDeliveryInfo.getAddress().setMailbox(newDeliveryInfo.getAddress().getMailbox());
         oldDeliveryInfo.getAddress().setCity(newDeliveryInfo.getAddress().getCity());
         oldDeliveryInfo.getAddress().setPostalCode(newDeliveryInfo.getAddress().getPostalCode());
-        packet.setPacketStatus(PacketStatus.NORMAL);
-        packet.setStatusChangedOn(new Date());
-        packetJpaRepository.save(packet);
     }
 
 
     @Override
     public Address getProblematicPacketAddress(String packetId) {
-        return packetJpaRepository.getPacket(packetId).getDeliveryInfo().getClientInfo().getAddress();
+        Packet packet = packetJpaRepository.getProblematicPacket(packetId);
+        if (packet == null){
+            return null;
+        }
+        return packet.getDeliveryInfo().getClientInfo().getAddress();
     }
 
     @Override
     public Region getProblematicPacketRegion(String packetId) {
-        return packetJpaRepository.getPacket(packetId).getDeliveryInfo().getRegion();
+        Packet packet = packetJpaRepository.getProblematicPacket(packetId);
+        if (packet == null){
+            return null;
+        }
+        return packet.getDeliveryInfo().getRegion();
     }
 
     @Override
     @Transactional
     public void saveDeliveryAddress(String packetId, Address address, Region region) {
-        Packet packet = packetJpaRepository.getPacket(packetId);
-        packet.getDeliveryInfo().getClientInfo().getAddress().setStreet(address.getStreet());
-        packet.getDeliveryInfo().getClientInfo().getAddress().setNumber(address.getNumber());
-        packet.getDeliveryInfo().getClientInfo().getAddress().setMailbox(address.getMailbox());
-        packet.getDeliveryInfo().getClientInfo().getAddress().setCity(address.getCity());
-        packet.getDeliveryInfo().getClientInfo().getAddress().setPostalCode(address.getPostalCode());
-        packet.getDeliveryInfo().setRegion(region);
-        packetJpaRepository.save(packet);
+        Packet packet = packetJpaRepository.getProblematicPacket(packetId);
+        if ((packet != null) && (address != null) && (region != null)) {
+            packet.getDeliveryInfo().getClientInfo().getAddress().setStreet(address.getStreet());
+            packet.getDeliveryInfo().getClientInfo().getAddress().setNumber(address.getNumber());
+            packet.getDeliveryInfo().getClientInfo().getAddress().setMailbox(address.getMailbox());
+            packet.getDeliveryInfo().getClientInfo().getAddress().setCity(address.getCity());
+            packet.getDeliveryInfo().getClientInfo().getAddress().setPostalCode(address.getPostalCode());
+            packet.getDeliveryInfo().setRegion(region);
+            packetJpaRepository.save(packet);
+        }
     }
 }

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!--suppress XmlUnboundNsPrefix, XmlUnboundNsPrefix -->
 <appStates>
     <appStates-entries>
         <appState>
             <appId>1</appId>
+            <currentPacketIndex>0</currentPacketIndex>
+        </appState>
+        <appState>
+            <appId>2</appId>
             <currentPacketIndex>0</currentPacketIndex>
         </appState>
     </appStates-entries>

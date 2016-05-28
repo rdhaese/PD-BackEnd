@@ -12,8 +12,6 @@ import java.util.Collection;
 import java.util.Date;
 
 /**
- * Created on 15/01/2016.
- *
  * @author Robin D'Haese
  */
 @Service
@@ -31,14 +29,21 @@ public class LostPacketsInternalServiceImpl implements LostPacketsInternalServic
     @Transactional
     public void markAsFound(String packetId) {
         Packet foundPacket = packetJpaRepository.getPacket(packetId);
-        foundPacket.setPacketStatus(PacketStatus.NORMAL);
-        foundPacket.setStatusChangedOn(new Date());
-        packetJpaRepository.save(foundPacket);
+        //Because the app can run on multiple clients, we need to check that request that come in still match the real state.
+        if ((foundPacket != null) && (PacketStatus.NOT_FOUND.equals(foundPacket.getPacketStatus()))) {
+            foundPacket.setPacketStatus(PacketStatus.NORMAL);
+            foundPacket.setStatusChangedOn(new Date());
+            packetJpaRepository.save(foundPacket);
+        }
     }
 
     @Override
     @Transactional
     public void removeFromSystem(String packetId) {
-        packetJpaRepository.delete(packetJpaRepository.getPacket(packetId));
+        Packet packetToRemove = packetJpaRepository.getPacket(packetId);
+        //Because the app can run on multiple clients, we need to check that request that come in still match the real state.
+        if ((packetToRemove != null) && (PacketStatus.NOT_FOUND.equals(packetToRemove.getPacketStatus()))) {
+            packetJpaRepository.delete(packetToRemove);
+        }
     }
 }

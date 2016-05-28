@@ -8,7 +8,6 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * Created on 3/04/2016.
  *
  * @author Robin D'Haese
  */

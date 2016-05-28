@@ -8,7 +8,6 @@ import javax.xml.bind.*;
 import java.io.File;
 
 /**
- * Created on 27/12/2015.
  *
  * @author Robin D'Haese
  */

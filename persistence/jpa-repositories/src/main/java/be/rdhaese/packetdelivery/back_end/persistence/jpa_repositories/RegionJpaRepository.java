@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created on 25/12/2015.
  *
  * @author Robin D'Haese
  */

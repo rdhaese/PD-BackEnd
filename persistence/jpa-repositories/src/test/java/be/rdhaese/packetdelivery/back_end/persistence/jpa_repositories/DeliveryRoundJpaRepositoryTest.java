@@ -1,15 +1,13 @@
-package be.rdhaese.packetdelivery.ack_end.persistence.jpa_repositories;
+package be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories;
 
 import be.rdhaese.packetdelivery.back_end.model.DeliveryRound;
 import be.rdhaese.packetdelivery.back_end.model.RoundStatus;
-import be.rdhaese.packetdelivery.back_end.persistence.jpa_repositories.DeliveryRoundJpaRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Created on 4/05/2016.
  *
  * @author Robin D'Haese
  */

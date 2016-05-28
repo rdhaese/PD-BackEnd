@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Created on 2/05/2016.
  *
  * @author Robin D'Haese
  */

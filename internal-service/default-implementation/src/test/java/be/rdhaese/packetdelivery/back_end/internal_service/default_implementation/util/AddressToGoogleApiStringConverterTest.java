@@ -8,7 +8,6 @@ import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertNull;
 
 /**
- * Created on 5/05/2016.
  *
  * @author Robin D'Haese
  */

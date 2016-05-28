@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Created on 27/12/2015.
  *
  * @author Robin D'Haese
  */
