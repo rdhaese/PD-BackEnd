@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author Robin D'Haese
  */
 @Service
-public class AppInternalServiceImpl implements AppInternalService {
+public class AppInternalServiceImpl implements AppInternalService  {
 
     @Autowired
     private AppStateRepository appStateRepository;
@@ -36,7 +36,7 @@ public class AppInternalServiceImpl implements AppInternalService {
     @Override
     public AppState getAppState(String appId) throws Exception {
         AppState appState = appStateRepository.getAppState(appId);
-        if (appState.getRoundId() != null) {
+        if ((appState != null ) && (appState.getRoundId() != null)) {
             DeliveryRound deliveryRound = deliveryRoundJpaRepository.findOne(appState.getRoundId());
             if (deliveryRound != null && !deliveryRound.getPackets().isEmpty()) {
                 return appState;

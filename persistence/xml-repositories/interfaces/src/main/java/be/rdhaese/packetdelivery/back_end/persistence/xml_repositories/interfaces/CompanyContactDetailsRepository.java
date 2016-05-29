@@ -5,6 +5,8 @@ import be.rdhaese.packetdelivery.back_end.model.company_details.CompanyContactDe
 import org.springframework.stereotype.Repository;
 
 import javax.xml.bind.JAXBException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  *
@@ -12,7 +14,7 @@ import javax.xml.bind.JAXBException;
  */
 @Repository
 public interface CompanyContactDetailsRepository {
-    CompanyContactDetails get() throws JAXBException;
+    CompanyContactDetails get() throws JAXBException, URISyntaxException, IOException, Exception;
 
-    void save(CompanyContactDetails companyContactDetails) throws JAXBException;
+    void save(CompanyContactDetails companyContactDetails) throws JAXBException, IOException, Exception;
 }

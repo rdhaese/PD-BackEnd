@@ -1,37 +1,65 @@
 package be.rdhaese.packetdelivery.back_end.internal_service.default_implementation.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileSystemUtils;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  *
  * @author Robin D'Haese
  */
-@SuppressWarnings("ConstantConditions") //Files are hardcoded
 @Component
 public class MailContentLoader {
 
-    private static final File PATH_DELIVERED = new File(MailContentLoader.class.getClassLoader().getResource("mails/delivered.html").getFile());
-    private static final File PATH_DEPARTED = new File(MailContentLoader.class.getClassLoader().getResource("mails/departed.html").getFile());
-    private static final File PATH_LOST = new File(MailContentLoader.class.getClassLoader().getResource("mails/lost.html").getFile());
-    private static final File PATH_NOT_DELIVERED = new File(MailContentLoader.class.getClassLoader().getResource("mails/not_delivered.html").getFile());
+    @Autowired
+    @Qualifier("deliveredMail")
+    private Resource deliveredMail;
+
+    @Autowired
+    @Qualifier("departedMail")
+    private Resource departedMail;
+
+    @Autowired
+    @Qualifier("lostMail")
+    private Resource lostMail;
+
+    @Autowired
+    @Qualifier("notDeliveredMail")
+    private Resource notDeliveredMail;
 
     public String getDeliveredMail() throws IOException {
-        return new String(Files.readAllBytes(PATH_DELIVERED.toPath()));
+       return readContect(deliveredMail.getInputStream());
     }
 
     public String getDepartedMail() throws IOException {
-        return new String(Files.readAllBytes(PATH_DEPARTED.toPath()));
+        return readContect(departedMail.getInputStream());
     }
 
     public String getLostMail() throws IOException {
-        return new String(Files.readAllBytes(PATH_LOST.toPath()));
+        return readContect(lostMail.getInputStream());
     }
 
     public String getNotDeliveredMail() throws IOException {
-        return new String(Files.readAllBytes(PATH_NOT_DELIVERED.toPath()));
+        return readContect(notDeliveredMail.getInputStream());
+    }
+
+    private String readContect(InputStream inputStream) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder out = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            out.append(line);
+        }
+        reader.close();
+        return out.toString();
     }
 }

@@ -86,7 +86,8 @@ public class TrackerInternalServiceImpl implements TrackerInternalService {
         List<Packet> packetsInDeliveryOrder = deliveryOrderResolver.sort(companyAddress, roundForPacket.getPackets());
         for (int index = 0; index < roundForPacket.getPackets().size(); index++) {
             if (packetId.equals(packetsInDeliveryOrder.get(index).getPacketId())) {
-                //Lucky us, the index is equal to the amount of packets left (as long the list of packets is sorted)
+                //Lucky us, the index is equal to the amount of packets left
+                //(as long as the list of packets is sorted in the order of delivery)
                 return index;
             }
         }

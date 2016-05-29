@@ -51,6 +51,10 @@ public class DeliveryOrderResolver {
 
         //Make the request and get the routes
         DirectionsRoute[] directionsRoutes = directionsApiRequest.await().routes;
+        if (directionsRoutes.length == 0){
+            //No valid route found, probably jibberish as address (:
+            return packets;
+        }
 
         //Use the waypoint order to sort the packets
         List<Packet> packetsSortedOnOrderToDeliver = new ArrayList<>();
